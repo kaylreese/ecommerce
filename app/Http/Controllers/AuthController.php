@@ -11,6 +11,7 @@ class AuthController extends Controller
     public function login_admin() 
     {
         // dd(Hash::make('123'));
+        
         if(!empty(Auth::check()) && Auth::user()->is_admin == 1){
             return redirect('admin/dashboard');
         }
