@@ -175,6 +175,13 @@
                     <p>Products</p>
                     </a>
                 </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('admin/brand') }}" class="nav-link @if( Request::segment(2) == 'brand') active @endif">
+                    <i class="nav-icon fas fa fa-columns"></i>
+                    <p>Brands</p>
+                    </a>
+                </li>
                 {{--
                 <li class="nav-item">
                     <a href="#" class="nav-link @if( Request::segment(2) == 'product') active @endif">
