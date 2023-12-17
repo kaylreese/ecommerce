@@ -38,7 +38,7 @@ class AdminController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        return redirect('admin/admin/list')->with('success', "Admin Successfully Created");
+        return redirect('admin/admin')->with('success', "Admin Successfully Created");
     }
 
     public function edit($id)
@@ -54,7 +54,7 @@ class AdminController extends Controller
         request()->validate([
             'email' => 'required|email|unique:users'
         ]);
-        
+
         $user = User::getUser($id);
         $user->name = $request->name;
         $user->email = $request->email;
@@ -66,7 +66,7 @@ class AdminController extends Controller
         $user->status = $request->status;
         $user->save();
 
-        return redirect('admin/admin/list')->with('success', "Admin Successfully Updated");
+        return redirect('admin/admin')->with('success', "Admin Successfully Updated");
     }
     
     public function delete($id, Request $request)

@@ -116,16 +116,16 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-            <img src="{{ url ('public/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+            <img src="{{ url ('public/assets/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2">
             </div>
             <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <a class="d-block"> {{ Auth::user()->name }} </a>
             </div>
         </div>
 
-        <div class="form-inline">
+       {{-- <div class="form-inline">
             <div class="input-group" data-widget="sidebar-search">
             <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
@@ -149,16 +149,23 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('admin/admin/list') }}" class="nav-link @if( Request::segment(2) == 'admin') active @endif">
+                    <a href="{{ url('admin/admin') }}" class="nav-link @if( Request::segment(2) == 'admin') active @endif">
                     <i class="nav-icon fas fa-user"></i>
                     <p>Admin</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ url('admin/product/list') }}" class="nav-link @if( Request::segment(2) == 'product') active @endif">
-                    <i class="nav-icon fas fa-user"></i>
-                    <p>Product</p>
+                    <a href="{{ url('admin/category') }}" class="nav-link @if( Request::segment(2) == 'category') active @endif">
+                    <i class="nav-icon fas fa fa-list-alt"></i>
+                    <p>Categories</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ url('admin/product') }}" class="nav-link @if( Request::segment(2) == 'product') active @endif">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Products</p>
                     </a>
                 </li>
                 {{-- <li class="nav-item">
@@ -391,7 +398,7 @@
 
                 <li class="nav-item">
                     <a href="{{ url('admin/logout') }}" class="nav-link">
-                    <i class="nav-icon fas fa-user"></i>
+                    <i class="nav-icon fas fa-sign-out-alt"></i>
                     <p>Logout</p>
                     </a>
                 </li>
