@@ -18,7 +18,7 @@ class SubCategory extends Model
                 ->join('users', 'users.id', '=', 'subcategories.created_by')
                 ->where('subcategories.status', '=', 1)
                 ->orderBy('subcategories.id', 'desc')
-                ->paginate(1);
+                ->paginate(10);
     }
 
     static public function getSubCategory($id)

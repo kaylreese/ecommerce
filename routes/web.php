@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/subcategory/edit/{id}', [SubCategoryController::class, 'edit']);
     Route::put('admin/subcategory/edit/{id}', [SubCategoryController::class, 'update']);
     Route::get('admin/subcategory/delete/{id}', [SubCategoryController::class, 'destroy']);
+
+    Route::get('admin/product', [ProductController::class, 'index']);
+    Route::get('admin/product/create', [ProductController::class, 'create']);
+    Route::post('admin/product/store', [ProductController::class, 'store']);
+    Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
+    Route::put('admin/product/edit/{id}', [ProductController::class, 'update']);
+    Route::get('admin/product/delete/{id}', [ProductController::class, 'destroy']);
 });
 
 Route::get('/', function () {
