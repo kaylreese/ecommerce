@@ -25,7 +25,13 @@ class Category extends Model
     {
         return self::select('categories.*', 'users.name as created_by_name')
                 ->join('users', 'users.id', '=', 'categories.created_by')
+                ->where('categories.status', '=', 1)
                 ->orderBy('categories.id', 'desc')
                 ->get();
+    }
+
+    static public function getCategory($id)
+    {
+        return self::find($id);
     }
 }

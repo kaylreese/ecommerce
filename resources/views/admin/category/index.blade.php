@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-8">
-                <h1>Category List</h1>
+                <h1>Categories</h1>
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <a href="{{ url('admin/category/create') }}" class="btn btn bg-success">Add new Category</a>
@@ -45,6 +45,7 @@
                                         <th>Description</th>
                                         <th>Created By</th>
                                         <th>Status</th>
+                                        <th>Created Date</th>
                                         <th style="width: 150px">Action</th>
                                     </tr>
                                 </thead>
@@ -59,9 +60,10 @@
                                             <td>{{ $value->meta_description }}</td>
                                             <td>{{ $value->created_by_name }}</td>
                                             <td>{{ ($value->status == 1) ? 'Active' : 'Inactive' }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($value->created_by_name)) }}</td>
                                             <td>
-                                                <a href="{{ url('admin/admin/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                                <a href="{{ url('admin/admin/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                                <a href="{{ url('admin/category/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                                <a href="{{ url('admin/category/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     @endforeach

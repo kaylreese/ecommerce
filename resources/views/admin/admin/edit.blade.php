@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-12">
-                    <h1>Add New Admin</h1>
+                    <h1>Edit Admin</h1>
                 </div>
             </div>
         </div>
