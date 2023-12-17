@@ -11,6 +11,9 @@ class AuthController extends Controller
     public function login_admin() 
     {
         // dd(Hash::make('123'));
+        if(!empty(Auth::check()) && Auth::user()->is_admin == 1){
+            return redirect('admin/dashboard');
+        }
         return view('admin.auth.login');
     }
 
@@ -23,5 +26,11 @@ class AuthController extends Controller
         } else {
             return redirect()->back()->with('error', "Por favor ingrese un email o password correcto!!");
         }
+    }
+
+    public function logout_admin()
+    {
+        Auth::logout();
+        return redirect('admin');
     }
 }
