@@ -13,6 +13,8 @@
         <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Theme style -->
         <link rel="stylesheet" href="{{ url('public/assets/dist/css/adminlte.min.css') }}">
+        
+        @yield('style')
     </head>
 
     <body class="hold-transition sidebar-mini">
@@ -35,6 +37,7 @@
         <!-- AdminLTE for demo purposes -->
         <script src="{{ url('public/assets/dist/js/demo.js') }}"></script>
         <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-        <script src="{{ url('public/assets/dist/js/pages/dashboard3.js') }}"></script>
+        
+        @yield('script')
     </body>
 </html>
