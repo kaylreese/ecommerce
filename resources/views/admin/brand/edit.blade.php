@@ -72,7 +72,7 @@
                 <div class="card-footer">
                     <center>
                         <button type="submit" class="btn btn-success">Save</button> 
-                        <a type="button" href="{{ url('admin/subcategory') }}"  class="btn btn-danger">Cancel</a>
+                        <a type="button" href="{{ url('admin/brand') }}"  class="btn btn-danger">Cancel</a>
                     </center>
                 </div>
             </form>

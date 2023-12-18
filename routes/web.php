@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ColorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('admin/product/edit/{id}', [ProductController::class, 'update']);
     Route::get('admin/product/delete/{id}', [ProductController::class, 'destroy']);
    
+    Route::get('admin/color', [ColorController::class, 'index']);
+    Route::get('admin/color/create', [ColorController::class, 'create']);
+    Route::post('admin/color/store', [ColorController::class, 'store']);
+    Route::get('admin/color/edit/{id}', [ColorController::class, 'edit']);
+    Route::put('admin/color/edit/{id}', [ColorController::class, 'update']);
+    Route::get('admin/color/delete/{id}', [ColorController::class, 'destroy']);
 });
 
 Route::get('/', function () {
