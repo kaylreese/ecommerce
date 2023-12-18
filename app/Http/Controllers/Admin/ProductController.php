@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\Category;
+use App\Models\Brand;
+use App\Models\Color;
 use Illuminate\Http\Request;
 use Auth;
 use Str;
@@ -76,16 +78,17 @@ class ProductController extends Controller
         $product = Product::getProduct($id);
 
         if(!empty($product)) {
+            $data['getCategories'] = Category::getCategories();
+            $data['getSubCategories'] = SubCategory::getSubCategories($id);
+            $data['getBrands'] = Brand::getBrands();
+            $data['getColors'] = Color::getColors();
             $data['product'] = $product;
             $data['header_title'] = "Edit Product";
         
             return view('admin.product.edit', $data);
         } else {
 
-        }
-
-        // $data['getCategories'] = Category::getCategories();
-        // $data['getSubCategories'] = SubCategory::getSubCategories($id);
+        } 
     }
 
     public function update(Request $request, string $id)

@@ -48,6 +48,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/subcategory/edit/{id}', [SubCategoryController::class, 'edit']);
     Route::put('admin/subcategory/edit/{id}', [SubCategoryController::class, 'update']);
     Route::get('admin/subcategory/delete/{id}', [SubCategoryController::class, 'destroy']);
+    Route::post('admin/getsubcategory', [SubCategoryController::class, 'getsubcategory']);
 
     Route::get('admin/brand', [BrandController::class, 'index']);
     Route::get('admin/brand/create', [BrandController::class, 'create']);

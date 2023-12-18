@@ -91,4 +91,18 @@ class SubCategoryController extends Controller
 
         return redirect()->back()->with('success', "Sub Category Successfully Deleted");
     }
+
+    public function getsubcategory(Request $request)
+    {
+        $category_id = $request->id;
+        $getsubcategory = SubCategory::getCategory($category_id);
+        $html = '';
+        $html .= '<option value="">Select. . .</option>';
+        foreach ($getsubcategory as $value) {
+            $html .= '<option value="'.$value->id.'">'.$value->name.'</option>';
+        }
+        
+        $json['html'] = $html;
+        echo json_encode($json);
+    }
 }

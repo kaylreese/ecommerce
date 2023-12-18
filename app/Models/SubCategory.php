@@ -25,4 +25,14 @@ class SubCategory extends Model
     {
         return self::find($id);
     }
+
+    static public function getCategory($category_id)
+    {
+        return self::select('subcategories.*')
+                ->join('users', 'users.id', '=', 'subcategories.created_by')
+                ->where('subcategories.category_id', '=', $category_id)
+                ->where('subcategories.status', '=', 1)
+                ->orderBy('subcategories.id', 'asc')
+                ->get();
+    }
 }

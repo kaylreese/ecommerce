@@ -20,20 +20,27 @@
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label>Title: <span style="color: red">(*)</span></label>
                                 <input type="text" class="form-control" name="title" value="{{ old('title', $product->title) }}" placeholder="Enter Product Title" required>
                             </div>
                         </div>
 
-                        {{-- <div class="col-md-3">
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label>Satus: <span style="color: red">(*)</span></label>
-                                <select name="category_id" class="form-control" required>
+                                <label>SKU: <span style="color: red">(*)</span></label>
+                                <input type="text" class="form-control" name="sku" value="{{ old('sku', $product->title) }}" placeholder="Enter Product SKU" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Category: <span style="color: red">(*)</span></label>
+                                <select name="category_id" id="ChangeCategory" class="form-control" required>
                                     <option value="">Select. . .</option>
                                     @foreach ($getCategories as $value)
-                                        <option {{ ($value->id == $getSubCategory->category_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
+                                        <option {{ ($value->id == $product->category_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -41,16 +48,59 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Name: <span style="color: red">(*)</span></label>
-                                <input type="text" class="form-control" name="name" value="{{ old('name', $getSubCategory->name) }}" placeholder="Enter Category Name" required>
+                                <label>SubCategory: <span style="color: red">(*)</span></label>
+                                <select name="subcategory_id" id="getSubCategory" class="form-control" required>
+                                    <option value="">Select. . .</option>
+                                    {{-- @foreach ($getSubCategories as $value)
+                                        <option {{ ($value->id == $product->subcategory_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach --}}
+                                </select>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Brand: <span style="color: red">(*)</span></label>
+                                <select name="brand_id" class="form-control" required>
+                                    <option value="">Select. . .</option>
+                                    @foreach ($getBrands as $value)
+                                        <option {{ ($value->id == $product->brand_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Color: <span style="color: red">(*)</span></label>
+                                <select name="color_id" class="form-control" required>
+                                    <option value="">Select. . .</option>
+                                    @foreach ($getColors as $value)
+                                        <option {{ ($value->id == $product->color_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Url: <span style="color: red">(*)</span></label>
-                                <input type="text" class="form-control" name="url" value="{{ old('url', $getSubCategory->url) }}" placeholder="Enter Category Url" required>
+                                <input type="text" class="form-control" name="url" value="{{ old('url', $product->url) }}" placeholder="Enter Product Url" required>
                                 <div style="color: red"> {{ $errors->first('url') }} </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Price: <span style="color: red">(*)</span></label>
+                                <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Old Price: <span style="color: red">(*)</span></label>
+                                <input type="text" class="form-control" name="old_price" value="{{ old('old_price', $product->old_price) }}"  placeholder="Enter Product Old Price" required>
                             </div>
                         </div>
 
@@ -58,33 +108,114 @@
                             <div class="form-group">
                                 <label>Satus: <span style="color: red">(*)</span></label>
                                 <select name="status" class="form-control" required>
-                                    <option {{ ($getSubCategory->status) == 1 ? 'selected' : '' }} value="1">Active</option>
-                                    <option {{ ($getSubCategory->status) == 0 ? 'selected' : '' }} value="0">Inactive</option>
+                                    <option {{ ($product->status) == 1 ? 'selected' : '' }} value="1">Active</option>
+                                    <option {{ ($product->status) == 0 ? 'selected' : '' }} value="0">Inactive</option>
                                 </select>
                             </div>
                         </div>
+                    </div>
 
-                        <hr>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Color: <span style="color: red">(*)</span></label>
+                                @foreach ($getColors as $value)
+                                    <div class="col-sm-1">
+                                        <div class="custom-control custom-checkbox">
+                                            <input class="custom-control-input custom-control-input-danger" type="checkbox" {{ ($value->id == $product->color_id) ? 'checked' : '' }} value="{{ $value->id }}" name="color_id[]" id="color_id{{$value->id}}">
+                                            <label for="color_id{{$value->id}}" class="custom-control-label">{{ $value->name }}</label>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Size: <span style="color: red">(*)</span></label>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                            <td>Price ($)</td>
+                                            <td>Action</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a>
+                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                {{-- <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a> --}}
+                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                            </th>
+                                            <th>
+                                                {{-- <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a> --}}
+                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
+                                            </th>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Short Description:</label>
+                                <textarea class="form-control" name="short_description" rows="3" placeholder="Enter Product Short Description">{{ old('short_description') }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Description:</label>
+                                <textarea class="form-control" name="description" rows="5" placeholder="Enter Product Description">{{ old('description') }}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Title: <span style="color: red">(*)</span></label>
-                                <input type="text" class="form-control" name="meta_title" value="{{ old('meta_title', $getSubCategory->meta_title) }}"  placeholder="Enter Category Name" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Keywords:</label>
-                                <input type="text" class="form-control" name="meta_keywords" value="{{ old('meta_keywords', $getSubCategory->meta_keywords) }}"  placeholder="Enter Category Keywords">
+                                <label>Additional Information:</label>
+                                <textarea class="form-control" name="additional_information" rows="5" placeholder="Enter Product Description">{{ old('additional_information') }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Description:</label>
-                                <textarea class="form-control" name="meta_description" id="meta_description" rows="5" placeholder="Enter Category Description"> {{ old('meta_description', $getSubCategory->meta_description) }} </textarea>
+                                <label>Shipping Retunrs:</label>
+                                <textarea class="form-control" name="shipping_returns" rows="5" placeholder="Enter Product Description">{{ old('shipping_returns') }}</textarea>
                             </div>
-                        </div> --}}
-
+                        </div>
                     </div>
                 </div>
               
@@ -99,4 +230,27 @@
     </div>
 </div>
 
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $('body').delegate("#ChangeCategory", "change", function(e) {
+            var id = $(this).val();
+            $.ajax({
+                type: "POST",
+                url: "{{ url('admin/getsubcategory/') }}",
+                data: {
+                    "id" : id,
+                    "_token": "{{ csrf_token() }}"
+                },
+                dataType: "json",
+                success: function(data) {
+                    $("#getSubCategory").html(data.html);
+                },
+                error: function(data) {
+
+                }
+            });
+        });
+    </script>
 @endsection

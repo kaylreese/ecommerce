@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>{{ $value->id }}</td>
                                             <td>{{ $value->title }}</td>
-                                            <td>{{ $value->url }}</td>
+                                            {{-- <td>{{ $value->url }}</td> --}}
                                             <td>{{ $value->category_name }}</td>
                                             <td>{{ $value->subcategory_name }}</td>
                                             <td>{{ $value->size }}</td>
