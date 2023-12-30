@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-// use App\Model\ProductColor;
 
 class Product extends Model
 {
@@ -36,5 +35,10 @@ class Product extends Model
     public function getColor()
     {
         return $this->hasMany(ProductColor::class, 'product_id');
+    }
+
+    public function getSize()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id');
     }
 }

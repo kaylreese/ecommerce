@@ -17,7 +17,7 @@
         @yield('style')
     </head>
 
-    <body class="hold-transition sidebar-mini">
+    <body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
         <div class="wrapper">
             @include("admin.layout.header")
 

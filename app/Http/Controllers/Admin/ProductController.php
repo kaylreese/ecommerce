@@ -9,6 +9,7 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\ProductColor;
+use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use Auth;
 use Str;
@@ -37,17 +38,6 @@ class ProductController extends Controller
         
         $product = new Product;
         $product->title = $title;
-        // $product->category_id = $request->category_id;
-        // $product->subcategory_id = $request->subcategory_id;
-        // $product->size = trim($request->size);
-        // $product->color = trim($request->color);
-        // $product->brand_id = trim($request->brand_id);
-        // $product->old_price = trim($request->old_price);
-        // $product->price = trim($request->price);
-        // $product->short_description = trim($request->short_description);
-        // $product->description = trim($request->description);
-        // $product->additional_information = trim($request->additional_information);
-        // $product->shipping_returns = trim($request->shipping_returns);
         $product->created_by = Auth::user()->id;
         $product->save();
 
@@ -94,22 +84,27 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {
-        
-        // request()->validate([
-        //     'url' => 'required|unique:products'
-        // ]);
-        
         $title = trim($request->title);
         $url = Str::slug($title, '-');
 
         $product = Product::getProduct($id);
         if(!empty($product)) {
+
+            if(!empty($request->file('image'))) {
+                foreach ($request->file('image') as $value) {
+                    if($value->isValid()) {
+                        $ext = $value->getClientOriginalExtension();
+                        $randomStr = $product->id.Str::random(10);
+                        $filename = strtolower($randomStr).'.'.$ext;
+                        $value->move('public/images/products/', $filename);
+                    }
+                }
+            }
+
             $product->title = $title;
             $product->url = $url;
             $product->category_id = $request->category_id;
             $product->subcategory_id = $request->subcategory_id;
-            // $product->size = trim($request->size);
-            // $product->color = trim($request->color);
             $product->brand_id = trim($request->brand_id);
             $product->old_price = trim($request->old_price);
             $product->price = trim($request->price);
@@ -131,13 +126,27 @@ class ProductController extends Controller
                 }
             }
 
+            ProductSize::DeleteProductSize($product->id);
+
+            if(!empty($request->size)) {
+                foreach ($request->size as $value) {
+                    if(!empty($value['name'])) {
+                        $size = new ProductSize;
+                        $size->product_id = $product->id;
+                        $size->name = $value['name'];
+                        $size->price = !empty($value['price']) ? $value['price'] : 0.00;
+                        $size->save();
+                    }
+                }
+            }
+
             // return redirect('admin/product')->with('success', "Product Successfully Updated");
             return redirect()->back()->with('success', "Product Successfully Updated");
         } else {
             abort(404);
         }
 
-        dd($request->all());
+        // dd($request->all());
     }
 
     public function destroy(string $id)

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('url');
             $table->string('category_id');
             $table->string('subcategory_id');
-            $table->string('size');
-            $table->string('color');
             $table->string('brand_id');
             $table->double('old_price')->default(0.00000)->nullable(false);
             $table->double('price')->default(0.00000)->nullable(false);

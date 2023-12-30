@@ -22,19 +22,19 @@
         @include('admin.layout._message')
 
         <div class="card card-primary">
-            <form action="{{ url('admin/product/edit',$product->id) }}" method="POST">
+            <form action="{{ url('admin/product/edit',$product->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Title: <span style="color: red">(*)</span></label>
                                 <input type="text" class="form-control" name="title" value="{{ old('title', $product->title) }}" placeholder="Enter Product Title" required>
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>SKU: <span style="color: red">(*)</span></label>
                                 <input type="text" class="form-control" name="sku" value="{{ old('sku', $product->title) }}" placeholder="Enter Product SKU" required>
@@ -89,14 +89,14 @@
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Price: <span style="color: red">(*)</span></label>
-                                <input type="text" class="form-control" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                <input type="text" class="form-control" name="price" value="{{ !empty($product->price) ? $product->price : '' }}"  placeholder="Enter Product Price" required>
                             </div>
                         </div>
 
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Old Price: <span style="color: red">(*)</span></label>
-                                <input type="text" class="form-control" name="old_price" value="{{ old('old_price', $product->old_price) }}"  placeholder="Enter Product Old Price" required>
+                                <input type="text" class="form-control" name="old_price" value="{{ !empty($product->old_price) ? $product->old_price : '' }}"  placeholder="Enter Product Old Price" required>
                             </div>
                         </div>
 
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                     </div>
-
+                    
                     <div class="row">
                         <div class="col-sm-12">
                             <div class="form-group-admin">
@@ -152,12 +152,32 @@
                                         </tr>
                                     </thead>
                                     <tbody id="AppendSize">
+                                        @php
+                                            $i_s = 1;
+                                        @endphp
+
+                                        @foreach($product->getSize as $value)
+                                            <tr id="DeleteSize{{$i_s}}">
+                                                <th>
+                                                    <input type="text" class="form-control form-control-sm" value="{{ $value->name }}" name="size[{{$i_s}}][name]" placeholder="Enter Product Name" >
+                                                </th>
+                                                <th>
+                                                    <input type="text" class="form-control form-control-sm" value="{{ $value->price }}" name="size[{{$i_s}}][price]" placeholder="Enter Product Price" >
+                                                </th>
+                                                <th style="width: 60px;">
+                                                    <button type="button" id="{{$i_s}}" class="btn btn-outline-danger btn-sm DeleteSize"><i class="fa fa-regular fa-trash"></i></button>
+                                                </th>
+                                            </tr>
+                                            @php
+                                                $i_s++;
+                                            @endphp
+                                        @endforeach
                                         <tr>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="size[100]['name']" placeholder="Enter Product Name" required>
+                                                <input type="text" class="form-control form-control-sm" name="size[100][name]" placeholder="Enter Product Name">
                                             </th>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="size[1000]['price']" placeholder="Enter Product Price" required>
+                                                <input type="text" class="form-control form-control-sm" name="size[100][price]" placeholder="Enter Product Price">
                                             </th>
                                             <th style="width: 60px;">
                                                 <button type="button" class="btn btn-outline-info btn-sm AddSize"><i class="fa fa-solid fa-plus"></i></button>
@@ -168,6 +188,19 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Images:</label>
+                                <input type="file" class="form-control" style="padding: 5px;" name="image[]" multiple accept="image/*">
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr>
 
                     <div class="row">
                         <div class="col-md-12">
@@ -220,14 +253,14 @@
     <script src="{{ url('public/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
     <script type="text/javascript">
-        var i = 100;
+        var i = 101;
         $('body').delegate('.AddSize', 'click', function(){
             var html = '<tr id="DeleteSize'+i+'">\n\
                             <th>\n\
-                                <input type="text" class="form-control form-control-sm" name="" >\n\
+                                <input type="text" class="form-control form-control-sm" name="size['+i+'][name]" >\n\
                             </th>\n\
                             <th>\n\
-                                <input type="text" class="form-control form-control-sm" name="" >\n\
+                                <input type="text" class="form-control form-control-sm" name="size['+i+'][price]" >\n\
                             </th>\n\
                             <th>\n\
                                 <button type="button" id="'+i+'" class="btn btn-outline-danger btn-sm DeleteSize"><i class="fa fa-regular fa-trash"></i></button>\n\
@@ -262,11 +295,11 @@
         });
 
         $('.editor').summernote({
-            height: 400,
+            height: 300,
         });
 
         $('.editor2').summernote({
-            height: 200,
+            height: 100,
         });
     </script>
 @endsection
