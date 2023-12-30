@@ -24,4 +24,14 @@ class Color extends Model
     {
         return self::find($id);
     }
+
+    static public function getColorsActive()
+    {
+        return self::select('colors.*')
+                ->join('users', 'users.id', '=', 'colors.created_by')
+                ->where('colors.deleted', '=', 1)
+                ->where('colors.status', '=', 1)
+                ->orderBy('colors.name', 'asc')
+                ->get();
+    }
 }

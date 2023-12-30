@@ -29,4 +29,14 @@ class Brand extends Model
     {
         return self::where('url', '=', $url)->count();
     }
+
+    static public function getBrandsActive()
+    {
+        return self::select('brands.*')
+                ->join('users', 'users.id', '=', 'brands.created_by')
+                ->where('brands.deleted', '=', 1)
+                ->where('brands.status', '=', 1)
+                ->orderBy('brands.id', 'asc')
+                ->get();
+    }
 }

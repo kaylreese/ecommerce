@@ -1,5 +1,9 @@
 @extends('admin.layout.app')
 
+@section('style')
+    <link rel="stylesheet" href="{{ url('public/assets/plugins/summernote/summernote-bs4.min.css') }}">
+@endsection
+
 @section('content')
 
 <div class="content-wrapper">
@@ -143,41 +147,16 @@
                                             <td>Action</td>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody id="AppendSize">
                                         <tr>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                                <input type="text" class="form-control form-control-sm" name="price" placeholder="Enter Product Name" required>
                                             </th>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
+                                                <input type="text" class="form-control form-control-sm" name="price" placeholder="Enter Product Price" required>
                                             </th>
-                                            <th>
-                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a>
-                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
-                                            </th>
-                                            <th>
-                                                {{-- <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a> --}}
-                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
-                                            </th>
-                                        </tr>
-                                        <tr>
-                                            <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
-                                            </th>
-                                            <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" value="{{ old('price', $product->price) }}"  placeholder="Enter Product Price" required>
-                                            </th>
-                                            <th>
-                                                {{-- <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-info btn-sm"><i class="fa fa-solid fa-plus"></i></a> --}}
-                                                <a type="button" href="{{ url('admin/product') }}"  class="btn btn-outline-danger btn-sm"><i class="fa fa-regular fa-trash"></i></a>
+                                            <th style="width: 60px;">
+                                                <button type="button" class="btn btn-outline-info btn-sm AddSize"><i class="fa fa-solid fa-plus"></i></button>
                                             </th>
                                         </tr>
                                     </tbody>
@@ -198,7 +177,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description:</label>
-                                <textarea class="form-control" name="description" rows="5" placeholder="Enter Product Description">{{ old('description') }}</textarea>
+                                <textarea class="form-control editor" name="description" rows="5" placeholder="Enter Product Description">{{ old('description') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -206,14 +185,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Additional Information:</label>
-                                <textarea class="form-control" name="additional_information" rows="5" placeholder="Enter Product Description">{{ old('additional_information') }}</textarea>
+                                <textarea class="form-control editor2" name="additional_information" rows="5" placeholder="Enter Product Description">{{ old('additional_information') }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Shipping Retunrs:</label>
-                                <textarea class="form-control" name="shipping_returns" rows="5" placeholder="Enter Product Description">{{ old('shipping_returns') }}</textarea>
+                                <textarea class="form-control editor2" name="shipping_returns" rows="5" placeholder="Enter Product Description">{{ old('shipping_returns') }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -233,7 +212,32 @@
 @endsection
 
 @section('script')
+    {{-- <script src="{{ url('public/tinymce/tinymce-jquery.min.js') }}"></script> --}}
+    <script src="{{ url('public/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+
     <script type="text/javascript">
+        var i = 1000;
+        $('body').delegate('.AddSize', 'click', function(){
+            var html = '<tr id="DeleteSize'+i+'">\n\
+                            <th>\n\
+                                <input type="text" class="form-control form-control-sm" name="" >\n\
+                            </th>\n\
+                            <th>\n\
+                                <input type="text" class="form-control form-control-sm" name="" >\n\
+                            </th>\n\
+                            <th>\n\
+                                <button type="button" id="'+i+'" class="btn btn-outline-danger btn-sm DeleteSize"><i class="fa fa-regular fa-trash"></i></button>\n\
+                            </th>\n\
+                        </tr>';
+            i++;
+            $('#AppendSize').append(html);
+        });
+
+        $('body').delegate('.DeleteSize', 'click', function() {
+            var id = $(this).attr('id');
+            $('#DeleteSize'+id).remove();
+        });
+
         $('body').delegate("#ChangeCategory", "change", function(e) {
             var id = $(this).val();
             $.ajax({
@@ -251,6 +255,14 @@
 
                 }
             });
+        });
+
+        $('.editor').summernote({
+            height: 400,
+        });
+
+        $('.editor2').summernote({
+            height: 200,
         });
     </script>
 @endsection

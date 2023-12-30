@@ -79,9 +79,8 @@ class ProductController extends Controller
 
         if(!empty($product)) {
             $data['getCategories'] = Category::getCategories();
-            $data['getSubCategories'] = SubCategory::getSubCategories($id);
-            $data['getBrands'] = Brand::getBrands();
-            $data['getColors'] = Color::getColors();
+            $data['getBrands'] = Brand::getBrandsActive();
+            $data['getColors'] = Color::getColorsActive();
             $data['product'] = $product;
             $data['header_title'] = "Edit Product";
         
@@ -127,5 +126,5 @@ class ProductController extends Controller
         $product->save();
 
         return redirect()->back()->with('success', "Product Successfully Deleted");
-    }
+    } 
 }
