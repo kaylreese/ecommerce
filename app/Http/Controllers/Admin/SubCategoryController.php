@@ -97,7 +97,7 @@ class SubCategoryController extends Controller
         $category_id = $request->id;
         $getsubcategory = SubCategory::getCategory($category_id);
         $html = '';
-        $html .= '<option value="">Select. . .</option>';
+        $html .= '<option value="">SELECT. . .</option>';
         foreach ($getsubcategory as $value) {
             $html .= '<option value="'.$value->id.'">'.$value->name.'</option>';
         }

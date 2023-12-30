@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+// use App\Model\ProductColor;
 
 class Product extends Model
 {
@@ -30,5 +31,10 @@ class Product extends Model
     static public function checkUrl($url)
     {
         return self::where('url', '=', $url)->count();
+    }
+
+    public function getColor()
+    {
+        return $this->hasMany(ProductColor::class, 'product_id');
     }
 }

@@ -2,6 +2,7 @@
 
 @section('style')
     <link rel="stylesheet" href="{{ url('public/assets/plugins/summernote/summernote-bs4.min.css') }}">
+    <link rel="stylesheet" href="{{ url('public/css/cssadmin.css') }}">
 @endsection
 
 @section('content')
@@ -18,9 +19,11 @@
     </section>
 
     <div class="col-md-12">
+        @include('admin.layout._message')
+
         <div class="card card-primary">
             <form action="{{ url('admin/product/edit',$product->id) }}" method="POST">
-                @csrf @method('PUT')
+                @csrf
 
                 <div class="card-body">
                     <div class="row">
@@ -55,10 +58,11 @@
                                 <label>SubCategory: <span style="color: red">(*)</span></label>
                                 <select name="subcategory_id" id="getSubCategory" class="form-control" required>
                                     <option value="">Select. . .</option>
-                                    {{-- @foreach ($getSubCategories as $value)
+                                    @foreach ($getsubcategory as $value)
                                         <option {{ ($value->id == $product->subcategory_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach --}}
+                                    @endforeach
                                 </select>
+                                
                             </div>
                         </div>
 
@@ -69,18 +73,6 @@
                                     <option value="">Select. . .</option>
                                     @foreach ($getBrands as $value)
                                         <option {{ ($value->id == $product->brand_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Color: <span style="color: red">(*)</span></label>
-                                <select name="color_id" class="form-control" required>
-                                    <option value="">Select. . .</option>
-                                    @foreach ($getColors as $value)
-                                        <option {{ ($value->id == $product->color_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -121,12 +113,24 @@
 
                     <div class="row">
                         <div class="col-sm-12">
-                            <div class="form-group">
+                            <div class="form-group-admin">
                                 <label>Color: <span style="color: red">(*)</span></label>
                                 @foreach ($getColors as $value)
+                                    @php
+                                        $checked = '';
+                                    @endphp
+
+                                    @foreach ($product->getColor as $val)
+                                        @if($val->color_id == $value->id)
+                                            @php
+                                                $checked = 'checked';
+                                            @endphp
+                                        @endif
+                                    @endforeach
+
                                     <div class="col-sm-1">
                                         <div class="custom-control custom-checkbox">
-                                            <input class="custom-control-input custom-control-input-danger" type="checkbox" {{ ($value->id == $product->color_id) ? 'checked' : '' }} value="{{ $value->id }}" name="color_id[]" id="color_id{{$value->id}}">
+                                            <input {{ $checked }} class="custom-control-input custom-control-input-danger" type="checkbox" {{ ($value->id == $product->color_id) ? 'checked' : '' }} value="{{ $value->id }}" name="color_id[]" id="color_id{{$value->id}}">
                                             <label for="color_id{{$value->id}}" class="custom-control-label">{{ $value->name }}</label>
                                         </div>
                                     </div>
@@ -150,10 +154,10 @@
                                     <tbody id="AppendSize">
                                         <tr>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" placeholder="Enter Product Name" required>
+                                                <input type="text" class="form-control form-control-sm" name="size[100]['name']" placeholder="Enter Product Name" required>
                                             </th>
                                             <th>
-                                                <input type="text" class="form-control form-control-sm" name="price" placeholder="Enter Product Price" required>
+                                                <input type="text" class="form-control form-control-sm" name="size[1000]['price']" placeholder="Enter Product Price" required>
                                             </th>
                                             <th style="width: 60px;">
                                                 <button type="button" class="btn btn-outline-info btn-sm AddSize"><i class="fa fa-solid fa-plus"></i></button>
@@ -169,7 +173,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Short Description:</label>
-                                <textarea class="form-control" name="short_description" rows="3" placeholder="Enter Product Short Description">{{ old('short_description') }}</textarea>
+                                <textarea class="form-control" name="short_description" rows="3" placeholder="Enter Product Short Description"> {{ old('short_description', $product->short_description) }} </textarea>
                             </div>
                         </div>
                     </div>
@@ -177,7 +181,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Description:</label>
-                                <textarea class="form-control editor" name="description" rows="5" placeholder="Enter Product Description">{{ old('description') }}</textarea>
+                                <textarea class="form-control editor" name="description" rows="5" placeholder="Enter Product Description"> {{ old('description', $product->description) }} </textarea>
                             </div>
                         </div>
                     </div>
@@ -185,14 +189,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Additional Information:</label>
-                                <textarea class="form-control editor2" name="additional_information" rows="5" placeholder="Enter Product Description">{{ old('additional_information') }}</textarea>
+                                <textarea class="form-control editor2" name="additional_information" rows="5" placeholder="Enter Product Description"> {{ old('additional_information', $product->additional_information) }} </textarea>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Shipping Retunrs:</label>
-                                <textarea class="form-control editor2" name="shipping_returns" rows="5" placeholder="Enter Product Description">{{ old('shipping_returns') }}</textarea>
+                                <textarea class="form-control editor2" name="shipping_returns" rows="5" placeholder="Enter Product Description">{{ old('shipping_returns', $product->shipping_returns) }}</textarea>
                             </div>
                         </div>
                     </div>
@@ -216,7 +220,7 @@
     <script src="{{ url('public/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
 
     <script type="text/javascript">
-        var i = 1000;
+        var i = 100;
         $('body').delegate('.AddSize', 'click', function(){
             var html = '<tr id="DeleteSize'+i+'">\n\
                             <th>\n\
