@@ -193,12 +193,35 @@
 
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label>Images:</label>
                                 <input type="file" class="form-control" style="padding: 5px;" name="image[]" multiple accept="image/*">
+                            </div> --}}
+
+                            <div class="form-group">
+                                <label for="exampleInputFile">Images:</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" name="image[]" id="name" multiple accept="image/*">
+                                        <label class="custom-file-label" for="image">Choose file</label>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    @if(!empty($product->getImages->count()))
+                        <div class="row" id="sortable">
+                            @foreach($product->getImages as $value)
+                                @if(!empty($value->getLogo()))
+                                    <div class="col-md-1 sortable_image" id="{{ $value->id }}" style="text-align: center;">
+                                        <img src="{{ $value->getLogo() }}" style="width: 100%;  height: 100px">
+                                        <a type="button" href="{{ url('admin/product/image_delete/'.$value->id ) }}"  class="btn btn-outline-danger btn-sm" style="margin: 5px;" onclick="return confirm('Are you sure want to delete?');"><i class="fa fa-regular fa-trash"></i></a>
+                                    </div>
+                                @endif
+                            @endforeach
+                        </div>
+                    @endif
 
                     <hr>
 

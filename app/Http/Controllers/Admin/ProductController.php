@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Color;
 use App\Models\ProductColor;
 use App\Models\ProductSize;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Auth;
 use Str;
@@ -88,19 +89,8 @@ class ProductController extends Controller
         $url = Str::slug($title, '-');
 
         $product = Product::getProduct($id);
+
         if(!empty($product)) {
-
-            if(!empty($request->file('image'))) {
-                foreach ($request->file('image') as $value) {
-                    if($value->isValid()) {
-                        $ext = $value->getClientOriginalExtension();
-                        $randomStr = $product->id.Str::random(10);
-                        $filename = strtolower($randomStr).'.'.$ext;
-                        $value->move('public/images/products/', $filename);
-                    }
-                }
-            }
-
             $product->title = $title;
             $product->url = $url;
             $product->category_id = $request->category_id;
@@ -140,6 +130,23 @@ class ProductController extends Controller
                 }
             }
 
+            if(!empty($request->file('image'))) {
+                foreach ($request->file('image') as $value) {
+                    if($value->isValid()) {
+                        $ext = $value->getClientOriginalExtension();
+                        $randomStr = $product->id.Str::random(10);
+                        $filename = strtolower($randomStr).'.'.$ext;
+                        $value->move('upload/products/', $filename);
+
+                        $image = new ProductImage;
+                        $image->product_id = $product->id;
+                        $image->name = $filename;
+                        $image->extension = $ext;
+                        $image->save();
+                    }
+                }
+            }
+
             // return redirect('admin/product')->with('success', "Product Successfully Updated");
             return redirect()->back()->with('success', "Product Successfully Updated");
         } else {
@@ -147,6 +154,18 @@ class ProductController extends Controller
         }
 
         // dd($request->all());
+    }
+
+    public function image_delete($id) 
+    {
+        $image = ProductImage::getProductImage($id);    
+
+        if(!empty($image->getLogo())) {
+            unlink('upload/products/'.$image->name);
+        }
+        $image->delete();
+
+        return redirect()->back()->with('success', "Product Image Successfully Deleted");
     }
 
     public function destroy(string $id)

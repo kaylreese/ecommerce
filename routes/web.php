@@ -63,6 +63,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/product/edit/{id}', [ProductController::class, 'edit']);
     Route::post('admin/product/edit/{id}', [ProductController::class, 'update']);
     Route::get('admin/product/delete/{id}', [ProductController::class, 'destroy']);
+    Route::get('admin/product/image_delete/{id}', [ProductController::class, 'image_delete']);
    
     Route::get('admin/color', [ColorController::class, 'index']);
     Route::get('admin/color/create', [ColorController::class, 'create']);
