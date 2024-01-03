@@ -272,10 +272,40 @@
 @endsection
 
 @section('script')
-    {{-- <script src="{{ url('public/tinymce/tinymce-jquery.min.js') }}"></script> --}}
     <script src="{{ url('public/assets/plugins/summernote/summernote-bs4.min.js') }}"></script>
+    <script src="{{ url('public/assets/sortable/jquery-ui.js') }}"></script>
 
     <script type="text/javascript">
+        $(document).ready(function() {
+            $("#sortable").sortable({
+                update: function(event, ui) {
+                    var photo_id = new Array();
+                    $('.sortable_image').each(function() {
+                        var id = $(this).attr('id');
+                        photo_id.push(id);
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/product_image_sortable/') }}",
+                        data: {
+                            "photo_id" : photo_id,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: "json",
+                        success: function(data) {
+                            
+                        },
+                        error: function(data) {
+
+                        }
+                    });
+                }
+            });
+        });
+
+        // $( "#sortable" ).sortable();
+
         var i = 101;
         $('body').delegate('.AddSize', 'click', function(){
             var html = '<tr id="DeleteSize'+i+'">\n\
