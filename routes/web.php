@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 
+use App\Http\Controllers\HomeController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,6 +77,4 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/color/delete/{id}', [ColorController::class, 'destroy']);
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
