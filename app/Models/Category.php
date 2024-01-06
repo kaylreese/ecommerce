@@ -34,4 +34,13 @@ class Category extends Model
     {
         return self::find($id);
     }
+
+    static public function getCategoriesMenu()
+    {
+        return self::select('categories.*')
+                ->join('users', 'users.id', '=', 'categories.created_by')
+                ->where('categories.status', '=', 1)
+                ->orderBy('categories.id', 'asc')
+                ->get();
+    }
 }

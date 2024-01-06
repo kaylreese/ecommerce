@@ -66,7 +66,10 @@
                                     <div class="col-md-12">
                                         <div class="menu-col">
                                             <div class="row">
-                                                @for($i=1; $i<=5 ; $i++)
+                                                @php
+                                                    $getCategories = App\Models\Category::getCategoriesMenu();
+                                                @endphp
+                                                @foreach ($getCategories as $value)
                                                     <div class="col-md-4" style="margin-bottom: 20px;">
                                                         <a href="" class="menu-title">Shop with sidebar</a>
                                                         <ul>
@@ -77,7 +80,7 @@
                                                             <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
                                                         </ul>
                                                     </div>
-                                                @endfor
+                                                @endforeach
                                             </div>
                                         </div>
                                     </div>
