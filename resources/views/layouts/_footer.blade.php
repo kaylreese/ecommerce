@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img src="page/images/logo-footer.png" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                        <img src="{{ url('public/page/images/logo-footer.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
                         <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
 
                         <div class="social-icons">
@@ -22,11 +22,11 @@
                         <h4 class="widget-title">Useful Links</h4>
 
                         <ul class="widget-list">
-                            <li><a href="about.html">About Molla</a></li>
+                            <li><a href="{{ url('about') }}">About Molla</a></li>
                             <li><a href="#">How to shop on Molla</a></li>
                             <li><a href="#">FAQ</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
-                            <li><a href="login.html">Log in</a></li>
+                            <li><a href="{{ url('contact') }}">Contact us</a></li>
+                            <li><a href="#signin-modal" data-toggle="modal">Log in</a></li>
                         </ul>
                     </div>
                 </div>
@@ -52,7 +52,7 @@
 
                         <ul class="widget-list">
                             <li><a href="#">Sign In</a></li>
-                            <li><a href="cart.html">View Cart</a></li>
+                            <li><a href="#">View Cart</a></li>
                             <li><a href="#">My Wishlist</a></li>
                             <li><a href="#">Track My Order</a></li>
                             <li><a href="#">Help</a></li>
@@ -67,7 +67,7 @@
         <div class="container">
             <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p><!-- End .footer-copyright -->
             <figure class="footer-payments">
-                <img src="page/images/payments.png" alt="Payment methods" width="272" height="20">
+                <img src="{{ url('public/page/images/payments.png') }}" alt="Payment methods" width="272" height="20">
             </figure>
         </div>
     </div>
