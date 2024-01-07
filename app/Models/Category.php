@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\SubCategory;
 
 class Category extends Model
 {
@@ -35,6 +36,13 @@ class Category extends Model
         return self::find($id);
     }
 
+    static public function getCategoryUrl($url)
+    {
+        return self::where('url', '=', $url)
+                    ->where('categories.status', '=', 1)
+                    ->first();
+    }
+
     static public function getCategoriesMenu()
     {
         return self::select('categories.*')
@@ -43,4 +51,10 @@ class Category extends Model
                 ->orderBy('categories.id', 'asc')
                 ->get();
     }
+
+    public function getSubCategory()
+    {
+        return $this->hasMany(SubCategory::class, 'category_id')->where('subcategories.status', '=', '1');
+    }
+
 }

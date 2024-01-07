@@ -70,16 +70,16 @@
                                                     $getCategories = App\Models\Category::getCategoriesMenu();
                                                 @endphp
                                                 @foreach ($getCategories as $value)
-                                                    <div class="col-md-4" style="margin-bottom: 20px;">
-                                                        <a href="" class="menu-title">Shop with sidebar</a>
-                                                        <ul>
-                                                            <li><a href="category-list.html">Shop List</a></li>
-                                                            <li><a href="category-2cols.html">Shop Grid 2 Columns</a></li>
-                                                            <li><a href="category.html">Shop Grid 3 Columns</a></li>
-                                                            <li><a href="category-4cols.html">Shop Grid 4 Columns</a></li>
-                                                            <li><a href="category-market.html"><span>Shop Market<span class="tip tip-new">New</span></span></a></li>
-                                                        </ul>
-                                                    </div>
+                                                    @if (!@empty($value->getSubCategory->count()))
+                                                        <div class="col-md-4" style="margin-bottom: 20px;">
+                                                            <a href="{{ url($value->url) }}" class="menu-title">{{ $value->name }}</a>
+                                                            <ul>
+                                                                @foreach ($value->getSubCategory as $val)
+                                                                    <li><a href="{{ url($value->url.'/'.$val->url) }}"> {{ $val->name }}</a></li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
                                                 @endforeach
                                             </div>
                                         </div>

@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController as Product;
 
 
 /*
@@ -78,3 +79,4 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('{category?}/{subcategory?}', [Product::class, 'getCategory']);

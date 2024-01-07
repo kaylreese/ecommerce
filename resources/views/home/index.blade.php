@@ -21,18 +21,18 @@
                                             <source media="(max-width: 480px)" srcset="{{ url('public/page/images/slider/slide-1-480w.jpg') }}">
                                             <img src="{{ url('public/page/images/slider/slide-1.jpg') }}" alt="Image Desc">
                                         </picture>
-                                    </figure><!-- End .slide-image -->
+                                    </figure>
 
                                     <div class="intro-content">
-                                        <h3 class="intro-subtitle">Topsale Collection</h3><!-- End .h3 intro-subtitle -->
-                                        <h1 class="intro-title">Living Room<br>Furniture</h1><!-- End .intro-title -->
+                                        <h3 class="intro-subtitle">Topsale Collection</h3>
+                                        <h1 class="intro-title">Living Room<br>Furniture</h1>
 
                                         <a href="category.html" class="btn btn-outline-white">
                                             <span>SHOP NOW</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </a>
-                                    </div><!-- End .intro-content -->
-                                </div><!-- End .intro-slide -->
+                                    </div>
+                                </div>
 
                                 <div class="intro-slide">
                                     <figure class="slide-image">
@@ -40,18 +40,18 @@
                                             <source media="(max-width: 480px)" srcset="{{ url('public/page/images/slider/slide-2-480w.jpg') }}">
                                             <img src="{{ url('public/page/images/slider/slide-2.jpg') }}" alt="Image Desc">
                                         </picture>
-                                    </figure><!-- End .slide-image -->
+                                    </figure>
 
                                     <div class="intro-content">
-                                        <h3 class="intro-subtitle">News and Inspiration</h3><!-- End .h3 intro-subtitle -->
-                                        <h1 class="intro-title">New Arrivals</h1><!-- End .intro-title -->
+                                        <h3 class="intro-subtitle">News and Inspiration</h3>
+                                        <h1 class="intro-title">New Arrivals</h1>
 
                                         <a href="category.html" class="btn btn-outline-white">
                                             <span>SHOP NOW</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </a>
-                                    </div><!-- End .intro-content -->
-                                </div><!-- End .intro-slide -->
+                                    </div>
+                                </div>
 
                                 <div class="intro-slide">
                                     <figure class="slide-image">
@@ -59,23 +59,23 @@
                                             <source media="(max-width: 480px)" srcset="{{ url('public/page/images/slider/slide-3-480w.jpg') }}">
                                             <img src="{{ url('public/page/images/slider/slide-3.jpg') }}" alt="Image Desc">
                                         </picture>
-                                    </figure><!-- End .slide-image -->
+                                    </figure>
 
                                     <div class="intro-content">
-                                        <h3 class="intro-subtitle">Outdoor Furniture</h3><!-- End .h3 intro-subtitle -->
-                                        <h1 class="intro-title">Outdoor Dining <br>Furniture</h1><!-- End .intro-title -->
+                                        <h3 class="intro-subtitle">Outdoor Furniture</h3>
+                                        <h1 class="intro-title">Outdoor Dining <br>Furniture</h1>
 
                                         <a href="category.html" class="btn btn-outline-white">
                                             <span>SHOP NOW</span>
                                             <i class="icon-long-arrow-right"></i>
                                         </a>
-                                    </div><!-- End .intro-content -->
-                                </div><!-- End .intro-slide -->
-                            </div><!-- End .intro-slider owl-carousel owl-simple -->
+                                    </div>
+                                </div>
+                            </div>
                             
-                            <span class="slider-loader"></span><!-- End .slider-loader -->
-                        </div><!-- End .intro-slider-container -->
-                    </div><!-- End .col-lg-8 -->
+                            <span class="slider-loader"></span>
+                        </div>
+                    </div>
                     <div class="col-lg-4">
                         <div class="intro-banners">
                             <div class="row row-sm">
@@ -86,12 +86,12 @@
                                         </a>
 
                                         <div class="banner-content">
-                                            <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a></h4><!-- End .banner-subtitle -->
-                                            <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up to 40% off</a></h3><!-- End .banner-title -->
+                                            <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a></h4>
+                                            <h3 class="banner-title text-white"><a href="#">Chairs & Chaises <br>Up to 40% off</a></h3>
                                             <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                                        </div><!-- End .banner-content -->
-                                    </div><!-- End .banner -->
-                                </div><!-- End .col-md-6 col-lg-12 -->
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="col-md-6 col-lg-12">
                                     <div class="banner banner-display mb-0">
@@ -100,18 +100,18 @@
                                         </a>
 
                                         <div class="banner-content">
-                                            <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4><!-- End .banner-subtitle -->
-                                            <h3 class="banner-title text-white"><a href="#">Best Lighting <br>Collection</a></h3><!-- End .banner-title -->
+                                            <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4>
+                                            <h3 class="banner-title text-white"><a href="#">Best Lighting <br>Collection</a></h3>
                                             <a href="#" class="btn btn-outline-white banner-link">Discover Now<i class="icon-long-arrow-right"></i></a>
-                                        </div><!-- End .banner-content -->
-                                    </div><!-- End .banner -->
-                                </div><!-- End .col-md-6 col-lg-12 -->
-                            </div><!-- End .row row-sm -->
-                        </div><!-- End .intro-banners -->
-                    </div><!-- End .col-lg-4 -->
-                </div><!-- End .row -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                <div class="mb-6"></div><!-- End .mb-6 -->
+                <div class="mb-6"></div>
 
                 <div class="owl-carousel owl-simple" data-toggle="owl" 
                     data-owl-options='{
