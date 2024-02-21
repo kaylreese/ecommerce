@@ -11,7 +11,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        $data['meta_title'] = 'E-Commerce';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('home.index', $data);
     }
 
     /**

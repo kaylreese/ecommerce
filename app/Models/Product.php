@@ -27,6 +27,25 @@ class Product extends Model
         return self::find($id);
     }
 
+    static public function getProduct2($category_id = '', $subcategory_id = '')
+    {
+        $data = Product::select('products.*', 'users.name as created_by_name')
+                ->join('users', 'users.id', '=', 'subcategories.created_by');
+                if(!empty($category_id)) {
+                    $data = $data->where('products.category_id', '=', $category_id);
+                }
+
+                if(!empty($subcategory_id)) {
+                    $data = $data->where('products.subcategory_id', '=', $subcategory_id);
+                }
+
+                $data = $data->where('products.status', '=', 1)
+                ->orderBy('products.id', 'desc')
+                ->paginate(10);
+
+        return $data;
+    }
+
     static public function checkUrl($url)
     {
         return self::where('url', '=', $url)->count();

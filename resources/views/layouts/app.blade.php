@@ -5,13 +5,14 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>{{ !empty($meta_title) ? $meta_title.' | eCommerce' : '' }}</title>
-        @if (!empty($meta_keywords))
-            <meta name="keywords" content="{{ $meta_keywords }}">
-        @endif
+        <title>{{ !empty($meta_title) ? $meta_title.' | KaylReese' : '' }}</title>
 
         @if (!empty($meta_description))
             <meta name="description" content="{{ $meta_description }}">
+        @endif
+
+        @if (!empty($meta_keywords))
+            <meta name="keywords" content="{{ $meta_keywords }}">
         @endif
 
         <link rel="shortcut icon" href="{{ url('public/page/images/icons/favicon.ico') }}">
