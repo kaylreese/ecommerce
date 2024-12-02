@@ -12,7 +12,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-8">
-                <h1>Sub Categories</h1>
+                <h1>Products</h1>
             </div>
             <div class="col-sm-4" style="text-align: right;">
                 <a href="{{ url('admin/product/create') }}" class="btn btn bg-success">New Product</a>
@@ -30,7 +30,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Sub Category List</h3>
+                            <h3 class="card-title">Product List</h3>
                         </div>
 
                         <div class="card-body p-0">

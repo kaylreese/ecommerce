@@ -22,15 +22,13 @@ class Product extends Model
                 ->paginate(10);
     }
 
-    static public function getProduct($id)
+    static public function getProduct($category_id = '', $subcategory_id = '')
     {
-        return self::find($id);
-    }
+        $data = Product::select('products.*', 'users.name as created_by_name', 'categories.name as category_name', 'categories.url as category_url', 'subcategories.name as subcategory_name', 'subcategories.url as subcategory_url')
+                ->join('users', 'users.id', '=', 'products.created_by')
+                ->join('subcategories', 'subcategories.id', '=', 'products.subcategory_id')
+                ->join('categories', 'categories.id', '=', 'products.category_id');
 
-    static public function getProduct2($category_id = '', $subcategory_id = '')
-    {
-        $data = Product::select('products.*', 'users.name as created_by_name')
-                ->join('users', 'users.id', '=', 'subcategories.created_by');
                 if(!empty($category_id)) {
                     $data = $data->where('products.category_id', '=', $category_id);
                 }
@@ -41,9 +39,14 @@ class Product extends Model
 
                 $data = $data->where('products.status', '=', 1)
                 ->orderBy('products.id', 'desc')
-                ->paginate(10);
+                ->paginate(5);
 
         return $data;
+    }
+
+    static public function getImageSingle($id) 
+    {
+        return ProductImage::where('product_id', '=', $id)->orderBy('order_by', 'asc')->first();
     }
 
     static public function checkUrl($url)

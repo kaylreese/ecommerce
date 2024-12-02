@@ -67,7 +67,7 @@ class ProductController extends Controller
 
     public function edit(string $id)
     {
-        $product = Product::getProduct($id);
+        $product = Product::find($id);
 
         if(!empty($product)) {
             $data['getCategories'] = Category::getCategories();
@@ -88,7 +88,7 @@ class ProductController extends Controller
         $title = trim($request->title);
         $url = Str::slug($title, '-');
 
-        $product = Product::getProduct($id);
+        $product = Product::find($id);
 
         if(!empty($product)) {
             $product->title = $title;
@@ -187,7 +187,7 @@ class ProductController extends Controller
 
     public function destroy(string $id)
     {
-        $product = Product::getProduct($id);    
+        $product = Product::find($id);    
         $product->status = 0;
         $product->save();
 

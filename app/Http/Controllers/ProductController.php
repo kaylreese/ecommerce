@@ -23,7 +23,7 @@ class ProductController extends Controller
             $data['getCategory'] = $getCategory;
             $data['getSubCategory'] = $getSubCategory;
 
-            $data["getProduct"] = Product::getProduct2($getCategory->id, $getSubCategory->id);
+            $data["getProduct"] = Product::getProduct($getCategory->id, $getSubCategory->id);
 
             return view('product.index')->with($data);
         } else if(!empty($getCategory)) {
@@ -32,7 +32,7 @@ class ProductController extends Controller
             $data['meta_description'] = $getCategory->meta_description;
 
             $data['getCategory'] = $getCategory;
-            $data["getProduct"] = Product::getProduct2($getCategory->id);
+            $data["getProduct"] = Product::getProduct($getCategory->id);
 
             return view('product.index')->with($data);
         } else {
