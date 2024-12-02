@@ -58,6 +58,6 @@
     </div>
 </div>
 
-<div class="pagination justify-content-center">
+{{-- <div class="pagination justify-content-center">
     {!! $getProduct->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
-</div>
+</div> --}}

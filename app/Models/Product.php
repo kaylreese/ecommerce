@@ -44,6 +44,14 @@ class Product extends Model
                     $subcategory_id_array = explode(",", $subcategory_id);
 
                     $data = $data->whereIn('products.subcategory_id', $subcategory_id_array);
+                } else {
+                    if(!empty(Request::get('old_category_id'))) {
+                        $data = $data->where('products.category_id', '=', Request::get('old_category_id'));
+                    }
+    
+                    if(!empty(Request::get('old_subcategory_id'))) {
+                        $data = $data->where('products.subcategory_id', '=', Request::get('old_subcategory_id'));
+                    }
                 }
                 
                 if(!empty(Request::get('color_id'))) {
@@ -63,10 +71,18 @@ class Product extends Model
                     $data = $data->whereIn('products.brand_id', $brand_id_array);
                 }
 
+                if(!empty(Request::get('start_price')) && !empty(Request::get('end_price'))) {
+                    $start_price = str_replace('$', '', Request::get('start_price'));
+                    $end_price = str_replace('$', '', Request::get('end_price'));
+
+                    $data = $data->where('products.price', '>=', $start_price);
+                    $data = $data->where('products.price', '<=', $end_price);
+                }
+
                 $data = $data->where('products.status', '=', 1)
                 ->groupBy('products.id')
                 ->orderBy('products.id', 'desc')
-                ->paginate(5);
+                ->paginate(3);
 
         return $data;
     }

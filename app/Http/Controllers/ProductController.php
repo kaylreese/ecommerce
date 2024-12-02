@@ -30,7 +30,20 @@ class ProductController extends Controller
 
             $data['getSubCategoryFilter'] = SubCategory::getCategory($getCategory->id);
 
-            $data["getProduct"] = Product::getProduct($getCategory->id, $getSubCategory->id);
+            $getProduct = Product::getProduct($getCategory->id, $getSubCategory->id);
+
+            $page = 0;
+            if (!empty($getProduct->nextPageUrl())) {
+                $parse_url = parse_url($getProduct ->nextPageUrl());
+                if (!empty($parse_url [ 'query']))
+                {
+                    parse_str($parse_url['query'], $get_array);
+                    $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+                }
+            }
+            $data['page'] = $page;
+
+            $data["getProduct"] = $getProduct;
 
             return view('product.index')->with($data);
         } else if(!empty($getCategory)) {
@@ -41,7 +54,21 @@ class ProductController extends Controller
             $data['getSubCategoryFilter'] = SubCategory::getCategory($getCategory->id);
 
             $data['getCategory'] = $getCategory;
-            $data["getProduct"] = Product::getProduct($getCategory->id);
+
+            $getProduct = Product::getProduct($getCategory->id);
+
+            $page = 0;
+            if (!empty($getProduct->nextPageUrl())) {
+                $parse_url = parse_url($getProduct ->nextPageUrl());
+                if (!empty($parse_url [ 'query']))
+                {
+                    parse_str($parse_url['query'], $get_array);
+                    $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+                }
+            }
+            $data['page'] = $page;
+
+            $data["getProduct"] = $getProduct;
 
             return view('product.index')->with($data);
         } else {
@@ -52,9 +79,20 @@ class ProductController extends Controller
     function productsFilter(Request $request) 
     {
         $getProduct = Product::getProduct();
+
+        $page = 0;
+        if (!empty($getProduct->nextPageUrl())) {
+            $parse_url = parse_url($getProduct ->nextPageUrl());
+            if (!empty($parse_url [ 'query']))
+            {
+                parse_str($parse_url['query'], $get_array);
+                $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+            }
+        }
         
         return response()->json([
             'status' => true,
+            'page' => $page,
             'success' => view('product.list', ['getProduct' => $getProduct])->render()
         ], 200);
 
