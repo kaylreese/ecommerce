@@ -79,4 +79,5 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::post('produdctsfilter', [Product::class, 'productsFilter']);
 Route::get('{category?}/{subcategory?}', [Product::class, 'getCategory']);

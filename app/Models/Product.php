@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Request;
 
 class Product extends Model
 {
@@ -37,7 +38,33 @@ class Product extends Model
                     $data = $data->where('products.subcategory_id', '=', $subcategory_id);
                 }
 
+                if(!empty(Request::get('subcategory_id'))) {
+                    $subcategory_id = rtrim(Request::get('subcategory_id'), ',');
+
+                    $subcategory_id_array = explode(",", $subcategory_id);
+
+                    $data = $data->whereIn('products.subcategory_id', $subcategory_id_array);
+                }
+                
+                if(!empty(Request::get('color_id'))) {
+                    $color_id = rtrim(Request::get('color_id'), ',');
+
+                    $color_id_array = explode(",", $color_id);
+
+                    $data = $data->join('product_color', 'product_color.product_id', '=', 'products.id');
+                    $data = $data->whereIn('product_color.color_id', $color_id_array);
+                }
+
+                if(!empty(Request::get('brand_id'))) {
+                    $brand_id = rtrim(Request::get('brand_id'), ',');
+
+                    $brand_id_array = explode(",", $brand_id);
+
+                    $data = $data->whereIn('products.brand_id', $brand_id_array);
+                }
+
                 $data = $data->where('products.status', '=', 1)
+                ->groupBy('products.id')
                 ->orderBy('products.id', 'desc')
                 ->paginate(5);
 

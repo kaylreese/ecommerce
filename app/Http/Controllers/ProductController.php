@@ -48,4 +48,15 @@ class ProductController extends Controller
             abort(404);
         }
     }
+
+    function productsFilter(Request $request) 
+    {
+        $getProduct = Product::getProduct();
+        
+        return response()->json([
+            'status' => true,
+            'success' => view('product.list', ['getProduct' => $getProduct])->render()
+        ], 200);
+
+    }
 }
