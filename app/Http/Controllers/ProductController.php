@@ -11,6 +11,33 @@ use App\Models\Color;
 
 class ProductController extends Controller
 {
+    public function getProductSearch(Request $request) 
+    {
+        $data['meta_title'] = 'Search';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        $getProduct = Product::getProduct();
+
+        $page = 0;
+        if (!empty($getProduct->nextPageUrl())) {
+            $parse_url = parse_url($getProduct ->nextPageUrl());
+            if (!empty($parse_url [ 'query']))
+            {
+                parse_str($parse_url['query'], $get_array);
+                $page = !empty($get_array['page']) ? $get_array['page'] : 0;
+            }
+        }
+        $data['page'] = $page;
+
+        $data["getProduct"] = $getProduct;
+
+        $data['getColor'] = Color::getColorsActive();
+        $data['getBrand'] = Brand::getBrandsActive();
+
+        return view('product.index', $data);
+    }
+
     public function getCategory($url, $suburl = '')
     {
         $getProductSingle = Product::getSingleSlug($url);

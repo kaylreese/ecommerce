@@ -94,10 +94,10 @@
             <div class="header-right">
                 <div class="header-search">
                     <a href="#" class="search-toggle" role="button" title="Search"><i class="icon-search"></i></a>
-                    <form action="{{ url('search') }}" method="get">
+                    <form action="{{ url('search') }}" method="GET">
                         <div class="header-search-wrapper">
                             <label for="q" class="sr-only">Search</label>
-                            <input type="search" class="form-control" name="q" id="q" placeholder="Search in..." required>
+                            <input type="search" class="form-control" name="q" id="q" value="{{ !empty(Request::get('q')) ? Request::get('q') : '' }}" placeholder="Search in..." required>
                         </div>
                     </form>
                 </div>

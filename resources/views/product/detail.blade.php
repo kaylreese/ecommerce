@@ -182,21 +182,21 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="product-desc-tab" role="tabpanel" aria-labelledby="product-desc-link">
-                        <div class="product-desc-content">
+                        <div class="product-desc-content" style="margin-top: 20px;">
                             <div class="container">
                                 {!! $getProduct->description !!}
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-info-tab" role="tabpanel" aria-labelledby="product-info-link">
-                        <div class="product-desc-content">
+                        <div class="product-desc-content" style="margin-top: 20px;">
                             <div class="container">
                                 {!! $getProduct->addition_information !!}
                             </div>
                         </div>
                     </div>
                     <div class="tab-pane fade" id="product-shipping-tab" role="tabpanel" aria-labelledby="product-shipping-link">
-                        <div class="product-desc-content">
+                        <div class="product-desc-content" style="margin-top: 20px;">
                             <div class="container">
                                 {!! $getProduct->shipping_returns !!}
                             </div>
