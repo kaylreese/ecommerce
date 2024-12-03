@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\ColorController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
+use App\Http\Controllers\PaymentController;
 
 
 /*
@@ -79,6 +80,8 @@ Route::group(['middleware' => 'admin'], function () {
 });
 
 Route::get('/', [HomeController::class, 'index']);
+Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 Route::get('search', [Product::class, 'getProductSearch']);
 Route::post('productsfilter', [Product::class, 'productsFilter']);
 Route::get('{category?}/{subcategory?}', [Product::class, 'getCategory']);

@@ -12,6 +12,11 @@ class Product extends Model
 
     protected $table = 'products';
 
+    static public function getSingle($id)
+    {
+        return self::find($id);
+    }
+
     static public function getProducts()
     {
         return self::select('products.*', 'users.name as created_by_name', 'categories.name as category_name', 'subcategories.name as subcategory_name')
