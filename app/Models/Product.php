@@ -82,7 +82,24 @@ class Product extends Model
                 $data = $data->where('products.status', '=', 1)
                 ->groupBy('products.id')
                 ->orderBy('products.id', 'desc')
-                ->paginate(3);
+                ->paginate(6);
+
+        return $data;
+    }
+
+    static public function getRelatedProduct($product_id, $subcategory_id) 
+    {
+        $data = Product::select('products.*', 'users.name as created_by_name', 'categories.name as category_name', 'categories.url as category_url', 'subcategories.name as subcategory_name', 'subcategories.url as subcategory_url')
+                ->join('users', 'users.id', '=', 'products.created_by')
+                ->join('subcategories', 'subcategories.id', '=', 'products.subcategory_id')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->where('products.id', '!=', $product_id)
+                ->where('products.subcategory_id', '=', $subcategory_id)
+                ->where('products.status', '=', 1)
+                ->groupBy('products.id')
+                ->orderBy('products.id', 'desc')
+                ->limit(10)
+                ->get();
 
         return $data;
     }
@@ -95,6 +112,11 @@ class Product extends Model
     static public function checkUrl($url)
     {
         return self::where('url', '=', $url)->count();
+    }
+    
+    static public function getSingleSlug($url)
+    {
+        return self::where('url', '=', $url)->where('products.status', '=', 1)->first();
     }
 
     public function getColor()
@@ -110,5 +132,15 @@ class Product extends Model
     public function getImages()
     {
         return $this->hasMany(ProductImage::class, 'product_id')->orderBy('order_by', 'asc');
+    }
+
+    public function getCategory()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
+    
+    public function getSubCategory()
+    {
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
 }

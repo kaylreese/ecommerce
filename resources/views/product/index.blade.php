@@ -71,8 +71,8 @@
                     <aside class="col-lg-3 order-lg-first">
                         <form id="FilterForm" action="" method="POST">
                             @csrf 
-                            <input type="text" name="old_subcategory_id" value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
-                            <input type="text" name="old_category_id" value="{{ !empty($getCategory) ? $getCategory->id : '' }}">
+                            <input type="hidden" name="old_subcategory_id" value="{{ !empty($getSubCategory) ? $getSubCategory->id : '' }}">
+                            <input type="hidden" name="old_category_id" value="{{ !empty($getCategory) ? $getCategory->id : '' }}">
                             <input type="hidden" name="subcategory_id" id="get_subcategory_id">
                             <input type="hidden" name="brand_id" id="get_brand_id">
                             <input type="hidden" name="color_id" id="get_color_id">

@@ -13,6 +13,8 @@ class ProductController extends Controller
 {
     public function getCategory($url, $suburl = '')
     {
+        $getProductSingle = Product::getSingleSlug($url);
+
         // $category = Category::where('url', '=', $url)->first();
         $getCategory = Category::getCategoryUrl($url);
         $getSubCategory = SubCategory::getSubCategoryUrl($suburl);
@@ -20,7 +22,16 @@ class ProductController extends Controller
         $data['getColor'] = Color::getColorsActive();
         $data['getBrand'] = Brand::getBrandsActive();
 
-        if(!empty($getCategory) && !empty($getSubCategory)) {
+        if(!empty($getProductSingle )) {
+            $data['meta_title'] = $getProductSingle->title;
+            $data['meta_description'] = $getProductSingle->short_description;
+
+            $data["getProduct"] = $getProductSingle;
+
+            $data['getRelatedProduct'] = Product::getRelatedProduct($getProductSingle->id, $getProductSingle->subcategory_id);
+
+            return view('product.detail')->with($data);
+        }else if(!empty($getCategory) && !empty($getSubCategory)) {
             $data['meta_title'] = $getSubCategory->meta_title;
             $data['meta_keywords'] = $getSubCategory->meta_keywords;
             $data['meta_description'] = $getSubCategory->meta_description;
