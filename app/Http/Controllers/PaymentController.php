@@ -7,6 +7,7 @@ use Darryldecode\Cart\Facades\CartFacade as Cart;
 use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
+use App\Models\DiscountCodeModel;
 
 class PaymentController extends Controller
 {
@@ -82,5 +83,34 @@ class PaymentController extends Controller
         Cart::remove($id);
 
         return redirect()->back();
+    }
+
+    public function apply_discount_code(Request $request) 
+    {
+        $getDiscount = DiscountCodeModel::CheckDiscount($request->discount_code);
+
+        if (!empty($getDiscount)) {
+            $total = Cart::getSubTotal();
+
+            if ($getDiscount->type == 'Amount') {
+                $discount_amount = $getDiscount->percent_amount;
+                $payable_total = $total - $discount_amount;
+            } else {
+                $discount_amount = ($total * $getDiscount->percent_amount) / 100;
+                $payable_total = $total - $discount_amount;
+            }
+            
+            $json['status'] =  true;
+            $json['message'] = 'success';
+            $json['discount_amount'] =  number_format($discount_amount, 2);
+            $json['payable_total'] = number_format($payable_total, 2);
+        } else {
+            $json['status'] =  false;
+            $json['message'] = 'Discount code is not valid';
+            $json['discount_amount'] = '0.00';
+            $json['payable_total'] = number_format(Cart::getSubTotal());
+        }
+        
+        echo json_encode($json);
     }
 }
