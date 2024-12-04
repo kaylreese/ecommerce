@@ -67,12 +67,12 @@
                                     <div class="tab-pane fade show active" id="signin" role="tabpanel" aria-labelledby="signin-tab">
                                         <form action="#">
                                             <div class="form-group">
-                                                <label for="singin-email">Username or email address *</label>
+                                                <label for="singin-email">Username or email address: <span style="color: rgb(174, 5, 5)">*</span></label>
                                                 <input type="text" class="form-control" id="singin-email" name="singin-email" required>
                                             </div>
     
                                             <div class="form-group">
-                                                <label for="singin-password">Password *</label>
+                                                <label for="singin-password">Password: <span style="color: rgb(174, 5, 5)">*</span></label>
                                                 <input type="password" class="form-control" id="singin-password" name="singin-password" required>
                                             </div>
     
@@ -112,13 +112,18 @@
                                     <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
                                         <form action="#">
                                             <div class="form-group">
-                                                <label for="register-email">Your email address *</label>
+                                                <label for="name">Name: <span style="color: rgb(174, 5, 5)">*</span></label>
+                                                <input type="text" class="form-control" id="register-name" name="name" required>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <label for="register-email">Email address: <span style="color: rgb(174, 5, 5)">*</span></label>
                                                 <input type="email" class="form-control" id="register-email" name="register-email" required>
                                             </div>
     
                                             <div class="form-group">
-                                                <label for="register-password">Password *</label>
-                                                <input type="password" class="form-control" id="register-password" name="register-password" required>
+                                                <label for="register-password">Password: <span style="color: rgb(174, 5, 5)">*</span></label>
+                                                <input type="password" class="form-control" id="register-password" name="password" required>
                                             </div>
     
                                             <div class="form-footer">
@@ -129,7 +134,7 @@
     
                                                 <div class="custom-control custom-checkbox">
                                                     <input type="checkbox" class="custom-control-input" id="register-policy" required>
-                                                    <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> *</label>
+                                                    <label class="custom-control-label" for="register-policy">I agree to the <a href="#">privacy policy</a> <span style="color: rgb(174, 5, 5)">*</span></label>
                                                 </div>
                                             </div>
                                         </form>

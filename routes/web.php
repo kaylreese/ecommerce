@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
+use App\Http\Controllers\Admin\ShippingChargeController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
@@ -85,6 +86,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/discountcode/edit/{id}', [DiscountCodeController::class, 'edit']);
     Route::put('admin/discountcode/edit/{id}', [DiscountCodeController::class, 'update']);
     Route::get('admin/discountcode/delete/{id}', [DiscountCodeController::class, 'destroy']);
+
+    Route::get('admin/shippingcharge', [ShippingChargeController::class, 'index']);
+    Route::get('admin/shippingcharge/create', [ShippingChargeController::class, 'create']);
+    Route::post('admin/shippingcharge/store', [ShippingChargeController::class, 'store']);
+    Route::get('admin/shippingcharge/edit/{id}', [ShippingChargeController::class, 'edit']);
+    Route::put('admin/shippingcharge/edit/{id}', [ShippingChargeController::class, 'update']);
+    Route::get('admin/shippingcharge/delete/{id}', [ShippingChargeController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);

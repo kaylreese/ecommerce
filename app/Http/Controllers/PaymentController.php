@@ -8,20 +8,10 @@ use App\Models\Product;
 use App\Models\ProductSize;
 use App\Models\ProductColor;
 use App\Models\DiscountCodeModel;
+use App\Models\ShippingChargeModel;
 
 class PaymentController extends Controller
-{
-    public function checkout()
-    {
-        $data['meta_title'] = 'Cart';
-        $data['meta_description'] = '';
-        $data['meta_keywords'] = '';
-
-        $data['cart'] = Cart::getContent();
-
-        return view('payment.checkout', $data);
-    }
-    
+{    
     public function cart()
     {
         $data['meta_title'] = 'Cart';
@@ -85,6 +75,18 @@ class PaymentController extends Controller
         return redirect()->back();
     }
 
+    public function checkout()
+    {
+        $data['meta_title'] = 'Cart';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+
+        $data['cart'] = Cart::getContent();
+        $data['getShipping'] = ShippingChargeModel::getShippingChargesActive();
+
+        return view('payment.checkout', $data);
+    }
+
     public function apply_discount_code(Request $request) 
     {
         $getDiscount = DiscountCodeModel::CheckDiscount($request->discount_code);
@@ -103,12 +105,12 @@ class PaymentController extends Controller
             $json['status'] =  true;
             $json['message'] = 'success';
             $json['discount_amount'] =  number_format($discount_amount, 2);
-            $json['payable_total'] = number_format($payable_total, 2);
+            $json['payable_total'] = $payable_total;
         } else {
             $json['status'] =  false;
             $json['message'] = 'Discount code is not valid';
             $json['discount_amount'] = '0.00';
-            $json['payable_total'] = number_format(Cart::getSubTotal());
+            $json['payable_total'] = Cart::getSubTotal();
         }
         
         echo json_encode($json);
