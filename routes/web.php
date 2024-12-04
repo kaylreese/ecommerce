@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\DiscountCodeController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
@@ -77,12 +78,22 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/color/edit/{id}', [ColorController::class, 'edit']);
     Route::put('admin/color/edit/{id}', [ColorController::class, 'update']);
     Route::get('admin/color/delete/{id}', [ColorController::class, 'destroy']);
+
+    Route::get('admin/discountcode', [DiscountCodeController::class, 'index']);
+    Route::get('admin/discountcode/create', [DiscountCodeController::class, 'create']);
+    Route::post('admin/discountcode/store', [DiscountCodeController::class, 'store']);
+    Route::get('admin/discountcode/edit/{id}', [DiscountCodeController::class, 'edit']);
+    Route::put('admin/discountcode/edit/{id}', [DiscountCodeController::class, 'update']);
+    Route::get('admin/discountcode/delete/{id}', [DiscountCodeController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);
 
 Route::get('cart', [PaymentController::class, 'cart']);
+Route::post('updatecart', [PaymentController::class, 'update_cart']);
 Route::get('cart/delete/{id}', [PaymentController::class, 'cart_delete']);
+
+Route::get('checkout', [PaymentController::class, 'checkout']);
 
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 

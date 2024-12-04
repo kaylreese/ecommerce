@@ -10,6 +10,17 @@ use App\Models\ProductColor;
 
 class PaymentController extends Controller
 {
+    public function checkout()
+    {
+        $data['meta_title'] = 'Cart';
+        $data['meta_description'] = '';
+        $data['meta_keywords'] = '';
+
+        $data['cart'] = Cart::getContent();
+
+        return view('payment.checkout', $data);
+    }
+    
     public function cart()
     {
         $data['meta_title'] = 'Cart';
@@ -48,6 +59,20 @@ class PaymentController extends Controller
                 'color_id' => $color_id,
             )
         ]);
+
+        return redirect()->back();
+    }
+
+    public function update_cart(Request $request)
+    {
+        foreach ($request->cart as $cart) {
+            Cart::update($cart['id'], array(
+                'quantity' => array(
+                    'relative' => false,
+                    'value' => $cart['quantity']
+                ),
+            ));
+        }
 
         return redirect()->back();
     }

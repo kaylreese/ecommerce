@@ -189,6 +189,12 @@
                     <p>Colors</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/discountcode') }}" class="nav-link @if( Request::segment(2) == 'discountcode') active @endif">
+                    <i class="nav-icon fas fa-regular fa-cookie-bite"></i>
+                    <p>Discount Code</p>
+                    </a>
+                </li>
                 {{--
                 <li class="nav-item">
                     <a href="#" class="nav-link @if( Request::segment(2) == 'product') active @endif">
