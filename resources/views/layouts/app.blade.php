@@ -110,7 +110,9 @@
                                     </div>
 
                                     <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
-                                        <form action="#">
+                                        <form action="#" id="FormRegister" method="POST">
+                                            @csrf
+
                                             <div class="form-group">
                                                 <label for="name">Name: <span style="color: rgb(174, 5, 5)">*</span></label>
                                                 <input type="text" class="form-control" id="register-name" name="name" required>
@@ -118,7 +120,7 @@
                                             
                                             <div class="form-group">
                                                 <label for="register-email">Email address: <span style="color: rgb(174, 5, 5)">*</span></label>
-                                                <input type="email" class="form-control" id="register-email" name="register-email" required>
+                                                <input type="email" class="form-control" id="register-email" name="email" required>
                                             </div>
     
                                             <div class="form-group">
@@ -208,6 +210,33 @@
         @yield('script')
         <!-- Main JS File -->
         <script src="{{ url('public/page/js/main.js') }}"></script>
+
+        <script type="text/javascript">
+            $('body').delegate('#FormRegister', 'submit', function(e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('auth_register') }}",
+                    data: $(this).serialize(),
+                    dataType:"json",
+                    success: function(data) {
+                        alert(data.message);
+
+                        if (data.status == true) {
+                            $('#register-name').val('');
+                            $('#register-email').val('');
+                            $('#register-password').val('');
+
+                            location.reload();
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            })
+        </script>
     </body>
     
 </html>

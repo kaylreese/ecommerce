@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Hash;
-use Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegisterMail;
 
 class AuthController extends Controller
 {
@@ -33,5 +36,39 @@ class AuthController extends Controller
     {
         Auth::logout();
         return redirect('admin');
+    }
+
+    public function auth_register(Request $request) 
+    {
+        $checkEmail = User::checkEmail($request->email);
+
+        if (empty($checkEmail)) {
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->password = Hash::make($request->password);
+            $user->save();
+
+            Mail::to($user->email)->send(new RegisterMail($user));
+
+            $json['status'] = true;
+            $json['message'] = 'Your account successfully register. Please verify your email address.';
+        } else {
+            $json['status'] = false;
+            $json['message'] = 'This email already register please choose another.';
+        }
+
+        return json_encode($json);
+    }
+    
+    
+    public function activate_email($id) 
+    {
+        $id = base64_decode($id);
+        $user = User::getUser($id);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->save();
+
+        return redirect(url(''))->with('success', 'Email successfully verified.');
     }
 }
