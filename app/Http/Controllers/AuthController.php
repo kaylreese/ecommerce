@@ -7,7 +7,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use App\Mail\RegisterMail;
+use App\Mail\ForgotPasswordMail;
 
 class AuthController extends Controller
 {
@@ -38,6 +40,34 @@ class AuthController extends Controller
         return redirect('admin');
     }
 
+    public function auth_login(Request $request) 
+    {
+        $remember = !empty($request->is_remember) ? true : false;
+
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password, 'status' => 1, 'is_delete' => 0], $remember)) {
+           
+            if (!empty(Auth::user()->email_verified_at)) {
+                $json['status'] = true;
+                $json['message'] = 'success';
+            } else {
+                $user = User::getUser(Auth::user()->id);
+
+                Mail::to($user->email)->send(new RegisterMail($user));
+                Auth::logout();
+
+                $json['status'] = false;
+                $json['message'] = 'Your account email not verified. Please check your inbox and verified.';
+            }
+            
+        } else {
+            $json['status'] = false;
+            $json['message'] = 'Please enter currect email and password';
+        }
+
+        return json_encode($json);
+    }
+    
+    
     public function auth_register(Request $request) 
     {
         $checkEmail = User::checkEmail($request->email);
@@ -70,5 +100,63 @@ class AuthController extends Controller
         $user->save();
 
         return redirect(url(''))->with('success', 'Email successfully verified.');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect(url(''));
+    }
+
+    public function forgot_password(Request $request)
+    {
+        $checkEmail = User::checkEmail($request->email);
+
+        $data['meta_title'] = "Forgot Password";
+
+        return view('auth.forgot');
+    }
+    
+    public function auth_forgot_password(Request $request)
+    {
+        $user = User::where('email', '=', $request->email)->first();
+
+        if (!empty($user)) {
+            $user->remember_token = Str::random(30);
+            $user->save();
+
+            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+
+            return redirect()->back()->with('success', "Please check your email and reset your password");
+        } else {
+            return redirect()->back()->with('error', "Email not found in the system.");
+        }
+    }
+
+    public function reset($token)
+    {
+        $user = User::where('remember_token', '=', $token)->first();
+
+        if(!empty($user)) {
+            $data['meta_title'] = "Reset Password";
+            $data['user'] = $user;
+
+            return view('auth.reset', $data);
+        } else {
+            abort (404);
+        }
+    }
+
+    public function auth_reset($token, Request $request)
+    {
+        if($request->password == $request->cpassword) {
+            $user = User::where('remember_token', '=', $token)->first();
+            $user->password = Hash::make($request->password);
+            $user->remember_token = Str::random(30);
+            $user->save();
+            return redirect(url(''))->with('success', "Password successfully reset");
+        } else {
+            return redirect()->back()->with('error', "Password and confirm password does not match");
+        }
     }
 }
