@@ -15,6 +15,9 @@ use App\Models\OrderItemModel;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Client;
+use Stripe\Stripe;
+use Illuminate\Support\Facades\Session;
 
 class PaymentController extends Controller
 {    
@@ -227,12 +230,267 @@ class PaymentController extends Controller
             }
 
             $json['status'] = true;
-            $json['message'] = "Order Success";
+            $json['message'] = "success";
+            $json['redirect'] = url('checkout/payment?order_id='.base64_encode($order->id));
         } else {
             $json['status'] = false;
             $json['message'] = $message;
         }
 
         echo json_encode(($json));
+    }
+
+
+    public function checkout_payment(Request $request) {
+        if(!empty(Cart::getSubTotal()) && !empty($request->order_id)) {
+            $order_id = base64_decode($request->order_id);
+
+            $getOrder = OrderModel::getOrder($order_id);
+
+            if (!empty($getOrder) && isset($getOrder->payment_method, $getOrder->id, $getOrder->total_amount)) {
+                switch ($getOrder->payment_method) {
+                    case 'cash':
+                        $getOrder->is_payment = 1;
+                        $getOrder->save();
+                        Cart::clear();
+                        return redirect('cart')->with('success', 'Order successfully placed');
+                    case 'paypal':
+                        $query = [
+                            'business' => 'sb-inrjw34625688@business.example.com',
+                            'cmd' => '_xclick',
+                            'item_name' => 'E-Commerce',
+                            'no_shipping' => '1',
+                            'item_number' => $getOrder->id,
+                            'amount' => $getOrder->total_amount,
+                            'currency_code' => 'USD',
+                            'cancel_return' => url('checkout'),
+                            'return' => url('paypal/success-payment'),
+                        ];
+                        $query_string = http_build_query($query);
+                        return redirect()->away('https://www.sandbox.paypal.com/cgi-bin/webscr?' . $query_string);
+                    case 'stripe':
+                        Stripe::setApiKey(env('STRIPE_SECRET'));
+                        $finalprice = $getOrder->total_amount * 100;
+
+                        $session = \Stripe\Checkout\Session::create([
+                            'customer_email' => $getOrder->email,
+                            'payment_method_types' => ['card'],
+                            'line_items' => [[
+                                'price_data' => [
+                                    'currency' => 'usd',
+                                    'product_data' => [
+                                        'name' => 'E-Commerce',
+                                    ],
+                                    'unit_amount' => intval($finalprice),
+                                ],
+                                'quantity' => 1,
+                            ]],
+                            'mode' => 'payment',
+                            'success_url' => url('stripe/payment-success'),
+                            'cancel_url' => url('checkout'),
+                        ]);
+
+                        $getOrder->stripe_session_id = $session['id'];
+                        $getOrder->save();
+
+                        // dd($getOrder);
+
+                        $data['session_id'] = $session['id'];
+                        Session::put('stripe_session_id', $session ['id']);
+                        $data['setPublicKey'] = env('STRIPE_KEY');
+                        $data['meta_title'] = 'Stripe Checkout';
+
+                        return view('payment.stripecharge', $data);
+                    default:
+                        abort(404);
+                }
+            } else {
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    public function paypal_success_payment(Request $request) {
+        // dd($request->all());
+        if (!empty($request->item_number) && !empty($request->st) && $request->st == 'Completed') {
+            $getOrder = OrderModel::getOrder($request->item_number);
+
+            if (!empty($getOrder)) {
+                $getOrder->is_payment = 1;
+                $getOrder->payment_id = $request->tx;
+                $getOrder->payment_data = json_encode($request->all());
+                $getOrder->save();
+
+                Cart::clear();
+                return redirect('cart')->with('success', 'Order successfully placed');
+            } else {
+                abort(404);
+            }
+        } else {
+            abort(404);
+        }
+    }
+
+    // public function paypal_success_payment(Request $request) {
+    //     dd($request->all());
+    //     // Verifica que PayPal haya enviado los parámetros requeridos
+    //     if ($request->has('PayerID') && $request->has('paymentId')) {
+    //         $payerID = $request->PayerID;
+    //         $paymentID = $request->paymentId;
+    
+    //         // URL base de PayPal, configurable desde .env
+    //         $paypalBaseUrl = env('PAYPAL_API_BASE_URL', 'https://www.sandbox.paypal.com');
+    
+    //         try {
+    //             // Realiza una llamada GET para verificar el estado del pago
+    //             $verificationUrl = "{$paypalBaseUrl}/cgi-bin/webscr?cmd=_notify-synch&tx={$paymentID}&at=" . env('PAYPAL_VERIFY_TOKEN');
+    
+    //             // Envía una solicitud cURL
+    //             $ch = curl_init();
+    //             curl_setopt($ch, CURLOPT_URL, $verificationUrl);
+    //             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //             $response = curl_exec($ch);
+    //             curl_close($ch);
+    
+    //             // Procesa la respuesta de PayPal
+    //             if ($response) {
+    //                 $lines = explode("\n", $response);
+    //                 $keyValues = [];
+    //                 foreach ($lines as $line) {
+    //                     $parts = explode("=", $line, 2);
+    //                     if (count($parts) == 2) {
+    //                         $keyValues[urldecode($parts[0])] = urldecode($parts[1]);
+    //                     }
+    //                 }
+    
+    //                 // Verifica el estado del pago
+    //                 if (!empty($keyValues) && $keyValues['payment_status'] === 'Completed') {
+    //                     $orderID = $keyValues['invoice']; // Invoice debe ser el número de pedido enviado a PayPal
+    //                     $getOrder = OrderModel::getOrder($orderID);
+    
+    //                     if ($getOrder) {
+    //                         $getOrder->is_payment = 1;
+    //                         $getOrder->payment_id = $paymentID; // ID de la transacción
+    //                         $getOrder->payment_data = json_encode($keyValues); // Guarda todos los datos de la transacción
+    //                         $getOrder->save();
+    
+    //                         Cart::clear();
+    //                         return redirect('cart')->with('success', 'Order successfully placed');
+    //                     } else {
+    //                         abort(404, 'Order not found');
+    //                     }
+    //                 } else {
+    //                     return redirect('cart')->with('error', 'Payment not approved.');
+    //                 }
+    //             } else {
+    //                 return redirect('cart')->with('error', 'Failed to verify payment.');
+    //             }
+    //         } catch (\Exception $e) {
+    //             // \Log::error('PayPal Verification Error: ' . $e->getMessage());
+    //             return redirect('cart')->with('error', 'Failed to verify payment.');
+    //         }
+    //     } else {
+    //         return redirect('cart')->with('error', 'Invalid payment response.');
+    //     }
+    // }
+    
+
+    // public function paypal_success_payment(Request $request) {
+       
+    //     if (!empty($request->PayerID)) {
+    //         $payerID = $request->PayerID;
+    
+    //         // Configura tu cliente HTTP
+    //         $client = new Client();
+    //         $paypalUrl = "https://api-m.sandbox.paypal.com/v1/payments/payment/"; // Sandbox
+    //         // $paypalUrl = "https://api-m.paypal.com/v1/payments/payment/"; // Producción
+    
+    //         try {
+    //             // Llama a la API para obtener detalles
+    //             $response = $client->request('GET', $paypalUrl, [
+    //                 'headers' => [
+    //                     'Content-Type' => 'application/json',
+    //                     'Authorization' => 'Bearer ' . $this->getPaypalAccessToken(), // Asegúrate de implementar esta función
+    //                 ],
+    //                 'query' => [
+    //                     'payer_id' => $payerID,
+    //                 ],
+    //             ]);
+    
+    //             $paymentDetails = json_decode($response->getBody(), true);
+
+    //             dd($paymentDetails);
+    
+    //             // Procesa la información de pago
+    //             if ($paymentDetails['state'] == 'approved') {
+    //                 $orderID = $paymentDetails['transactions'][0]['invoice_number']; // O ajusta según tu implementación
+    //                 $getOrder = OrderModel::getOrder($orderID);
+    
+    //                 if ($getOrder) {
+    //                     $getOrder->is_payment = 1;
+    //                     $getOrder->payment_id = $paymentDetails['id']; // ID de la transacción
+    //                     $getOrder->payment_data = json_encode($paymentDetails);
+    //                     $getOrder->save();
+    
+    //                     Cart::clear();
+    //                     return redirect('cart')->with('success', 'Order successfully placed');
+    //                 } else {
+    //                     abort(404, 'Order not found');
+    //                 }
+    //             } else {
+    //                 return redirect('cart')->with('error', 'Payment not approved.');
+    //             }
+    //         } catch (\Exception $e) {
+    //             // \Log::error('PayPal API Error: ' . $e->getMessage());
+    //             return redirect('cart')->with('error', 'Failed to verify payment.');
+    //         }
+    //     } else {
+    //         return redirect('cart')->with('error', 'Invalid payment response.');
+    //     }
+    // }
+
+    // Función para obtener el token de acceso
+    public function getPaypalAccessToken() {
+        $client = new Client();
+        $paypalTokenUrl = env('PAYPAL_API_BASE_URL', 'https://api-m.sandbox.paypal.com') . '/v1/oauth2/token';
+
+        try {
+            $response = $client->post($paypalTokenUrl, [
+                'auth' => [env('PAYPAL_CLIENT_ID'), env('PAYPAL_SECRET')],
+                'form_params' => [
+                    'grant_type' => 'client_credentials',
+                ],
+            ]);
+
+            $data = json_decode($response->getBody(), true);
+            return $data['access_token'];
+        } catch (\Exception $e) {
+            // \Log::error('PayPal Token Error: ' . $e->getMessage());
+            throw new \Exception('Failed to retrieve PayPal access token.');
+        }
+    }
+
+
+    public function stripe_success_payment(Request $request) {
+        $trans_id = Session::get('stripe_session_id');
+        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $getdata = \Stripe\Checkout\Session::retrieve($trans_id);
+
+        $getOrder = OrderModel::where('stripe_session_id', '=', $getdata->id)->first();
+
+        if (!empty($getOrder) && !empty($getdata->id) && $getdata->id == $getOrder->stripe_session_id) {
+            $getOrder->is_payment = 1;
+            $getOrder->transaction_id = $getdata->id;
+            $getOrder->payment_data = json_encode($getdata);
+            $getOrder->save();
+
+            Cart::clear();
+
+            return redirect('cart')->with('success', 'Order successfully placed.');
+        } else {
+            return redirect('cart')->with('error', 'Due to some error please try again.');
+        }
     }
 }

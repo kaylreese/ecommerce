@@ -226,8 +226,10 @@
                 contentType: false,
                 dataType:"json",
                 success: function(data) {
-                    if(data.status == true) {
+                    if(data.status == false) {
                         alert(data.message);
+                    } else {
+                        window.location.href = data.redirect;
                     }
                 },
                 error: function (data) {

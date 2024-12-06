@@ -114,6 +114,9 @@ Route::get('cart/delete/{id}', [PaymentController::class, 'cart_delete']);
 Route::get('checkout', [PaymentController::class, 'checkout']);
 Route::post('checkout/apply_discount_code', [PaymentController::class, 'apply_discount_code']);
 Route::post('checkout/place_order', [PaymentController::class, 'place_order']);
+Route::get('checkout/payment', [PaymentController::class, 'checkout_payment']);
+Route::get('paypal/success-payment', [PaymentController::class, 'paypal_success_payment']);
+Route::get('stripe/payment-success', [PaymentController::class, 'stripe_success_payment']);
 
 Route::post('product/add-to-cart', [PaymentController::class, 'add_to_cart']);
 
