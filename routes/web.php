@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
+use App\Http\Controllers\Admin\OrderController;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
@@ -41,6 +42,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('admin/admin/edit/{id}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{id}', [AdminController::class, 'delete']);
+
+    Route::get('admin/orders', [OrderController::class, 'index']);
+    Route::get('admin/orders/detail/{id}', [OrderController::class, 'show']);
 
     Route::get('admin/category', [CategoryController::class, 'index']);
     Route::get('admin/category/create', [CategoryController::class, 'create']);
