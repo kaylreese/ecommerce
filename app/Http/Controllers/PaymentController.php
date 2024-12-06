@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Session;
+use App\Mail\OrderInvoiceMail;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {    
@@ -182,6 +184,7 @@ class PaymentController extends Controller
                 $order->user_id = trim($user_id);
             }
 
+            $order->order_number = mt_rand(100000000, 999999999);
             $order->first_name = trim($request->first_name);
             $order->last_name = trim($request->last_name);
             $order->company_name = trim($request->company_name);
@@ -486,7 +489,10 @@ class PaymentController extends Controller
             $getOrder->payment_data = json_encode($getdata);
             $getOrder->save();
 
-            Cart::clear();
+            Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+            die();
+            // Cart::clear();
 
             return redirect('cart')->with('success', 'Order successfully placed.');
         } else {

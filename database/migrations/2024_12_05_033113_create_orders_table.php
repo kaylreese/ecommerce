@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->string('order_number')->nullable();
             $table->string('stripe_session_id')->nullable();
             $table->string('transaction_id')->nullable();
             $table->integer('user_id')->nullable();
@@ -23,7 +24,7 @@ return new class extends Migration
             $table->string('address_one')->nullable();
             $table->string('address_two')->nullable(); // Campo opcional
             $table->string('city')->nullable();
-            $table->string('state')->nullable();
+            $table->string('status')->nullable()->comment('0: Pending, 1: Inprogress, 2: Delivered, 3: Completed, 4: Cancelled');
             $table->string('postcode')->nullable();
             $table->string('phone')->nullable();
             $table->string('email')->nullable();
@@ -38,7 +39,7 @@ return new class extends Migration
             $table->integer('deleted')->default(0);
             $table->integer('is_payment')->default(0);
             $table->text('payment_data')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('state')->default(1);
         });
     }
 
