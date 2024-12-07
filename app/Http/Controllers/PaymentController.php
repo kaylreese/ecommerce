@@ -491,8 +491,8 @@ class PaymentController extends Controller
 
             Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
 
-            die();
-            // Cart::clear();
+            // die();
+            Cart::clear();
 
             return redirect('cart')->with('success', 'Order successfully placed.');
         } else {

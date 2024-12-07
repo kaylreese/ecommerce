@@ -9,7 +9,7 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class OrderInvoiceMail extends Mailable
+class OrderStatusMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -29,7 +29,7 @@ class OrderInvoiceMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'E-Commerce Order Invoice',
+            subject: 'E-Commerce Order Status',
         );
     }
 
@@ -39,7 +39,7 @@ class OrderInvoiceMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            markdown: 'emails.orderinvoice',
+            markdown: 'emails.orderstatus',
             with: [
                 'order' => $this->order,
             ],

@@ -1,7 +1,9 @@
 @extends('admin.layout.app')
 
 @section('style')
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @endsection
 
 
@@ -123,6 +125,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
+                                        <th>Order Number</th>
                                         <th>Name</th>
                                         <th>Company Name</th>
                                         <th>Country</th>
@@ -146,6 +149,7 @@
                                     @foreach ($getOrders as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
+                                            <td>{{ $value->order_number }}</td>
                                             <td>{{ $value->first_name }} {{ $value->last_name}}</b>
                                             <td>{{ $value->company_name }}</td>
                                             <td>{{ $value->country }}</td>
@@ -160,11 +164,19 @@
                                             <td>{{ number_format($value->shipping_amount, 2) }}</td>
                                             <td>{{ number_format($value->total_amount, 2) }}</td>
                                             <td style="text-transform: capitalize;">{{ $value->payment_method }}</td>
-                                            <td>{{ ($value->status == 1) ? 'Active' : 'Inactive' }}</td>
+                                            <td>
+                                                <select name="status" id="{{ $value->id }}" class="form-control ChangeStatus" style="width: 130px">
+                                                    <option {{ ($value->status == 0) ? 'selected' : '' }} value="0">Pending</option>
+                                                    <option {{ ($value->status == 1) ? 'selected' : '' }} value="1">In Progress</option>
+                                                    <option {{ ($value->status == 2) ? 'selected' : '' }} value="2">Delivered</option>
+                                                    <option {{ ($value->status == 3) ? 'selected' : '' }} value="3">Completed</option>
+                                                    <option {{ ($value->status == 4) ? 'selected' : '' }} value="4">Cancelled</option>
+                                                </select>
+                                            </td>
                                             <td>{{ date('d-m-Y h:i A', strtotime($value->created_at)) }}</td>
                                             <td>
-                                                <a href="{{ url('admin/orders/detail/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                                <a href="{{ url('admin/orders/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                                <a href="{{ url('admin/orders/detail/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Detail</a>
+                                                {{-- <a href="{{ url('admin/orders/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a> --}}
                                             </td>
                                         </tr>
                                     @endforeach
@@ -185,5 +197,36 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+    $('body').delegate('.ChangeStatus', 'change', function(){
+        var status = $(this).val();
+        var order_id = $(this).attr('id');
 
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        
+        $.ajax({
+            type: "GET",
+            url: "{{ url('admin/orders/orders_status') }}",
+            data: {
+                status: status,
+                order_id: order_id
+            },
+            dataType:"json",
+            success: function(data) {
+                if (data.message) {
+                    toastr.success(data.message || 'Action completed successfully!');
+                } else {
+                    toastr.warning(data.message || 'Action completed with warnings!');
+                }
+            },
+            error: function(xhr, status, error) {
+                toastr.error('An error occurred: ' + (xhr.responseJSON.message || error));
+            }
+        });
+    })
+</script>
 @endsection
