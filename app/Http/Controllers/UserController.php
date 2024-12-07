@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\OrderModel;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -11,6 +13,16 @@ class UserController extends Controller
         $data['header_title'] = "Dashboard";
         $data['meta_keywords'] = '';
         $data['meta_description'] = '';
+
+        $data['totalorders'] = OrderModel::getTotalOrdersUser(Auth::user()->id);
+        $data['totalorderstoday'] = OrderModel::getTotalOrdersTodayUser(Auth::user()->id);
+        $data['totalamount'] = OrderModel::getTotalAmountUser(Auth::user()->id);
+        $data['totalamounttoday'] = OrderModel::getTotalAmountTodayUser(Auth::user()->id);
+
+        $data['totalPending'] = OrderModel::getTotalStatusUser(Auth::user()->id, 0);
+        $data['totalInprogress'] = OrderModel::getTotalStatusUser(Auth::user()->id, 1);
+        $data['totalCompleted'] = OrderModel::getTotalStatusUser(Auth::user()->id, 3);
+        $data['totalCancelled'] = OrderModel::getTotalStatusUser(Auth::user()->id, 4);
         
         return view('user.dashboard', $data);
     }

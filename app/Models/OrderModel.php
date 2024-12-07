@@ -168,4 +168,63 @@ class OrderModel extends Model
 
         return $data;
     }
+
+    // USER
+
+    static public function getTotalOrdersUser($user_id)
+    {
+        $data = self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->count();
+
+        return $data;
+    }
+    
+    static public function getTotalOrdersTodayUser($user_id)
+    {
+        $data = self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
+
+        return $data;
+    }
+
+    static public function getTotalAmountUser($user_id)
+    {
+        $data = self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->sum('total_amount');
+
+        return $data;
+    }
+    static public function getTotalAmountTodayUser($user_id)
+    {
+        $data = self::select('id')
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->sum('total_amount');
+
+        return $data;
+    }
+
+    static public function getTotalStatusUser($user_id, $status)
+    {
+        $data = self::select('id')
+                ->where('status', '=', $status)
+                ->where('user_id', '=', $user_id)
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->count();
+
+        return $data;
+    }
 }
