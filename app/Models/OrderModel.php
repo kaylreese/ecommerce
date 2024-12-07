@@ -88,6 +88,31 @@ class OrderModel extends Model
 
         return $data;
     }
+
+    static public function TotalOrderMonth($start_date, $end_date)
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '>=', $start_date)
+                ->whereDate('created_at', '<=', $end_date)
+                ->count();
+
+        return $data;
+    }
+    
+    static public function getTotalOrderAmountMonth($start_date, $end_date)
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '>=', $start_date)
+                ->whereDate('created_at', '<=', $end_date)
+                ->sum('total_amount');
+
+        return $data;
+    }
+
     
     static public function getTotalPayment()
     {
@@ -121,6 +146,18 @@ class OrderModel extends Model
     }
 
     static public function getLatestOrders() 
+    {
+        $data = self::select('orders.*')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->orderBy('id', 'desc')
+                ->limit(10)
+                ->get();
+
+        return $data;
+    }
+    
+    static public function getTotalOrderMonth() 
     {
         $data = self::select('orders.*')
                 ->where('is_payment', '=', 1)
