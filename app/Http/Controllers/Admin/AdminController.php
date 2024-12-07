@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -76,5 +76,22 @@ class AdminController extends Controller
         $user->save();
 
         return redirect()->back()->with('success', "Admin Successfully Deleted");
+    }
+    
+    public function customers()
+    {
+        $data['customers'] = User::getCustomers();
+        $data['header_title'] = "Customers";
+        
+        return view('admin.customers.index', $data);
+    }
+    
+    public function delete_customer($id)
+    {
+        $user = User::getUser($id);     
+        $user->is_delete = 1;
+        $user->save();
+
+        return redirect()->back()->with('success', "Customer Successfully Deleted");
     }
 }

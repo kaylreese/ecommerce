@@ -70,4 +70,65 @@ class OrderModel extends Model
     {
         return $this->hasMany(OrderItemModel::class, 'order_id');
     }
+    
+    static public function getTotalOrders()
+    {
+        $data = self::select('id')->where('is_payment', '=', 1)->where('deleted', '=', 0)->count();
+
+        return $data;
+    }
+    
+    static public function getTotalOrdersToday()
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->count();
+
+        return $data;
+    }
+    
+    static public function getTotalPayment()
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->sum('total_amount');
+
+        return $data;
+    }
+    
+    static public function getTotalAmount()
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->sum('total_amount');
+
+        return $data;
+    }
+    static public function getTotalAmountToday()
+    {
+        $data = self::select('id')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->whereDate('created_at', '=', date('Y-m-d'))
+                ->sum('total_amount');
+
+        return $data;
+    }
+
+    static public function getLatestOrders() 
+    {
+        $data = self::select('orders.*')
+                ->where('is_payment', '=', 1)
+                ->where('deleted', '=', 0)
+                ->orderBy('id', 'desc')
+                ->limit(10)
+                ->get();
+
+        return $data;
+    }
 }
