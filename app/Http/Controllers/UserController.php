@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -92,5 +93,24 @@ class UserController extends Controller
         $data['meta_description'] = '';
         
         return view('user.changepassword', $data);
+    }
+    
+
+    public function update_password(Request $request)
+    {
+        $user = User::getUser(Auth::user()->id);
+
+        if (Hash::check($request->old_password, $user->password)) {
+            if ($request->password == $request->cpassword) {
+                $user->password = trim($request->password);
+                $user->save();
+
+                return redirect()->back()->with('success', 'Password successfully updated.');
+            } else {
+                return redirect()->back()->with('error', 'New Password and Confirm Password does nor match.');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Old Password is not correct.');
+        }
     }
 }

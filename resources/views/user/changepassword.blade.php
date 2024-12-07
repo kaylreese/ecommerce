@@ -21,7 +21,28 @@
 
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
-                            
+                            @include('layouts._message')
+
+                                <form action="" method="POST">
+                                    @csrf
+
+                                    <label>Old Password *</label>
+                                    <input type="password" name="old_password" class="form-control" required>
+
+
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <label>New Password *</label>
+                                            <input type="password" name="password" class="form-control" required>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <label>Confirm Password *</label>
+                                            <input type="password" name="cpassword" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <button type="submit" style="width: 100px;" class="btn btn-outline-primary-2 btn-order btn-block">Submit</button>
+                                </form>
                         </div>
                     </div>
                 </div>
