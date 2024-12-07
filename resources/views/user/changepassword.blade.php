@@ -8,7 +8,7 @@
 <main class="main">
     <div class="page-header text-center">
         <div class="container">
-            <h1 class="page-title">Change Password</h1>
+            <h1 class="page-title">{{ $header_title }}</h1>
         </div>
     </div>
 

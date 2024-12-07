@@ -121,6 +121,68 @@
                 </center>
             </div>
         </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <center>
+                    <a type="button" href="{{ url('admin/orders') }}"  class="btn btn-danger">Cancel</a>
+                </center>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Product Detail</h3>
+            </div>
+
+            <div class="card-body p-0">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th>Image</th>
+                            <th>Product Name</th>
+                            <th>QTY</th>
+                            <th>Size Name</th>
+                            <th>Color Name</th>
+                            <th>Size Amount</th>
+                            <th>Total Amount ($)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($order->items as $item)
+                            @php
+                                $productImage = $item->product->getImageSingle($item->product->id);
+                            @endphp
+                            <tr>
+                                <td>
+                                    <img style="width: 100px; height: 100px;" src="{{ $productImage->getLogo() }}">
+                                </td>
+                                <td><a target="_blank" href="{{ url($item->product->url) }}">{{ $item->product->title }}</a></td>
+                                <td>{{ $item->quantity }}</td>
+                                <td>{{ number_format($item->price, 2) }}</td>
+                                <td>{{ $item->color_name }}</td>
+                                <td>{{ $item->size_name }}</td>
+                                <td>{{ number_format($item->size_amount , 2) }}</td>
+                                <td>{{ number_format($item->total_price, 2) }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+
+                <div style="padding: 10px; float: right;">
+                    {!! $$order->items->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

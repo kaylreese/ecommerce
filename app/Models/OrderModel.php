@@ -227,4 +227,26 @@ class OrderModel extends Model
 
         return $data;
     }
+
+    static public function getOrdersUser($user_id) {
+        $data = self::select('orders.*')
+            ->where('user_id', '=', $user_id)
+            ->where('is_payment', '=', 1)
+            ->where('deleted', '=', 0)
+            ->orderBy('id', 'desc')
+            ->paginate(10);
+
+        return $data;
+    }
+    
+    static public function getOrderUser($user_id, $id) {
+        $data = self::select('orders.*')
+            ->where('id', '=', $id)
+            ->where('user_id', '=', $user_id)
+            ->where('is_payment', '=', 1)
+            ->where('deleted', '=', 0)
+            ->first();
+
+        return $data;
+    }
 }

@@ -7,7 +7,7 @@
             <a href="{{ url('user/orders') }}" class="nav-link @if (Request::segment(2) == 'orders') active @endif">Orders</a>
         </li>
         <li class="nav-item">
-            <a href="{{ url('user/edit-profile') }}" class="nav-link @if (Request::segment(2) == 'orders') active @endif">Edit Profile</a>
+            <a href="{{ url('user/edit-profile') }}" class="nav-link @if (Request::segment(2) == 'edit-profile') active @endif">Edit Profile</a>
         </li>
         <li class="nav-item">
             <a href="{{ url('user/change-password') }}" class="nav-link @if (Request::segment(2) == 'change-password') active @endif">Change Password</a>

@@ -228,7 +228,7 @@ class PaymentController extends Controller
                     $order_item->size_name = $getSize->name;
                 }
 
-                $order_item->total_price = $cart->price;
+                $order_item->total_price = $cart->price * $cart->quantity;
                 $order_item->save();
             }
 
