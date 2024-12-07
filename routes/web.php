@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -32,6 +33,13 @@ use App\Http\Controllers\PaymentController;
 Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin']);
+
+Route::group(['middleware' => 'user'], function () {
+    Route::get('user/dashboard', [UserController::class, 'dashboard']);
+    Route::get('user/orders', [UserController::class, 'orders']);
+    Route::get('user/edit-profile', [UserController::class, 'edit_profile']);
+    Route::get('user/change-password', [UserController::class, 'change_password']);
+});
 
 Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard']);
