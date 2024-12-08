@@ -15,14 +15,16 @@
                         </a>
 
                         <div class="product-action-vertical">
-                            <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
-                            {{-- <a href="popup/quickView.html" class="btn-product-icon btn-quickview" title="Quick view"><span>Quick view</span></a>
-                            <a href="#" class="btn-product-icon btn-compare" title="Compare"><span>Compare</span></a> --}}
+                            @if (!empty(Auth::check()))
+                                <div class="details-action-wrapper">
+                                    <a href="javascript:;" class="btn-product-icon btn-wishlist btn-expandable add_to_wishlist add_to_wishlist{{ $value->id }} {{ !empty($value->checkWishlist($value->id)) ? 'btn-wishlist-add' : '' }}" title="Wishlist" id="{{ $value->id }}"><span>Add to Wishlist</span></a>
+                                </div>
+                            @else
+                                <div class="details-action-wrapper">
+                                    <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable" title="Wishlist"><span>Add to Wishlist</span></a>
+                                </div>
+                            @endif
                         </div>
-
-                        {{-- <div class="product-action">
-                            <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                        </div> --}}
                     </figure>
 
                     <div class="product-body">
@@ -38,18 +40,6 @@
                                 <div class="ratings-val" style="width: 20%;"></div>
                             </div>
                             <span class="ratings-text">( 2 Reviews )</span>
-                        </div>
-                        <div class="product-nav product-nav-thumbs">
-                            <a href="#" class="active">
-                                <img src="{{ url('public/page/images/products/product-4-thumb.jpg') }}" alt="product desc">
-                            </a>
-                            <a href="#">
-                                <img src="{{ url('public/page/images/products/product-4-2-thumb.jpg') }}" alt="product desc">
-                            </a>
-
-                            <a href="#">
-                                <img src="{{ url('public/page/images/products/product-4-3-thumb.jpg') }}" alt="product desc">
-                            </a>
                         </div>
                     </div>
                 </div>

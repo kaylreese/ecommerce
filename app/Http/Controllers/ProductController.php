@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
 use App\Models\Color;
+use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
 {
@@ -134,5 +135,15 @@ class ProductController extends Controller
             'success' => view('product.list', ['getProduct' => $getProduct])->render()
         ], 200);
 
+    }
+
+    function wishlist()
+    {
+        $data['meta_title'] = 'Wishlist';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+        $data['getProduct'] = Product::getMyWishlist(Auth::user()->id);
+
+        return view('product.wishlist', $data);
     }
 }

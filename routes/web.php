@@ -42,6 +42,9 @@ Route::group(['middleware' => 'user'], function () {
     Route::post('user/edit-profile', [UserController::class, 'update_profile']);
     Route::get('user/change-password', [UserController::class, 'change_password']);
     Route::post('user/change-password', [UserController::class, 'update_password']);
+    
+    Route::post('user/add_to_wishlist', [UserController::class, 'add_to_wishlist']);
+    Route::get('wishlist', [Product::class, 'wishlist']);
 });
 
 Route::group(['middleware' => 'admin'], function () {

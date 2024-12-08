@@ -17,7 +17,15 @@
             background: #c96; /* Invertimos el fondo */
             color: #fff;     /* Invertimos el texto */
         }
+
+        .btn-wishlist-add::before {
+            content: '\f233' !important;
+        }
     </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 @endsection
 
 @section('content')
@@ -149,13 +157,18 @@
                                     </div>
 
                                     <div class="product-details-action">
-                                        {{-- <a href="#" class="btn-product btn-cart"><span>add to cart</span></a> --}}
                                         <button type="submit" class="btn-product btn-cart">add to cart</button>
 
-                                        <div class="details-action-wrapper">
-                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
-                                            {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to Compare</span></a> --}}
-                                        </div>
+                                        @if (Auth::check())
+                                            <div class="details-action-wrapper">
+                                                <a href="javascript:;" class="btn-product btn-wishlist add_to_wishlist add_to_wishlist{{ $getProduct->id }} {{ !empty($getProduct->checkWishlist($getProduct->id)) ? 'btn-wishlist-add' : '' }}" title="Wishlist" id="{{ $getProduct->id }}"><span>Add to Wishlist</span></a>
+                                            </div>
+                                        @else
+                                            <div class="details-action-wrapper">
+                                                <a href="#signin-modal" data-toggle="modal" class="btn-product btn-wishlist" title="Wishlist"><span>Add to Wishlist</span></a>
+                                            </div>
+                                        @endif
+                                        
                                     </div>
                                 </form>
 
@@ -324,9 +337,18 @@
                                         <img id="product-zoom" src="{{ $getProductImage->getLogo() }}" data-zoom-image="{{ $getProductImage->getLogo() }}" alt="product image">
                                     @endif
                                 </a>
-
+                                
                                 <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a>
+                                    @if (Auth::check())
+                                        <div class="details-action-wrapper">
+                                            <a href="javascript:;" class="btn-product-icon btn-wishlist btn-expandable add_to_wishlist add_to_wishlist{{ $getProduct->id }} {{ !empty($product->checkWishlist($product->id)) ? 'btn-wishlist-add' : '' }}" id="{{ $product->id }}"><span>Add to Wishlist</span></a>
+                                        </div>
+                                    @else
+                                        <div class="details-action-wrapper">
+                                            <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to Wishlist</span></a>
+                                        </div>
+                                    @endif
+                                    {{-- <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a> --}}
                                 </div>
                             </figure>
 
@@ -365,6 +387,34 @@
             var total = parseFloat(productprice) + parseFloat(price);
             $('#getTotalPrice').html(total.toFixed(2));
             console.log(total.toFixed(2))
+        });
+
+        
+        $('body').delegate('.add_to_wishlist', 'click', function(e) {
+            var product_id = $(this).attr('id');
+            console.log(product_id);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('user/add_to_wishlist') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    product_id: product_id,
+                },
+                dataType:"json",
+                success: function(data) {
+                    if (data.is_wishlist == 1) {
+                        toastr.success('Agregado a tus favoritos');
+                        $('.add_to_wishlist'+product_id).addClass('btn-wishlist-add');
+                    } else {
+                        $('.add_to_wishlist'+product_id).removeClass('btn-wishlist-add');
+                        toastr.success('Quitado de tus favoritos');
+                    }
+                },
+                error: function (data) {
+
+                }
+            });
         });
     </script>
 @endsection
