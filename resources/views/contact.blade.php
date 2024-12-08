@@ -6,13 +6,13 @@
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Contact us</li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $page->title }}</li>
             </ol>
         </div>
     </nav>
     <div class="container">
-        <div class="page-header page-header-big text-center" style="background-image: url('public/page/images/contact-header-bg.jpg')">
-            <h1 class="page-title text-white">Contact us<span class="text-white">keep in touch with us</span></h1>
+        <div class="page-header page-header-big text-center" style="background-image: url('{{ $page->getImage() }}')">
+            <h1 class="page-title text-white">{{ $page->title }}</h1>
         </div>
     </div>
 
@@ -20,8 +20,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 mb-2 mb-lg-0">
-                    <h2 class="title mb-1">Contact Information</h2><!-- End .title mb-2 -->
-                    <p class="mb-3">Vestibulum volutpat, lacus a ultrices sagittis, mi neque euismod dui, eu pulvinar nunc sapien ornare nisl. Phasellus pede arcu, dapibus eu, fermentum et, dapibus sed, urna.</p>
+                    {!! $page->description !!}
                     <div class="row">
                         <div class="col-sm-7">
                             <div class="contact-info">
@@ -40,9 +39,9 @@
                                         <i class="icon-envelope"></i>
                                         <a href="mailto:#">info@Molla.com</a>
                                     </li>
-                                </ul><!-- End .contact-list -->
-                            </div><!-- End .contact-info -->
-                        </div><!-- End .col-sm-7 -->
+                                </ul>
+                            </div>
+                        </div>
 
                         <div class="col-sm-5">
                             <div class="contact-info">
@@ -57,13 +56,13 @@
                                         <i class="icon-calendar"></i>
                                         <span class="text-dark">Sunday</span> <br>11am-6pm ET
                                     </li>
-                                </ul><!-- End .contact-list -->
-                            </div><!-- End .contact-info -->
-                        </div><!-- End .col-sm-5 -->
-                    </div><!-- End .row -->
-                </div><!-- End .col-lg-6 -->
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-lg-6">
-                    <h2 class="title mb-1">Got Any Questions?</h2><!-- End .title mb-2 -->
+                    <h2 class="title mb-1">Got Any Questions?</h2>
                     <p class="mb-2">Use the form below to get in touch with the sales team</p>
 
                     <form action="#" class="contact-form mb-3">
@@ -71,25 +70,25 @@
                             <div class="col-sm-6">
                                 <label for="cname" class="sr-only">Name</label>
                                 <input type="text" class="form-control" id="cname" placeholder="Name *" required>
-                            </div><!-- End .col-sm-6 -->
+                            </div>
 
                             <div class="col-sm-6">
                                 <label for="cemail" class="sr-only">Email</label>
                                 <input type="email" class="form-control" id="cemail" placeholder="Email *" required>
-                            </div><!-- End .col-sm-6 -->
-                        </div><!-- End .row -->
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cphone" class="sr-only">Phone</label>
                                 <input type="tel" class="form-control" id="cphone" placeholder="Phone">
-                            </div><!-- End .col-sm-6 -->
+                            </div>
 
                             <div class="col-sm-6">
                                 <label for="csubject" class="sr-only">Subject</label>
                                 <input type="text" class="form-control" id="csubject" placeholder="Subject">
-                            </div><!-- End .col-sm-6 -->
-                        </div><!-- End .row -->
+                            </div>
+                        </div>
 
                         <label for="cmessage" class="sr-only">Message</label>
                         <textarea class="form-control" cols="30" rows="4" id="cmessage" required placeholder="Message *"></textarea>
@@ -98,8 +97,8 @@
                             <span>SUBMIT</span>
                             <i class="icon-long-arrow-right"></i>
                         </button>
-                    </form><!-- End .contact-form -->
-                </div><!-- End .col-lg-6 -->
+                    </form>
+                </div>
             </div>
             <br><br>
         </div>

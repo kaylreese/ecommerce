@@ -35,7 +35,7 @@
                                         <th style="width: 10px">#</th>
                                         <th>Name</th>
                                         <th>Title</th>
-                                        <th>Description</th>
+                                        {{-- <th>Description</th> --}}
                                         <th>Status</th>
                                         <th>Created Date</th>
                                         <th style="width: 150px">Action</th>
@@ -47,7 +47,7 @@
                                             <td>{{ $value->id }}</td>
                                             <td>{{ $value->name }}</td>
                                             <td>{{ $value->title }}</td>
-                                            <td>{{ $value->description }}</td>
+                                            {{-- <td>{{ $value->description }}</td> --}}
                                             <td>{{ ($value->state == 1) ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                             <td>

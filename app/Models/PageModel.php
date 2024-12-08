@@ -16,6 +16,11 @@ class PageModel extends Model
         return self::select('*')->get();
     }
 
+    static public function getUrl($url)
+    {
+        return self::where('url', '=', $url)->first();
+    }
+    
     static public function getPage($id)
     {
         return self::find($id);
