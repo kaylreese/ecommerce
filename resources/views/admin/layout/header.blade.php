@@ -215,6 +215,12 @@
                     <p>Shipping Charge</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/page') }}" class="nav-link @if( Request::segment(2) == 'page') active @endif">
+                    <i class="nav-icon fas fa-regular fa-cookie-bite"></i>
+                    <p>Page</p>
+                    </a>
+                </li>
                 {{--
                 <li class="nav-item">
                     <a href="#" class="nav-link @if( Request::segment(2) == 'product') active @endif">

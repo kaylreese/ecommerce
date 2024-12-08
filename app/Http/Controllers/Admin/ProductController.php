@@ -12,8 +12,8 @@ use App\Models\ProductColor;
 use App\Models\ProductSize;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
-use Auth;
-use Str;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
