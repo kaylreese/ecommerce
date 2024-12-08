@@ -25,6 +25,8 @@
 
                     <div class="col-md-8 col-lg-9">
                         <div class="tab-content">
+                            @include('layouts._message')
+
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Transaction ID: <span style="font-weight: normal;">{{ $order->order_number }}</span></label>
@@ -122,19 +124,41 @@
                                                     $productImage = $item->product->getImageSingle($item->product->id);
                                                 @endphp
                                                 <tr>
-                                                    <td>
-                                                        <img style="width: 100px; height: 100px;" src="{{ $productImage->getLogo() }}">
+                                                    <td style="min-width: 100px;">
+                                                        <img style="width: 100px; height: 100px; padding-left: 10px;" src="{{ $productImage->getLogo() }}">
                                                     </td>
-                                                    <td>
+                                                    <td style="min-width: 300px; max-with: 300px;">
                                                         <a target="_blank" href="{{ url($item->product->url) }}">{{ $item->product->title }}</a>
                                                         <br>
-                                                        Color Name: {{ $item->color_name }}
-                                                        Size Name: {{ $item->size_name }}
+                                                        @if(!empty($item->color_name)) 
+                                                            <b style="color: gray;">Color Name:</b> {{ $item->color_name }} <br>
+                                                        @endif 
+                                                        @if(!empty($item->size_name)) 
+                                                            <b style="color: gray;">Size Name:</b> {{ $item->size_name }} <br>
+                                                        @endif 
+                                                        
+                                                        @if ($order->status == 3)
+                                                            @php
+                                                                $getReview = $item->getReview($item->product->id, $order->id);
+                                                            @endphp
+                                                            <br>
+                                                            @if (!empty($getReview))
+                                                                {{-- <b style="color: gray;">How many rating:</b> {{ $getReview->rating }} --}}
+                                                                <div class="ratings-container" style="margin-bottom: 0;">
+                                                                    <div class="ratings">
+                                                                        <div class="ratings-val" style="width: {{ ($getReview->rating / 5) * 100 }}%;"></div>
+                                                                    </div>
+                                                                </div>
+                                                                <b style="color: gray;">Review:</b> {{ $getReview->review }}
+                                                            @else
+                                                                <button class="btn btn-primary MakeReview" id="{{ $item->product->id }}" data-order="{{ $order->id }}">Make Review</button>
+                                                            @endif
+                                                        @endif
                                                     </td>
                                                     <td style="text-align: center;">{{ $item->quantity }}</td>
                                                     <td style="text-align: right;">{{ number_format($item->price, 2) }}</td>
                                                     <td style="text-align: right;">{{ number_format($item->size_amount , 2) }}</td>
-                                                    <td style="text-align: right;">{{ number_format($item->total_price, 2) }}</td>
+                                                    <td style="text-align: right; padding-right: 10px;">{{ number_format($item->total_price, 2) }}</td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -152,8 +176,57 @@
         </div>
     </div>
 </main>
+
+<div class="modal fade" id="MakeReviewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Make Review</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="{{ url('user/make-review') }}" method="post">
+                @csrf
+
+                <input type="hidden" name="product_id" id="getProductId" required>
+                <input type="hidden" name="order_id" id="getOrderId" required>
+                <div class="modal-body" style="padding: 20px;">
+                    <div class="form-group" style="margin-bottom: 15px;">
+                        <label for="">How many rating?</label>
+                        <select class="form-control" name="rating" id="" required>
+                            <option value="">Select</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="">Review</label>
+                        <textarea class="form-control" name="review" id="" cols="30" rows="10" required></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
 
 @section('script')
-
+<script type="text/javascript">
+    $('body').delegate('.MakeReview', 'click', function() {
+        var product_id = $(this).attr('id');
+        var order_id = $(this).attr('data-order');
+        $('#getProductId').val(product_id);
+        $('#getOrderId').val(order_id);
+        $('#MakeReviewModal').modal('show');
+    });
+</script>
 @endsection

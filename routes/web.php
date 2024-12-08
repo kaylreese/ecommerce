@@ -45,6 +45,7 @@ Route::group(['middleware' => 'user'], function () {
     
     Route::post('user/add_to_wishlist', [UserController::class, 'add_to_wishlist']);
     Route::get('wishlist', [Product::class, 'wishlist']);
+    Route::post('user/make-review', [UserController::class, 'make_review']);
 });
 
 Route::group(['middleware' => 'admin'], function () {

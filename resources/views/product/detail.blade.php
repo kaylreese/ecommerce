@@ -128,8 +128,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-                                            {{-- <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a> --}}
                                         </div>
                                     @endif
 
@@ -144,8 +142,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-                                            {{-- <a href="#" class="size-guide"><i class="icon-th-list"></i>size guide</a> --}}
                                         </div>
                                     @endif
 
@@ -328,7 +324,6 @@
                             $getProductImage = $product->getImageSingle($product->id);
                         @endphp
 
-                        {{-- @include('product.list'); --}}
                         <div class="product product-7">
                             <figure class="product-media">
                                 
@@ -348,7 +343,6 @@
                                             <a href="#signin-modal" data-toggle="modal" class="btn-product-icon btn-wishlist btn-expandable"><span>Add to Wishlist</span></a>
                                         </div>
                                     @endif
-                                    {{-- <a href="#" class="btn-product-icon btn-wishlist btn-expandable"><span>add to wishlist</span></a> --}}
                                 </div>
                             </figure>
 
