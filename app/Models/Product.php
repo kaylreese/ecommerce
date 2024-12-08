@@ -41,7 +41,7 @@ class Product extends Model
                 ->where('products.status', '=', 1)
                 ->groupBy('products.id')
                 ->orderBy('products.id', 'desc')
-                ->paginate(10);
+                ->paginate(12);
 
         return $data;
     }
@@ -125,7 +125,7 @@ class Product extends Model
                 ->where('products.status', '=', 1)
                 ->groupBy('products.id')
                 ->orderBy('products.id', 'desc')
-                ->limit(10)
+                ->limit(12)
                 ->get();
 
         return $data;
@@ -174,5 +174,19 @@ class Product extends Model
     public function getSubCategory()
     {
         return $this->belongsTo(SubCategory::class, 'subcategory_id');
+    }
+    
+    public function getTotalReview()
+    {
+        return $this->hasMany(ProductReviewModel::class, 'product_id')
+                ->join('users', 'users.id', 'product_review.user_id')
+                ->count();
+    }
+    
+    public function getReviewRating($product_id)
+    {
+        $avg = ProductReviewModel::getRatingAVG($product_id);
+
+        return floor($avg);
     }
 }

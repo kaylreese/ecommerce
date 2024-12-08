@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Product;
 use App\Models\Color;
+use App\Models\ProductReviewModel;
 use Illuminate\Support\Facades\Auth;
 
 class ProductController extends Controller
@@ -57,6 +58,8 @@ class ProductController extends Controller
             $data["getProduct"] = $getProductSingle;
 
             $data['getRelatedProduct'] = Product::getRelatedProduct($getProductSingle->id, $getProductSingle->subcategory_id);
+
+            $data['getReview'] = ProductReviewModel::getReviewProduct($getProductSingle->id);
 
             return view('product.detail')->with($data);
         }else if(!empty($getCategory) && !empty($getSubCategory)) {
