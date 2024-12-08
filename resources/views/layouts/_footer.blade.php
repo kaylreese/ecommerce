@@ -22,9 +22,9 @@
                         <h4 class="widget-title">Useful Links</h4>
 
                         <ul class="widget-list">
-                            <li><a href="{{ url('about') }}">About Molla</a></li>
-                            <li><a href="#">How to shop on Molla</a></li>
-                            <li><a href="#">FAQ</a></li>
+                            <li><a href="{{ url('') }}">Home</a></li>
+                            <li><a href="{{ url('about') }}">About Us</a></li>
+                            <li><a href="{{ url('faq') }}">FAQ</a></li>
                             <li><a href="{{ url('contact') }}">Contact us</a></li>
                             <li><a href="#signin-modal" data-toggle="modal">Log in</a></li>
                         </ul>
@@ -36,12 +36,12 @@
                         <h4 class="widget-title">Customer Service</h4>
 
                         <ul class="widget-list">
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Money-back guarantee!</a></li>
-                            <li><a href="#">Returns</a></li>
-                            <li><a href="#">Shipping</a></li>
-                            <li><a href="#">Terms and conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="{{ url('payment-methods') }}">Payment Methods</a></li>
+                            <li><a href="{{ url('money-back-guarantee') }}">Money-back guarantee!</a></li>
+                            <li><a href="{{ url('returns') }}">Returns</a></li>
+                            <li><a href="{{ url('shipping') }}">Shipping</a></li>
+                            <li><a href="{{ url('terms-conditions') }}">Terms and conditions</a></li>
+                            <li><a href="{{ url('privacy-policy') }}">Privacy Policy</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,11 +51,9 @@
                         <h4 class="widget-title">My Account</h4>
 
                         <ul class="widget-list">
-                            <li><a href="#">Sign In</a></li>
-                            <li><a href="#">View Cart</a></li>
-                            <li><a href="#">My Wishlist</a></li>
+                            <li><a href="{{ url('cart') }}">View Cart</a></li>
+                            <li><a href="{{ url('checkout') }}">Checkout</a></li>
                             <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +63,7 @@
 
     <div class="footer-bottom">
         <div class="container">
-            <p class="footer-copyright">Copyright © 2019 Molla Store. All Rights Reserved.</p>
+            <p class="footer-copyright">Copyright © {{ date('Y') }} Molla Store. All Rights Reserved.</p>
             <figure class="footer-payments">
                 <img src="{{ url('public/page/images/payments.png') }}" alt="Payment methods" width="272" height="20">
             </figure>

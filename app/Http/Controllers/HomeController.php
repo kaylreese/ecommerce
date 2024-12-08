@@ -18,51 +18,86 @@ class HomeController extends Controller
         return view('home.index', $data);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+
+    public function contact() 
     {
-        //
+        $data['meta_title'] = 'Contact';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('contact', $data);
+
+    }
+    
+    public function about() 
+    {
+        $data['meta_title'] = 'About us';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('about', $data);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function faq() 
     {
-        //
+        $data['meta_title'] = 'FAQ';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('faq', $data);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function payment_methods() 
     {
-        //
+        $data['meta_title'] = 'Payment Methods';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('payment_methods', $data);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function money_back_guarantee() 
     {
-        //
+        $data['meta_title'] = 'Money Back Guarantee';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('money_back_guarantee', $data);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function returns() 
     {
-        //
+        $data['meta_title'] = 'Return';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('returns', $data);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function terms_conditions() 
     {
-        //
+        $data['meta_title'] = 'Terms Conditions';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('terms_conditions', $data);
+    }
+
+    public function privacy_policy() 
+    {
+        $data['meta_title'] = 'Privacy Policy';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('privacy_policy', $data);
+    }
+    
+    public function shipping() 
+    {
+        $data['meta_title'] = 'Shipping';
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        return view('shipping', $data);
     }
 }
