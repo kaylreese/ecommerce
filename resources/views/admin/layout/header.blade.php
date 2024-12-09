@@ -221,6 +221,12 @@
                     <p>Page</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/settings') }}" class="nav-link @if( Request::segment(2) == 'settings') active @endif">
+                    <i class="nav-icon fas fa-regular fa-cookie-bite"></i>
+                    <p>Settings</p>
+                    </a>
+                </li>
                 {{--
                 <li class="nav-item">
                     <a href="#" class="nav-link @if( Request::segment(2) == 'product') active @endif">

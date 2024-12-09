@@ -120,6 +120,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/page', [PageController::class, 'index']);
     Route::get('admin/page/edit/{id}', [PageController::class, 'edit']);
     Route::put('admin/page/edit/{id}', [PageController::class, 'update']);
+
+    Route::get('admin/settings', [PageController::class, 'settings']);
+    Route::post('admin/settings', [PageController::class, 'update_settings']);
 });
 
 Route::get('/', [HomeController::class, 'index']);
@@ -132,6 +135,7 @@ Route::get('returns', [HomeController::class, 'returns']);
 Route::get('shipping', [HomeController::class, 'shipping']);
 Route::get('terms-conditions', [HomeController::class, 'terms_conditions']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
+
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::post('auth_login', [AuthController::class, 'auth_login']);

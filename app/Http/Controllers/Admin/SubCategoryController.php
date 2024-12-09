@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SubCategory;
 use App\Models\Category;
 use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;;
 
 class SubCategoryController extends Controller
 {
