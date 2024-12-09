@@ -6,6 +6,7 @@ use App\Mail\ContactMail;
 use App\Models\ContactModel;
 use App\Models\PageModel;
 use App\Models\SettingModel;
+use App\Models\SliderModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -20,6 +21,8 @@ class HomeController extends Controller
     {
         $page = PageModel::getUrl('home');
         $data['page'] = $page;
+
+        $data["sliders"] = SliderModel::getSlidersActive();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;

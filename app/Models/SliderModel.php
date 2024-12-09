@@ -31,4 +31,12 @@ class SliderModel extends Model
             return "";
         }
     }
+
+    static public function getSlidersActive()
+    {
+        return self::select('*')
+                ->where('state', '=', 1)
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+    }
 }

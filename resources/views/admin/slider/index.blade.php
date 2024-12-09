@@ -33,7 +33,6 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Name</th>
                                         <th>Title</th>
                                         <th>Sub Title</th>
                                         <th>Image</th>
@@ -46,7 +45,6 @@
                                     @forelse($sliders as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
-                                            <td>{{ $value->name }}</td>
                                             <td>{{ $value->title }}</td>
                                             <td>{{ $value->subtitle }}</td>
                                             <td>
