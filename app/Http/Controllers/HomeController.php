@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
+use App\Models\ContactModel;
 use App\Models\PageModel;
 use App\Models\SettingModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -35,6 +39,28 @@ class HomeController extends Controller
         $data['setting'] = SettingModel::getSettings();
 
         return view('contact', $data);
+
+    }
+    
+    public function save_contact(Request $request) 
+    {
+        $contact = new ContactModel();
+
+        if(!empty(Auth::check())) {
+            $contact->user_id = Auth::user()->id;
+        }
+        $contact->name = trim($request->name); 
+        $contact->email = trim($request->email); 
+        $contact->phone = trim($request->phone); 
+        $contact->subject = trim($request->subject); 
+        $contact->message = trim($request->message); 
+        $contact->save();
+
+        $settings = SettingModel::getSettings();
+
+        Mail::to($settings->email)->send(new ContactMail($contact));
+
+        return redirect()->back()->with('success', 'Your information successfully send.');
 
     }
     

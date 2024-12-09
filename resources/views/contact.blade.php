@@ -67,33 +67,39 @@
                     <h2 class="title mb-1">Got Any Questions?</h2>
                     <p class="mb-2">Use the form below to get in touch with the sales team</p>
 
-                    <form action="#" class="contact-form mb-3">
+                    <div style="padding-top: 10px; padding-bottom: 10px;">
+                        @include('layouts._message')
+                    </div>
+
+                    <form action="#" class="contact-form mb-3" method="POST">
+                        @csrf
+
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cname" class="sr-only">Name</label>
-                                <input type="text" class="form-control" id="cname" placeholder="Name *" required>
+                                <input type="text" class="form-control" name="name" id="cname" placeholder="Name *" required>
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="cemail" class="sr-only">Email</label>
-                                <input type="email" class="form-control" id="cemail" placeholder="Email *" required>
+                                <input type="email" class="form-control" name="email" id="cemail" placeholder="Email *" required>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6">
                                 <label for="cphone" class="sr-only">Phone</label>
-                                <input type="tel" class="form-control" id="cphone" placeholder="Phone">
+                                <input type="tel" class="form-control" name="phone" id="cphone" placeholder="Phone">
                             </div>
 
                             <div class="col-sm-6">
                                 <label for="csubject" class="sr-only">Subject</label>
-                                <input type="text" class="form-control" id="csubject" placeholder="Subject">
+                                <input type="text" class="form-control" name="subject" id="csubject" placeholder="Subject">
                             </div>
                         </div>
 
                         <label for="cmessage" class="sr-only">Message</label>
-                        <textarea class="form-control" cols="30" rows="4" id="cmessage" required placeholder="Message *"></textarea>
+                        <textarea class="form-control" cols="30" rows="4" name="message" id="cmessage" required placeholder="Message *"></textarea>
 
                         <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
                             <span>SUBMIT</span>

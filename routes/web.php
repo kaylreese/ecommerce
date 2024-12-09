@@ -127,6 +127,7 @@ Route::group(['middleware' => 'admin'], function () {
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('contact', [HomeController::class, 'contact']);
+Route::post('contact', [HomeController::class, 'save_contact']);
 Route::get('about', [HomeController::class, 'about']);
 Route::get('faq', [HomeController::class, 'faq']);
 Route::get('payment-methods', [HomeController::class, 'payment_methods']);
