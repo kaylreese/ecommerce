@@ -101,6 +101,12 @@
                         <label for="cmessage" class="sr-only">Message</label>
                         <textarea class="form-control" cols="30" rows="4" name="message" id="cmessage" required placeholder="Message *"></textarea>
 
+                        <div class="col-sm-612">
+                            <label for="verification">{{ $first_number }} + {{ $second_number }} = ?</label>
+                            <input type="text" class="form-control" name="verification" id="verification" placeholder="Verification Sum">
+                        </div>
+                        <br />
+
                         <button type="submit" class="btn btn-outline-primary-2 btn-minwidth-sm">
                             <span>SUBMIT</span>
                             <i class="icon-long-arrow-right"></i>
