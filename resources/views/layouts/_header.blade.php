@@ -29,7 +29,7 @@
                     <li>
                         <a href="#">Links</a>
                         <ul>
-                            <li><a href="tel:#"><i class="icon-phone"></i>Call: +0123 456 789</a></li>
+                            <li><a href="tel:#"><i class="icon-phone"></i>Call: {{ $getSettingsApp->phone }}</a></li>
                             @if (!empty(Auth::check()))
                                 <li><a href="{{ url('wishlist') }}"><i class="icon-heart-o"></i>My Wishlist</a></li>
                             @else
@@ -57,8 +57,8 @@
                     <i class="icon-bars"></i>
                 </button>
 
-                <a href="index.html" class="logo">
-                    <img src="{{ url('public/page/images/logo.png') }}" alt="Molla Logo" width="105" height="25">
+                <a href="{{ url('') }}" class="logo">
+                    <img src="{{ $getSettingsApp->getLogo() }}" alt="Molla Logo" width="105" height="25">
                 </a>
 
                 <nav class="main-nav">

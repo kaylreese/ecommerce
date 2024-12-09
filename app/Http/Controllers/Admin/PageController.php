@@ -100,6 +100,16 @@ class PageController extends Controller
             $setting->favicon = $filename2;
         }
         
+        if(!empty($request->hasFile('footer_logo'))) {
+            $file4 = $request->file('footer_logo');
+            $ext = $file4->getClientOriginalExtension();
+            $randomStr = $setting->id.Str::random(10);
+            $filename4 = strtolower($randomStr).'.'.$ext;
+            $file4->move('public/upload/setting/', $filename4);
+
+            $setting->footer_logo = $filename4;
+        }
+        
         if(!empty($request->hasFile('footer_payment_icon'))) {
             $file3 = $request->file('footer_payment_icon');
             $ext = $file3->getClientOriginalExtension();

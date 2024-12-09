@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Logo: </label>
                                             <div class="input-group">
@@ -49,7 +49,7 @@
                                         @endif
                                     </div>
                                     
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Favicon: </label>
                                             <div class="input-group">
@@ -64,7 +64,22 @@
                                         @endif
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
+                                        <div class="form-group">
+                                            <label for="exampleInputFile">Footer Logo: </label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="footer_logo" name="footer_logo" value="{{ old('footer_logo') }}">
+                                                    <label class="custom-file-label" for="exampleInputFile">Choose Footer Logo file</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @if (!empty($setting->getfooterLogo()))
+                                            <img src="{{ $setting->getfooterLogo() }}" style="width: 200px;">
+                                        @endif
+                                    </div>
+                                    
+                                    <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="exampleInputFile">Footer Payment Icon: </label>
                                             <div class="input-group">
@@ -74,8 +89,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if (!empty($setting->getfooterLogo()))
-                                            <img src="{{ $setting->getfooterLogo() }}" style="width: 200px;">
+                                        @if (!empty($setting->getfooterPayment()))
+                                            <img src="{{ $setting->getfooterPayment() }}" style="width: 200px;">
                                         @endif
                                     </div>
                                     

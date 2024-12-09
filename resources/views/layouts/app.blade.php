@@ -14,8 +14,12 @@
         @if (!empty($meta_keywords))
             <meta name="keywords" content="{{ $meta_keywords }}">
         @endif
+            
+        @php
+            $getSettingsApp = App\Models\SettingModel::getSettings();
+        @endphp
 
-        <link rel="shortcut icon" href="{{ url('public/page/images/icons/favicon.ico') }}">
+        <link rel="shortcut icon" href="{{ $getSettingsApp->getFavicon() }}">
 
         <link rel="stylesheet" href="{{ url('public/page/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ url('public/page/css/plugins/owl-carousel/owl.carousel.css') }}">

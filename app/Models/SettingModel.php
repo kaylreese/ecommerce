@@ -35,6 +35,15 @@ class SettingModel extends Model
     
     public function getfooterLogo()
     {
+        if(!empty($this->footer_logo) && file_exists('public/upload/setting/'.$this->footer_logo)) {
+            return url('public/upload/setting/'.$this->footer_logo);
+        } else {
+            return '';
+        }
+    }
+    
+    public function getfooterPayment()
+    {
         if(!empty($this->footer_payment_icon) && file_exists('public/upload/setting/'.$this->footer_payment_icon)) {
             return url('public/upload/setting/'.$this->footer_payment_icon);
         } else {

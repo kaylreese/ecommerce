@@ -4,15 +4,29 @@
             <div class="row">
                 <div class="col-sm-6 col-lg-3">
                     <div class="widget widget-about">
-                        <img src="{{ url('public/page/images/logo-footer.png') }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
-                        <p>Praesent dapibus, neque id cursus ucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. </p>
+                        <img src="{{ $getSettingsApp->getfooterLogo() }}" class="footer-logo" alt="Footer Logo" width="105" height="25">
+                        <p>{{ $getSettingsApp->footer_description }}</p>
 
                         <div class="social-icons">
-                            <a href="#" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
-                            <a href="#" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
-                            <a href="#" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
-                            <a href="#" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
-                            <a href="#" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                            @if (!empty($getSettingsApp->facebook_link))
+                                <a href="{{ $getSettingsApp->facebook_link }}" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+                            @endif
+                            
+                            @if (!empty($getSettingsApp->twitter_link))
+                                <a href="{{ $getSettingsApp->twitter_link }}" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+                            @endif
+                            
+                            @if (!empty($getSettingsApp->instagram_link))
+                                <a href="{{ $getSettingsApp->instagram_link }}" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+                            @endif
+                            
+                            @if (!empty($getSettingsApp->youtube_link))
+                                <a href="https://www.youtube.com/" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                            @endif
+                            
+                            @if (!empty($getSettingsApp->pinterest_link))
+                                <a href="{{ $getSettingsApp->pinterest_link }}" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -65,7 +79,7 @@
         <div class="container">
             <p class="footer-copyright">Copyright © {{ date('Y') }} Molla Store. All Rights Reserved.</p>
             <figure class="footer-payments">
-                <img src="{{ url('public/page/images/payments.png') }}" alt="Payment methods" width="272" height="20">
+                <img src="{{ $getSettingsApp->getfooterPayment() }}" alt="Payment methods" width="272" height="20">
             </figure>
         </div>
     </div>

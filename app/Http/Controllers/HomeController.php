@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PageModel;
+use App\Models\SettingModel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -31,6 +32,7 @@ class HomeController extends Controller
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;
         $data['meta_description'] = $page->meta_description;
+        $data['setting'] = SettingModel::getSettings();
 
         return view('contact', $data);
 

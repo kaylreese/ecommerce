@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('logo')->nullable();
             $table->string('favicon')->nullable();
             $table->string('footer_payment_icon')->nullable();
+            $table->string('footer_logo')->nullable();
             $table->longText('footer_description')->nullable();
             $table->longText('address')->nullable();
             $table->string('phone')->nullable();
