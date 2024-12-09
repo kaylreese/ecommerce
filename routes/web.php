@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
+use App\Http\Controllers\Admin\ContactUsController;
 use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\OrderController;
@@ -123,6 +124,9 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('admin/settings', [PageController::class, 'settings']);
     Route::post('admin/settings', [PageController::class, 'update_settings']);
+
+    Route::get('admin/contactus', [ContactUsController::class, 'index']);
+    Route::get('admin/contactus/delete/{id}', [ContactUsController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);
