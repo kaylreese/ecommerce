@@ -14,11 +14,11 @@ use App\Http\Controllers\Admin\DiscountCodeController;
 use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\UserController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -127,6 +127,13 @@ Route::group(['middleware' => 'admin'], function () {
 
     Route::get('admin/contactus', [ContactUsController::class, 'index']);
     Route::get('admin/contactus/delete/{id}', [ContactUsController::class, 'destroy']);
+
+    Route::get('admin/slider', [SliderController::class, 'index']);
+    Route::get('admin/slider/create', [SliderController::class, 'create']);
+    Route::post('admin/slider/store', [SliderController::class, 'store']);
+    Route::get('admin/slider/edit/{id}', [SliderController::class, 'edit']);
+    Route::put('admin/slider/edit/{id}', [SliderController::class, 'update']);
+    Route::get('admin/slider/delete/{id}', [SliderController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);
