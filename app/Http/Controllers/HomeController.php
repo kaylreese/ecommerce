@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\ContactModel;
 use App\Models\PageModel;
 use App\Models\PartnerModel;
+use App\Models\Product;
 use App\Models\SettingModel;
 use App\Models\SliderModel;
 use Illuminate\Http\Request;
@@ -27,12 +28,29 @@ class HomeController extends Controller
         $data["sliders"] = SliderModel::getSlidersActive();
         $data["partners"] = PartnerModel::getPartnersActive();
         $data["categories"] = Category::getCategoriesHome();
+        $data["getProduct"] = Product::getRecentArrivals();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;
         $data['meta_description'] = $page->meta_description;
 
         return view('home.index', $data);
+    }
+
+    public function recent_arrivals_product(Request $request) {
+        $getProduct = Product::getRecentArrivals();
+
+        $categories = Category::getCategory($request->category_id);
+
+        // dd($getProduct);
+
+        return response()->json([
+            'status' => true,
+            'success' => view('product.list_recent_arrival', [
+                'getProduct' => $getProduct,
+                'categories' => $categories,
+            ])->render(),
+            ], 200);
     }
 
 

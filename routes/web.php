@@ -36,6 +36,7 @@ Route::get('admin', [AuthController::class, 'login_admin']);
 Route::post('admin', [AuthController::class, 'auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin']);
 
+
 Route::group(['middleware' => 'user'], function () {
     Route::get('user/dashboard', [UserController::class, 'dashboard']);
     Route::get('user/orders', [UserController::class, 'orders']);
@@ -156,6 +157,7 @@ Route::get('shipping', [HomeController::class, 'shipping']);
 Route::get('terms-conditions', [HomeController::class, 'terms_conditions']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
 
+Route::post('recent_arrivals_product', [HomeController::class, 'recent_arrivals_product']);
 
 Route::post('auth_register', [AuthController::class, 'auth_register']);
 Route::post('auth_login', [AuthController::class, 'auth_login']);

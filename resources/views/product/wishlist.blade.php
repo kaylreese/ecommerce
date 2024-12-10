@@ -60,6 +60,31 @@
 
 @section('script')
     <script type="text/javascript">
-        
+        $('body').delegate('.add_to_wishlist', 'click', function(e) {
+            var product_id = $(this).attr('id');
+            console.log(product_id);
+
+            $.ajax({
+                type: "POST",
+                url: "{{ url('user/add_to_wishlist') }}",
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    product_id: product_id,
+                },
+                dataType:"json",
+                success: function(data) {
+                    if (data.is_wishlist == 1) {
+                        toastr.success('Agregado a tus favoritos');
+                        $('.add_to_wishlist'+product_id).addClass('btn-wishlist-add');
+                    } else {
+                        $('.add_to_wishlist'+product_id).removeClass('btn-wishlist-add');
+                        toastr.success('Quitado de tus favoritos');
+                    }
+                },
+                error: function (data) {
+
+                }
+            });
+        });
     </script>
 @endsection

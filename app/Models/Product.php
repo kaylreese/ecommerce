@@ -113,6 +113,27 @@ class Product extends Model
 
         return $data;
     }
+    
+    static public function getRecentArrivals($category_id = '', $subcategory_id = '')
+    {
+        $data = Product::select('products.*', 'users.name as created_by_name', 'categories.name as category_name', 'categories.url as category_url', 'subcategories.name as subcategory_name', 'subcategories.url as subcategory_url')
+                ->join('users', 'users.id', '=', 'products.created_by')
+                ->join('subcategories', 'subcategories.id', '=', 'products.subcategory_id')
+                ->join('categories', 'categories.id', '=', 'products.category_id')
+                ->where('products.status', '=', 1);
+
+            if (!empty(Request::get('category_id'))) {
+                $data = $data->where('products.category_id', '=', Request::get('category_id'));
+            }
+            
+
+        $data = $data->groupBy('products.id')
+            ->orderBy('products.id', 'desc')
+            ->limit(8)
+            ->get();
+
+        return $data;
+    }
 
     static public function getRelatedProduct($product_id, $subcategory_id) 
     {
@@ -130,7 +151,7 @@ class Product extends Model
 
         return $data;
     }
-
+    
     static public function getImageSingle($id) 
     {
         return ProductImage::where('product_id', '=', $id)->orderBy('order_by', 'asc')->first();
