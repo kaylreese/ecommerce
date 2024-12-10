@@ -3,6 +3,21 @@
 @section('style')
     <link rel="stylesheet" href="{{ url('public/page/css/plugins/nouislider/nouislider.css') }}">
     <style type="text/css">
+    
+    PE
+    
+    Saltar navegación
+    Buscar
+    
+    
+    
+    
+    9+
+    
+    Imagen del avatar
+    
+    PE
+    
         .active-color {
             border: 3px solid #000 !important;
         }

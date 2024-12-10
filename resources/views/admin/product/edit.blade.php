@@ -192,7 +192,7 @@
                     <hr>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-10">
                             {{-- <div class="form-group">
                                 <label>Images:</label>
                                 <input type="file" class="form-control" style="padding: 5px;" name="image[]" multiple accept="image/*">
@@ -208,6 +208,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                  <input type="checkbox" class="custom-control-input" {{ !empty($product->is_trendy) ? 'checked' : '' }}  name="is_trendy" id="is_trendy">
+                                  <label class="custom-control-label" for="is_trendy"> Is Trendy?: <span style="color: red">(*)</span></label>
+                                </div>
+                              </div>
+                        </div>      
                     </div>
 
                     @if(!empty($product->getImages->count()))

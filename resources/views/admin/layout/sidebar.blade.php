@@ -124,6 +124,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('admin/blogcategory') }}" class="nav-link @if( Request::segment(2) == 'blogcategoryr') active @endif">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Blog Category</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/blog') }}" class="nav-link @if( Request::segment(2) == 'blog') active @endif">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Blog</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('admin/contactus') }}" class="nav-link @if( Request::segment(2) == 'contactus') active @endif">
                     <i class="nav-icon fas fa-edit"></i>
                     <p>Contact Us</p>

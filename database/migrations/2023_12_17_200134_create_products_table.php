@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('additional_information');
             $table->text('shipping_returns');
+            $table->integer('is_trendy')->default(0);
             $table->integer('created_by');
             $table->timestamps();
             $table->integer('status')->default(1)->comment('1: Active, 0: Deleted');

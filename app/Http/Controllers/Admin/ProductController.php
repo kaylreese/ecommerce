@@ -103,6 +103,7 @@ class ProductController extends Controller
             $product->additional_information = trim($request->additional_information);
             $product->shipping_returns = trim($request->shipping_returns);
             $product->status = trim($request->status);
+            $product->is_trendy = trim($request->is_trendy) ? 1 : 0;
             $product->save();
 
             ProductColor::DeleteProductColor($product->id);
