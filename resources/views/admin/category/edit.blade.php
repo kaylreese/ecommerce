@@ -15,7 +15,7 @@
 
     <div class="col-md-12">
         <div class="card card-primary">
-            <form action="{{ url('admin/category/edit',$getCategory->id) }}" method="POST">
+            <form action="{{ url('admin/category/edit',$getCategory->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf @method('PUT')
 
                 <div class="card-body">
@@ -66,6 +66,37 @@
                             </div>
                         </div>
 
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Button Name: <span style="color: red">(*)</span></label>
+                                <input type="text" class="form-control" name="button_name" value="{{ old('button_name', $getCategory->button_name) }}" placeholder="Enter Button Name">
+                                <div style="color: red"> {{ $errors->first('button_name') }} </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                    <input type="checkbox" {{ !empty($getCategory->is_home) ? 'checked' : '' }} class="custom-control-input" name="is_home" id="is_home">
+                                    <label class="custom-control-label" for="is_home"> Is Home?: <span style="color: red">(*)</span></label>
+                                </div>
+                            </div>
+                        </div>                        
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Image: <span style="color: red">(*)</span></label>
+                                <input type="file" class="form-control" name="image_name" value="{{ old('image_name') }}">
+                                <div style="color: red"> {{ $errors->first('image_name') }} </div>
+
+                                @if (!empty($getCategory->getImage()))
+                                    <img style="width: 200px" src="{{ $getCategory->getImage() }}">
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
               

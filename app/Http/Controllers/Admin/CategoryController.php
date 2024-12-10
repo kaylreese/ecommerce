@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 class CategoryController extends Controller
 {
@@ -33,11 +35,25 @@ class CategoryController extends Controller
         $category = new Category;
         $category->name = trim($request->name);
         $category->url = trim($request->url);
+        $category->button_name = trim($request->button_name);
+        $category->is_home = !empty($request->is_home) ? 1 : 0;
         $category->status = trim($request->status);
         $category->meta_title = trim($request->meta_title);
         $category->meta_keywords = trim($request->meta_keywords);
         $category->meta_description = trim($request->meta_description);
         $category->created_by = Auth::user()->id;
+
+        if (!empty($request->file('image_name'))) {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = $category->id . Str::random(10);
+            $filename = strtolower($randomStr) . '.' . $ext;
+        
+            $file->move('public/upload/category/', $filename);
+        
+            $category->image_name = $filename;
+        }
+
         $category->save();
 
         return redirect('admin/category')->with('success', "Category Successfully Created");
@@ -61,18 +77,37 @@ class CategoryController extends Controller
 
     public function update(Request $request, string $id)
     {
+        $category = Category::getCategory($id);
+
         request()->validate([
-            'url' => 'required|unique:categories'
+            'url' => [
+                'required',
+                Rule::unique('categories')->ignore($category->id),
+            ],
         ]);
         
-        $category = Category::getCategory($id);
+        
         $category->name = trim($request->name);
         $category->url = trim($request->url);
+        $category->button_name = trim($request->button_name);
+        $category->is_home = !empty($request->is_home) ? 1 : 0;
         $category->status = trim($request->status);
         $category->meta_title = trim($request->meta_title);
         $category->meta_keywords = trim($request->meta_keywords);
         $category->meta_description = trim($request->meta_description);
         $category->created_by = Auth::user()->id;
+
+        if (!empty($request->file('image_name'))) {
+            $file = $request->file('image_name');
+            $ext = $file->getClientOriginalExtension();
+            $randomStr = $category->id . Str::random(10);
+            $filename = strtolower($randomStr) . '.' . $ext;
+        
+            $file->move('public/upload/category/', $filename);
+        
+            $category->image_name = $filename;
+        }
+
         $category->save();
 
         return redirect('admin/category')->with('success', "Category Successfully Updated");

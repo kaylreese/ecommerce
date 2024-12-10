@@ -136,7 +136,7 @@ class ProductController extends Controller
                         $ext = $value->getClientOriginalExtension();
                         $randomStr = $product->id.Str::random(10);
                         $filename = strtolower($randomStr).'.'.$ext;
-                        $value->move('upload/products/', $filename);
+                        $value->move('public/upload/products/', $filename);
 
                         $image = new ProductImage;
                         $image->product_id = $product->id;
@@ -161,7 +161,7 @@ class ProductController extends Controller
         $image = ProductImage::getProductImage($id);    
 
         if(!empty($image->getLogo())) {
-            unlink('upload/products/'.$image->name);
+            unlink('public/upload/products/'.$image->name);
         }
         $image->delete();
 

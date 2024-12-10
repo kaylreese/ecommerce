@@ -13,12 +13,15 @@ return new class extends Migration
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('url');
-            $table->string('meta_title');
-            $table->string('meta_description');
-            $table->string('meta_keywords');
-            $table->integer('created_by');
+            $table->string('name')->nullable();
+            $table->string('url')->nullable();
+            $table->string('image_name')->nullable();
+            $table->string('button_name')->nullable();
+            $table->integer('is_home')->default(0);
+            $table->string('meta_title')->nullable();
+            $table->string('meta_description')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->integer('created_by')->nullable();
             $table->timestamps();
             $table->integer('status')->default(1)->comment('1: Active, 0: Deleted');
         });

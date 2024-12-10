@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
+use App\Models\Category;
 use App\Models\ContactModel;
 use App\Models\PageModel;
 use App\Models\PartnerModel;
@@ -25,6 +26,7 @@ class HomeController extends Controller
 
         $data["sliders"] = SliderModel::getSlidersActive();
         $data["partners"] = PartnerModel::getPartnersActive();
+        $data["categories"] = Category::getCategoriesHome();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;

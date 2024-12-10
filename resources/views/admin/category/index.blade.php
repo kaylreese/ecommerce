@@ -42,7 +42,9 @@
                                         <th>Url</th>
                                         <th>Title</th>
                                         <th>Keywords</th>
-                                        <th>Description</th>
+                                        {{-- <th>Description</th> --}}
+                                        <th>Image</th>
+                                        <th>Home</th>
                                         <th>Created By</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -57,10 +59,16 @@
                                             <td>{{ $value->url }}</td>
                                             <td>{{ $value->meta_title }}</td>
                                             <td>{{ $value->meta_keywords }}</td>
-                                            <td>{{ $value->meta_description }}</td>
+                                            {{-- <td>{{ $value->meta_description }}</td> --}}
+                                            <td>
+                                                @if (!empty($value->getImage()))
+                                                    <img style="width: 100px" height="80 px" src="{{ $value->getImage() }}">
+                                                @endif
+                                            </td>
+                                            <td>{{ ($value->is_home == 1) ? 'Yes' : 'No' }}</td>
                                             <td>{{ $value->created_by_name }}</td>
                                             <td>{{ ($value->status == 1) ? 'Active' : 'Inactive' }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($value->created_by_name)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                             <td>
                                                 <a href="{{ url('admin/category/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                                 <a href="{{ url('admin/category/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
