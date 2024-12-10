@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\ShippingChargeController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\PaymentController;
@@ -134,6 +135,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/slider/edit/{id}', [SliderController::class, 'edit']);
     Route::put('admin/slider/edit/{id}', [SliderController::class, 'update']);
     Route::get('admin/slider/delete/{id}', [SliderController::class, 'destroy']);
+
+    Route::get('admin/partner', [PartnerController::class, 'index']);
+    Route::get('admin/partner/create', [PartnerController::class, 'create']);
+    Route::post('admin/partner/store', [PartnerController::class, 'store']);
+    Route::get('admin/partner/edit/{id}', [PartnerController::class, 'edit']);
+    Route::put('admin/partner/edit/{id}', [PartnerController::class, 'update']);
+    Route::get('admin/partner/delete/{id}', [PartnerController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);

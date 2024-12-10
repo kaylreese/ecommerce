@@ -72,38 +72,23 @@
                             }
                         }
                     }'>
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/1.png') }}" alt="Brand Name">
-                    </a>
 
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/2.png') }}" alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/3.png') }}" alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/4.png') }}" alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/5.png') }}" alt="Brand Name">
-                    </a>
-
-                    <a href="#" class="brand">
-                        <img src="{{ url('public/page/images/brands/6.png') }}" alt="Brand Name">
-                    </a>
-                </div><!-- End .owl-carousel -->
-            </div><!-- End .container -->
+                    @foreach ($partners as $partner)
+                        @if(!empty($partner->getImage()))
+                            <a href="{{ !empty($partner->button_link) ? $partner->button_link : '#' }}" class="brand">
+                                <img src="{{ $partner->getImage() }}" alt="Brand Name">
+                            </a>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
         </div>
         
-        <div class="mb-6"></div><!-- End .mb-6 -->
+        <div class="mb-6"></div>
 
         <div class="container">
             <div class="heading heading-center mb-3">
-                <h2 class="title-lg">Trendy Products</h2><!-- End .title -->
+                <h2 class="title-lg">Trendy Products</h2>
 
                 <ul class="nav nav-pills justify-content-center" role="tablist">
                     <li class="nav-item">
@@ -119,7 +104,7 @@
                         <a class="nav-link" id="trendy-light-link" data-toggle="tab" href="#trendy-light-tab" role="tab" aria-controls="trendy-light-tab" aria-selected="false">Lighting</a>
                     </li>
                 </ul>
-            </div><!-- End .heading -->
+            </div>
 
             <div class="tab-content tab-content-carousel">
                 <div class="tab-pane p-0 fade show active" id="trendy-all-tab" role="tabpanel" aria-labelledby="trendy-all-link">
@@ -576,11 +561,11 @@
                         </div><!-- End .product -->
                     </div><!-- End .owl-carousel -->
                 </div><!-- .End .tab-pane -->
-            </div><!-- End .tab-content -->
-        </div><!-- End .container -->
+            </div>
+        </div>
 
         <div class="container categories pt-6">
-            <h2 class="title-lg text-center mb-4">Shop by Categories</h2><!-- End .title-lg text-center -->
+            <h2 class="title-lg text-center mb-4">Shop by Categories</h2>
 
             <div class="row">
                 <div class="col-6 col-lg-4">
@@ -592,9 +577,9 @@
                         <div class="banner-content banner-content-center">
                             <h3 class="banner-title text-white"><a href="#">Outdoor</a></h3><!-- End .banner-title -->
                             <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div>
+                    </div>
+                </div>
                 <div class="col-6 col-lg-4 order-lg-last">
                     <div class="banner banner-display banner-link-anim">
                         <a href="#">
@@ -604,9 +589,9 @@
                         <div class="banner-content banner-content-center">
                             <h3 class="banner-title text-white"><a href="#">Lighting</a></h3><!-- End .banner-title -->
                             <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-sm-6 col-lg-3 -->
+                        </div>
+                    </div>
+                </div>
                 <div class="col-sm-12 col-lg-4 banners-sm">
                     <div class="row">
                         <div class="banner banner-display banner-link-anim col-lg-12 col-6">
@@ -617,8 +602,8 @@
                             <div class="banner-content banner-content-center">
                                 <h3 class="banner-title text-white"><a href="#">Furniture and Design</a></h3><!-- End .banner-title -->
                                 <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
+                            </div>
+                        </div>
 
                         <div class="banner banner-display banner-link-anim col-lg-12 col-6">
                             <a href="#">
@@ -628,19 +613,19 @@
                             <div class="banner-content banner-content-center">
                                 <h3 class="banner-title text-white"><a href="#">Kitchen & Utensil</a></h3><!-- End .banner-title -->
                                 <a href="#" class="btn btn-outline-white banner-link">Shop Now<i class="icon-long-arrow-right"></i></a>
-                            </div><!-- End .banner-content -->
-                        </div><!-- End .banner -->
+                            </div>
+                        </div>
                     </div>
-                </div><!-- End .col-sm-6 col-lg-3 -->
-            </div><!-- End .row -->
-        </div><!-- End .container -->
+                </div>
+            </div>
+        </div>
 
-        <div class="mb-5"></div><!-- End .mb-6 -->
+        <div class="mb-5"></div>
 
         
         <div class="container">
             <div class="heading heading-center mb-6">
-                <h2 class="title">Recent Arrivals</h2><!-- End .title -->
+                <h2 class="title">Recent Arrivals</h2>
 
                 <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                     <li class="nav-item">
@@ -656,7 +641,7 @@
                         <a class="nav-link" id="top-light-link" data-toggle="tab" href="#top-light-tab" role="tab" aria-controls="top-light-tab" aria-selected="false">Lighting</a>
                     </li>
                 </ul>
-            </div><!-- End .heading -->
+            </div>
 
             <div class="tab-content">
                 <div class="tab-pane p-0 fade show active" id="top-all-tab" role="tabpanel" aria-labelledby="top-all-link">
@@ -888,7 +873,7 @@
                                     </div><!-- End .product-action -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
-                        </div><!-- End .row -->
+                        </div>
                     </div><!-- End .products -->
                 </div><!-- .End .tab-pane -->
                 <div class="tab-pane p-0 fade" id="top-fur-tab" role="tabpanel" aria-labelledby="top-fur-link">
@@ -974,7 +959,7 @@
                                     </div><!-- End .product-action -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
-                        </div><!-- End .row -->
+                        </div>
                     </div><!-- End .products -->
                 </div><!-- .End .tab-pane -->
                 <div class="tab-pane p-0 fade" id="top-decor-tab" role="tabpanel" aria-labelledby="top-decor-link">
@@ -1065,7 +1050,7 @@
                                     </div><!-- End .product-action -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
-                        </div><!-- End .row -->
+                        </div>
                     </div><!-- End .products -->
                 </div><!-- .End .tab-pane -->
                 <div class="tab-pane p-0 fade" id="top-light-tab" role="tabpanel" aria-labelledby="top-light-link">
@@ -1130,14 +1115,14 @@
                                     </div><!-- End .product-action -->
                                 </div><!-- End .product -->
                             </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
-                        </div><!-- End .row -->
+                        </div>
                     </div><!-- End .products -->
                 </div><!-- .End .tab-pane -->
-            </div><!-- End .tab-content -->
+            </div>
             <div class="more-container text-center">
                 <a href="#" class="btn btn-outline-darker btn-more"><span>Load more products</span><i class="icon-long-arrow-down"></i></a>
             </div><!-- End .more-container -->
-        </div><!-- End .container -->
+        </div>
 
         <div class="container">
             <hr>
@@ -1177,13 +1162,13 @@
                         </div><!-- End .icon-box-content -->
                     </div><!-- End .icon-box -->
                 </div><!-- End .col-lg-4 col-sm-6 -->
-            </div><!-- End .row -->
+            </div>
 
             <div class="mb-2"></div><!-- End .mb-2 -->
-        </div><!-- End .container -->
+        </div>
         <div class="blog-posts pt-7 pb-7" style="background-color: #fafafa;">
             <div class="container">
-                <h2 class="title-lg text-center mb-3 mb-md-4">From Our Blog</h2><!-- End .title-lg text-center -->
+                <h2 class="title-lg text-center mb-3 mb-md-4">From Our Blog</h2>
 
                 <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" 
                     data-owl-options='{

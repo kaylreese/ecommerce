@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\ContactMail;
 use App\Models\ContactModel;
 use App\Models\PageModel;
+use App\Models\PartnerModel;
 use App\Models\SettingModel;
 use App\Models\SliderModel;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class HomeController extends Controller
         $data['page'] = $page;
 
         $data["sliders"] = SliderModel::getSlidersActive();
+        $data["partners"] = PartnerModel::getPartnersActive();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;

@@ -7,10 +7,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-8">
-                <h1>Sliders</h1>
+                <h1>Partners</h1>
             </div>
             <div class="col-sm-4" style="text-align: right;">
-                <a href="{{ url('admin/slider/create') }}" class="btn btn bg-success">New Slider</a>
+                <a href="{{ url('admin/partner/create') }}" class="btn btn bg-success">New Partner</a>
             </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Slider List</h3>
+                            <h3 class="card-title">Partner List</h3>
                         </div>
 
                         <div class="card-body p-0">
@@ -33,8 +33,7 @@
                                 <thead>
                                     <tr>
                                         <th style="width: 10px">#</th>
-                                        <th>Title</th>
-                                        <th>Sub Title</th>
+                                        <th>Boton Link</th>
                                         <th>Image</th>
                                         <th>Status</th>
                                         <th>Created Date</th>
@@ -42,11 +41,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @forelse($sliders as $value)
+                                    @forelse($partners as $value)
                                         <tr>
                                             <td>{{ $value->id }}</td>
-                                            <td>{{ $value->title }}</td>
-                                            <td>{{ $value->subtitle }}</td>
+                                            <td>{{ $value->button_link }}</td>
                                             <td>
                                                 @if (!empty($value->getImage()))
                                                     <img style="width: 200px" src="{{ $value->getImage() }}">
@@ -55,20 +53,20 @@
                                             <td>{{ ($value->state == 1) ? 'Active' : 'Inactive' }}</td>
                                             <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                             <td>
-                                                <a href="{{ url('admin/slider/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
-                                                <a href="{{ url('admin/slider/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
+                                                <a href="{{ url('admin/partner/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
+                                                <a href="{{ url('admin/partner/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6" class="text-center">No sliders found.</td>
+                                            <td colspan="6" class="text-center">No Partners found.</td>
                                         </tr>
                                     @endforelse
                                 </tbody>
                             </table>
 
                             <div style="padding: 10px; float: right;">
-                                {!! $sliders->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                                {!! $partners->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
                             </div>
                         </div>
                     </div>

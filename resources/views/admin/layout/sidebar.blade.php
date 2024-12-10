@@ -118,6 +118,12 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ url('admin/partner') }}" class="nav-link @if( Request::segment(2) == 'partner') active @endif">
+                    <i class="nav-icon fas fa-th"></i>
+                    <p>Partner</p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ url('admin/contactus') }}" class="nav-link @if( Request::segment(2) == 'contactus') active @endif">
                     <i class="nav-icon fas fa-edit"></i>
                     <p>Contact Us</p>
