@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\PaymentController;
@@ -151,6 +152,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/blogcategory/edit/{id}', [BlogCategoryController::class, 'edit']);
     Route::put('admin/blogcategory/edit/{id}', [BlogCategoryController::class, 'update']);
     Route::get('admin/blogcategory/delete/{id}', [BlogCategoryController::class, 'destroy']);
+
+    Route::get('admin/blog', [BlogController::class, 'index']);
+    Route::get('admin/blog/create', [BlogController::class, 'create']);
+    Route::post('admin/blog/store', [BlogController::class, 'store']);
+    Route::get('admin/blog/edit/{id}', [BlogController::class, 'edit']);
+    Route::put('admin/blog/edit/{id}', [BlogController::class, 'update']);
+    Route::get('admin/blog/delete/{id}', [BlogController::class, 'destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index']);
