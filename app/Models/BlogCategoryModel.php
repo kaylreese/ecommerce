@@ -31,4 +31,18 @@ class BlogCategoryModel extends Model
                 ->where('status', '=', 1)
                 ->count();
     }
+   
+    public function getBlogs()
+    {
+        return $this->hasMany(BlogModel::class, 'blogcategory_id')
+                ->where('status', '=', 1)
+                ->count();
+    }
+
+    static public function getUrl($url)
+    {
+        return self::where('url', '=', $url)
+                    ->where('status', '=', 1)
+                    ->first();
+    }
 }

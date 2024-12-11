@@ -33,6 +33,7 @@ class HomeController extends Controller
         $data["categories"] = Category::getCategoriesHome();
         $data["getProduct"] = Product::getRecentArrivals();
         $data["getProductTrendy"] = Product::getProductTrendy();
+        $data["blogs"] = BlogModel::getBlogsHomeActive();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;
@@ -241,6 +242,28 @@ class HomeController extends Controller
             $data['getRelatedPost'] = BlogModel::getRelatedPost($blog->blogcategory_id, $blog->id);
 
             return view('blog.detail', $data);
+        } else {
+            abort(404);
+        }
+    }
+    
+    public function categories(string $url) 
+    {
+        $category = BlogCategoryModel::getUrl($url);
+
+        if(!empty($category)) {
+            $data['categories'] = BlogCategoryModel::getCategories();
+            $data['blogs'] = BlogModel::getBlogsHome($category->id);
+
+            $data['meta_title'] = $category->meta_title;
+            $data['meta_keywords'] = $category->meta_keywords;
+            $data['meta_description'] = $category->meta_description;
+
+            $data['category'] = $category;
+            $data['getPopular'] = BlogModel::getPopular();
+            // $data['getRelatedPost'] = BlogModel::getCategories();
+
+            return view('blog.category', $data);
         } else {
             abort(404);
         }

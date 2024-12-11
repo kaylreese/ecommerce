@@ -2,16 +2,17 @@
 
 @section('content')
 <main class="main">
-    <div class="page-header text-center" style="background-image: url({{ $page->getImage() }})">
+    <div class="page-header text-center" style="background-image: url({{ url('public/page/images/page-header-bg.jpg') }})">
         <div class="container">
-            <h1 class="page-title">{{ $page->title }}</h1>
+            <h1 class="page-title">{{ $category->name }}</h1>
         </div>
     </div>
     <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
         <div class="container">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ url('') }}">Home</a></li>
-                <li class="breadcrumb-item active"><a href="{{ url('blog') }}">Blog</a></li>
+                <li class="breadcrumb-item "><a href="{{ url('blog') }}">Blog</a></li>
+                <li class="breadcrumb-item active"><a href="#">{{ $category->name }}</a></li>
             </ol>
         </div>
     </nav>

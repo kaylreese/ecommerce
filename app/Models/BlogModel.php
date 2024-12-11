@@ -64,16 +64,34 @@ class BlogModel extends Model
     //             ->get();
     // }
 
-    static public function getBlogsHome()
+    static public function getBlogsHome($category_id = '')
     {
         $data = self::select('blog.*', 'categories.name as category_name');
+
+        if (!empty(Request::get('search'))) {
+            $data = $data->where('blog.title', 'like', '%'.Request::get('search').'%');
+        }
+        
+        if (!empty($category_id)) {
+            $data = $data->where('blog.blogcategory_id', '=',  $category_id);
+        }
 
         $data = $data->join('categories', 'categories.id', '=', 'blog.blogcategory_id')
                 ->where('blog.status', '=', 1)
                 ->orderBy('blog.id', 'desc')
-                ->get(10);
+                ->paginate(10);
 
         return $data;
+    }
+
+    static public function getBlogsHomeActive()
+    {
+        return self::select('blog.*', 'categories.name as category_name')
+                ->join('categories', 'categories.id', '=', 'blog.blogcategory_id')
+                ->where('blog.status', '=', 1)
+                ->orderBy('blog.id', 'desc')
+                ->limit(3)
+                ->get();
     }
     
     static public function getPopular()
