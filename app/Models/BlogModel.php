@@ -35,29 +35,39 @@ class BlogModel extends Model
                     ->first();
     }
 
-    static public function getCategory($category_id)
+    public function category()
     {
-        return self::select('blog.*')
-                ->where('blog.blogcategory_id', '=', $category_id)
-                ->where('blog.status', '=', 1)
-                ->orderBy('blog.id', 'asc')
-                ->get();
+        return $this->belongsTo(BlogCategoryModel::class, 'blogcategory_id');
     }
+
+    // static public function getCategory($category_id)
+    // {
+    //     return self::select('blog.*')
+    //             ->where('blog.blogcategory_id', '=', $category_id)
+    //             ->where('blog.status', '=', 1)
+    //             ->orderBy('blog.id', 'asc')
+    //             ->get();
+    // }
 
     static public function getBlogsHome()
     {
         $data = self::select('blog.*', 'categories.name as category_name');
 
-        if (!empty(Request::get('search'))) {
-            $data = $data->where('blog.title', 'like', '%'.Request::get('search').'%');
-        }
-
         $data = $data->join('categories', 'categories.id', '=', 'blog.blogcategory_id')
                 ->where('blog.status', '=', 1)
                 ->orderBy('blog.id', 'desc')
-                ->paginate(10);
+                ->get(10);
 
         return $data;
+    }
+    
+    static public function getPopular()
+    {
+        return self::select('blog.*')
+                ->where('blog.status', '=', 1)
+                ->orderBy('blog.total_view', 'desc')
+                ->limit(6)
+                ->get();
     }
 
     public function getImage()

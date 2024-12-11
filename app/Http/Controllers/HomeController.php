@@ -218,4 +218,28 @@ class HomeController extends Controller
 
         return view('blog.index', $data);
     }
+    
+    public function blogdetail(string $url) 
+    {
+        $blog = BlogModel::getUrl($url);
+
+        if(!empty($blog)) {
+            $data['categories'] = BlogCategoryModel::getCategories();
+
+            $total_view = $blog->total_view;
+            $blog->total_view = $total_view + 1;
+            $blog->save();
+
+            $data['meta_title'] = $blog->meta_title;
+            $data['meta_keywords'] = $blog->meta_keywords;
+            $data['meta_description'] = $blog->meta_description;
+
+            $data['blog'] = $blog;
+            $data['getPopular'] = BlogModel::getPopular();
+
+            return view('blog.detail', $data);
+        } else {
+            abort(404);
+        }
+    }
 }

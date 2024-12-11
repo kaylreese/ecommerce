@@ -1,15 +1,5 @@
 @extends('layouts.app')
 
-@section('style')
-    <link rel="stylesheet" href="{{ url('public/page/css/plugins/nouislider/nouislider.css') }}">
-    <style type="text/css">
-
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-@endsection
-
 @section('content')
 <main class="main">
     <div class="page-header text-center" style="background-image: url({{ $page->getImage() }})">
@@ -62,93 +52,10 @@
                 </div>
 
                 <aside class="col-lg-3">
-                    <div class="sidebar">
-                        <div class="widget widget-search">
-                            <h3 class="widget-title">Search</h3>
-
-                            <form action="{{ url('blog') }}" method="GET">
-                                <label for="ws" class="sr-only">Search in blog</label>
-                                <input type="search" class="form-control" name="search" id="search" value="{{ Request::get('search') }}" placeholder="Search in blog" required>
-                                <button type="submit" class="btn"><i class="icon-search"></i><span class="sr-only">Search</span></button>
-                            </form>
-                        </div>
-
-                        <div class="widget widget-cats">
-                            <h3 class="widget-title">Categories</h3>
-
-                            <ul>
-                                @foreach ($categories as $category)
-                                <li><a href="{{ url('blog/category/'.$category->url) }}">{{ $category->name }}<span>{{ $category->getCountBlog() }}</span></a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-
-                        <div class="widget">
-                            <h3 class="widget-title">Popular Posts</h3>
-
-                            <ul class="posts-list">
-                                <li>
-                                    <figure>
-                                        <a href="#">
-                                            <img src="public/page/images/blog/sidebar/post-1.jpg" alt="post">
-                                        </a>
-                                    </figure>
-
-                                    <div>
-                                        <span>Nov 22, 2018</span>
-                                        <h4><a href="#">Aliquam tincidunt mauris eurisus.</a></h4>
-                                    </div>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <a href="#">
-                                            <img src="public/page/images/blog/sidebar/post-2.jpg" alt="post">
-                                        </a>
-                                    </figure>
-
-                                    <div>
-                                        <span>Nov 19, 2018</span>
-                                        <h4><a href="#">Cras ornare tristique elit.</a></h4>
-                                    </div>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <a href="#">
-                                            <img src="public/page/images/blog/sidebar/post-3.jpg" alt="post">
-                                        </a>
-                                    </figure>
-
-                                    <div>
-                                        <span>Nov 12, 2018</span>
-                                        <h4><a href="#">Vivamus vestibulum ntulla nec ante.</a></h4>
-                                    </div>
-                                </li>
-                                <li>
-                                    <figure>
-                                        <a href="#">
-                                            <img src="public/page/images/blog/sidebar/post-4.jpg" alt="post">
-                                        </a>
-                                    </figure>
-
-                                    <div>
-                                        <span>Nov 25, 2018</span>
-                                        <h4><a href="#">Donec quis dui at dolor  tempor interdum.</a></h4>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    @include('blog._sidebar')
                 </aside>
             </div>
         </div>
     </div>
 </main>
-@endsection
-
-@section('script')
-    <script src="{{ url('public/page/js/nouislider.min.js') }}"></script>
-
-    <script type="text/javascript">      
-
-    </script>
 @endsection
