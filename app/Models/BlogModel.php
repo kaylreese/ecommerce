@@ -39,6 +39,21 @@ class BlogModel extends Model
     {
         return $this->belongsTo(BlogCategoryModel::class, 'blogcategory_id');
     }
+    
+    public function comments()
+    {
+        return $this->hasMany(CommentModel::class, 'blog_id')
+                ->select('comments.*')
+                ->join('users', 'users.id', '=', 'comments.user_id');
+    }
+    
+    public function commentCount()
+    {
+        return $this->hasMany(CommentModel::class, 'blog_id')
+                ->select('comments.*')
+                ->join('users', 'users.id', '=', 'comments.user_id')
+                ->count();
+    }
 
     // static public function getCategory($category_id)
     // {
@@ -64,6 +79,17 @@ class BlogModel extends Model
     static public function getPopular()
     {
         return self::select('blog.*')
+                ->where('blog.status', '=', 1)
+                ->orderBy('blog.total_view', 'desc')
+                ->limit(6)
+                ->get();
+    }
+    
+    static public function getRelatedPost($blogcategory_id, $blog_id)
+    {
+        return self::select('blog.*')
+                ->where('blog.blogcategory_id', '=', $blogcategory_id)
+                ->where('blog.id', '!=', $blog_id)
                 ->where('blog.status', '=', 1)
                 ->orderBy('blog.total_view', 'desc')
                 ->limit(6)

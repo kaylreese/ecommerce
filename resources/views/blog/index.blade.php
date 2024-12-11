@@ -34,12 +34,17 @@
                                         <div class="entry-meta">
                                             <a href="#">{{ \Carbon\Carbon::parse($blog->created_at)->format('M d, Y') }} </a>
                                             <span class="meta-separator">|</span>
-                                            <a href="#">0 Comments</a>
+                                            <a href="#">{{ $blog->commentCount() }} Comments</a>
                                         </div>
 
                                         <h2 class="entry-title">
                                             <a href="{{ url('blog/'.$blog->url) }}">{{ $blog->title }}</a>
                                         </h2>
+
+                                        <div class="entry-content" style="text-align: justify;">
+                                            <p>{{ $blog->short_description }}</p>
+                                            <a href="{{ url('blog/'.$blog->url) }}" class="read-more">Continue Reading</a>
+                                        </div>
                                     </div>
                                 </article>
                             </div>
@@ -47,7 +52,7 @@
                     </div>
 
                     <nav aria-label="Page navigation">
-                        {!! $blogs->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                        {{-- {!! $blogs->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!} --}}
                     </nav>
                 </div>
 

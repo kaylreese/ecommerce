@@ -33,10 +33,25 @@
         </nav>
 
         <div class="social-icons">
-            <a href="#" class="social-icon" target="_blank" title="Facebook"><i class="icon-facebook-f"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Twitter"><i class="icon-twitter"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Instagram"><i class="icon-instagram"></i></a>
-            <a href="#" class="social-icon" target="_blank" title="Youtube"><i class="icon-youtube"></i></a>
+            @if (!empty($getSettingsApp->facebook_link))
+                <a href="{{ $getSettingsApp->facebook_link }}" class="social-icon" title="Facebook" target="_blank"><i class="icon-facebook-f"></i></a>
+            @endif
+            
+            @if (!empty($getSettingsApp->twitter_link))
+                <a href="{{ $getSettingsApp->twitter_link }}" class="social-icon" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>
+            @endif
+            
+            @if (!empty($getSettingsApp->instagram_link))
+                <a href="{{ $getSettingsApp->instagram_link }}" class="social-icon" title="Instagram" target="_blank"><i class="icon-instagram"></i></a>
+            @endif
+            
+            @if (!empty($getSettingsApp->youtube_link))
+                <a href="{{ $getSettingsApp->youtube_link }}" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+            @endif
+            
+            @if (!empty($getSettingsApp->pinterest_link))
+                <a href="{{ $getSettingsApp->pinterest_link }}" class="social-icon" title="Pinterest" target="_blank"><i class="icon-pinterest"></i></a>
+            @endif
         </div>
     </div>
 </div>

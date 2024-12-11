@@ -56,6 +56,13 @@
 
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label>Short Description:</label>
+                                <textarea class="form-control" name="short_description" id="short_description" rows="5" placeholder="Enter Short Description">{{ old('short_description') }}</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label>Description:</label>
                                 <textarea class="form-control editor" name="description" id="description" rows="5" placeholder="Enter Blog Description">{{ old('description') }}</textarea>
                             </div>

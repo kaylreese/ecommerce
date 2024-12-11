@@ -31,6 +31,7 @@ class BlogController extends Controller
         $blog = new BlogModel;
         $blog->blogcategory_id = $request->blogcategory_id;
         $blog->title = trim($request->title);
+        $blog->short_description = trim($request->short_description);
         $blog->description = trim($request->description);
         $blog->status = trim($request->status);
         $blog->meta_title = trim($request->meta_title);
@@ -84,6 +85,7 @@ class BlogController extends Controller
         $blog = BlogModel::getBlog($id);
         $blog->blogcategory_id = trim($request->blogcategory_id);
         $blog->title = trim($request->title);
+        $blog->short_description = trim($request->short_description);
         $blog->description = trim($request->description);
         $blog->status = trim($request->status);
         $blog->meta_title = trim($request->meta_title);

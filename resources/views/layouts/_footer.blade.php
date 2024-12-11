@@ -21,7 +21,7 @@
                             @endif
                             
                             @if (!empty($getSettingsApp->youtube_link))
-                                <a href="https://www.youtube.com/" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
+                                <a href="{{ $getSettingsApp->youtube_link }}" class="social-icon" title="Youtube" target="_blank"><i class="icon-youtube"></i></a>
                             @endif
                             
                             @if (!empty($getSettingsApp->pinterest_link))
@@ -39,6 +39,7 @@
                             <li><a href="{{ url('') }}">Home</a></li>
                             <li><a href="{{ url('about') }}">About Us</a></li>
                             <li><a href="{{ url('faq') }}">FAQ</a></li>
+                            <li><a href="{{ url('blog') }}">Blog</a></li>
                             <li><a href="{{ url('contact') }}">Contact us</a></li>
                             <li><a href="#signin-modal" data-toggle="modal">Log in</a></li>
                         </ul>

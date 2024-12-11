@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Models\BlogCategoryModel;
+use App\Models\CommentModel;
 
 class HomeController extends Controller
 {
@@ -211,6 +212,7 @@ class HomeController extends Controller
         $data['page'] = $page;
         $data['blogs'] = BlogModel::getBlogsHome();
         $data['categories'] = BlogCategoryModel::getCategories();
+        $data['getPopular'] = BlogModel::getPopular();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;
@@ -236,10 +238,23 @@ class HomeController extends Controller
 
             $data['blog'] = $blog;
             $data['getPopular'] = BlogModel::getPopular();
+            $data['getRelatedPost'] = BlogModel::getRelatedPost($blog->blogcategory_id, $blog->id);
 
             return view('blog.detail', $data);
         } else {
             abort(404);
         }
+    }
+    
+    
+    public function comment(Request $request) 
+    {
+        $comment = new CommentModel();
+        $comment->user_id = Auth::user()->id;
+        $comment->blog_id = $request->blog_id;
+        $comment->comment = trim($request->comment);
+        $comment->save();
+
+        return redirect()->back()->with('success', 'Your comment successfully created.');
     }
 }
