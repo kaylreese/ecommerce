@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Request;
 
 class BlogModel extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'blog';
 
@@ -26,7 +28,7 @@ class BlogModel extends Model
         return self::find($id);
     }
 
-    static public function getBlogUrl($suburl)
+    static public function getUrl($suburl)
     {
         return self::where('url', '=', $suburl)
                     ->where('blog.status', '=', 1)
@@ -40,6 +42,22 @@ class BlogModel extends Model
                 ->where('blog.status', '=', 1)
                 ->orderBy('blog.id', 'asc')
                 ->get();
+    }
+
+    static public function getBlogsHome()
+    {
+        $data = self::select('blog.*', 'categories.name as category_name');
+
+        if (!empty(Request::get('search'))) {
+            $data = $data->where('blog.title', 'like', '%'.Request::get('search').'%');
+        }
+
+        $data = $data->join('categories', 'categories.id', '=', 'blog.blogcategory_id')
+                ->where('blog.status', '=', 1)
+                ->orderBy('blog.id', 'desc')
+                ->paginate(10);
+
+        return $data;
     }
 
     public function getImage()

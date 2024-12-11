@@ -28,10 +28,6 @@ class BlogController extends Controller
 
     public function store(Request $request)
     {
-        request()->validate([
-            'url' => 'required|unique:blog'
-        ]);
-
         $blog = new BlogModel;
         $blog->blogcategory_id = $request->blogcategory_id;
         $blog->title = trim($request->title);
@@ -127,7 +123,9 @@ class BlogController extends Controller
     {
         $blog = BlogModel::getBlog($id);    
         $blog->status = 0;
+        unlink('public/upload/blog/'.$blog->image_name);
         $blog->save();
+        $blog->delete();
 
         return redirect()->back()->with('success', "Blog Successfully Deleted");
     }

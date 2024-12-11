@@ -7,10 +7,10 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-8">
-                <h1>Colors</h1>
+                <h1>Pages</h1>
             </div>
             <div class="col-sm-4" style="text-align: right;">
-                <a href="{{ url('admin/color/create') }}" class="btn btn bg-success">New Color</a>
+                <a href="{{ url('admin/page/create') }}" class="btn btn bg-success">New Page</a>
             </div>
             </div>
         </div>
@@ -25,7 +25,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <h3 class="card-title">Color List</h3>
+                            <h3 class="card-title">Page List</h3>
                         </div>
 
                         <div class="card-body p-0">

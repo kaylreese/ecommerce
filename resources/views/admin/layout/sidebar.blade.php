@@ -124,7 +124,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url('admin/blogcategory') }}" class="nav-link @if( Request::segment(2) == 'blogcategoryr') active @endif">
+                    <a href="{{ url('admin/blogcategory') }}" class="nav-link @if( Request::segment(2) == 'blogcategory') active @endif">
                     <i class="nav-icon fas fa-th"></i>
                     <p>Blog Category</p>
                     </a>

@@ -172,6 +172,8 @@ Route::get('returns', [HomeController::class, 'returns']);
 Route::get('shipping', [HomeController::class, 'shipping']);
 Route::get('terms-conditions', [HomeController::class, 'terms_conditions']);
 Route::get('privacy-policy', [HomeController::class, 'privacy_policy']);
+Route::get('blog', [HomeController::class, 'blog']);
+Route::get('blog/{url}', [HomeController::class, 'blogdetail']);
 
 Route::post('recent_arrivals_product', [HomeController::class, 'recent_arrivals_product']);
 

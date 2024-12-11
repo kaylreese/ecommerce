@@ -24,4 +24,11 @@ class BlogCategoryModel extends Model
     {
         return self::find($id);
     }
+
+    public function getCountBlog()
+    {
+        return $this->hasMany(BlogModel::class, 'blogcategory_id')
+                ->where('status', '=', 1)
+                ->count();
+    }
 }

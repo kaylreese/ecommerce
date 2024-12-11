@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
+use App\Models\BlogModel;
 use App\Models\Category;
 use App\Models\ContactModel;
 use App\Models\PageModel;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
+use App\Models\BlogCategoryModel;
 
 class HomeController extends Controller
 {
@@ -201,5 +203,19 @@ class HomeController extends Controller
         $data['meta_description'] = $page->meta_description;
 
         return view('shipping', $data);
+    }
+    
+    public function blog() 
+    {
+        $page = PageModel::getUrl('blog');
+        $data['page'] = $page;
+        $data['blogs'] = BlogModel::getBlogsHome();
+        $data['categories'] = BlogCategoryModel::getCategories();
+
+        $data['meta_title'] = $page->meta_title;
+        $data['meta_keywords'] = $page->meta_keywords;
+        $data['meta_description'] = $page->meta_description;
+
+        return view('blog.index', $data);
     }
 }
