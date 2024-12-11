@@ -99,7 +99,7 @@
         @if (!empty($getProductTrendy->count()))
             <div class="container">
                 <div class="heading heading-center mb-3">
-                    <h2 class="title-lg">Trendy Products</h2>
+                    <h2 class="title-lg">{{ $homesetting->trendy_product_title }}</h2>
                 </div>
 
                 <div class="tab-content tab-content-carousel">
@@ -184,7 +184,7 @@
 
         @if (!empty($categories->count()))
             <div class="container categories pt-6">
-                <h2 class="title-lg text-center mb-4">Shop by Categories</h2>
+                <h2 class="title-lg text-center mb-4">{{ $homesetting->shop_category_title }}</h2>
                 <div class="row">
                     @foreach ($categories as $category)
                         @if (!empty($category->getImage()))
@@ -213,7 +213,7 @@
         
         <div class="container">
             <div class="heading heading-center mb-6">
-                <h2 class="title">Recent Arrivals</h2>
+                <h2 class="title">{{ $homesetting->recent_arrivals_title }}</h2>
 
                 <ul class="nav nav-pills nav-border-anim justify-content-center" role="tablist">
                     <li class="nav-item">
@@ -245,164 +245,7 @@
                         
                     </div>
                 @endforeach
-                <div class="tab-pane p-0 fade" id="top-decor-tab" role="tabpanel" aria-labelledby="top-decor-link">
-                    <div class="products">
-                        <div class="row justify-content-center">
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-11 mt-v3 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-8-1.jpg') }}" alt="Product image" class="product-image">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-8-2.jpg') }}" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Madra Log Holder</a></h3>
-                                        <div class="product-price">
-                                            $104,00
-                                        </div>
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #333333;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #927764;"><span class="sr-only">Color name</span></a>
-                                        </div>
-
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-11 mt-v3 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-11-1.jpg') }}" alt="Product image" class="product-image">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-11-2.jpg') }}" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Original Outdoor Beanbag</a></h3>
-                                        <div class="product-price">
-                                            $259,00
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-11 mt-v3 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-14-1.jpg') }}" alt="Product image" class="product-image">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-14-2.jpg') }}" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Wingback Chair</a></h3>
-                                        <div class="product-price">
-                                            $2.486,00
-                                        </div>
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #999999;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #cc9999;"><span class="sr-only">Color name</span></a>
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane p-0 fade" id="top-light-tab" role="tabpanel" aria-labelledby="top-light-link">
-                    <div class="products">
-                        <div class="row justify-content-center">
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-11 mt-v3 text-center">
-                                    <figure class="product-media">
-                                        <a href="product.html">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-10-1.jpg') }}" alt="Product image" class="product-image">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-10-2.jpg') }}" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <h3 class="product-title"><a href="product.html">Carronade Suspension Lamp</a></h3>
-                                        <div class="product-price">
-                                            $892,00
-                                        </div>
-
-                                        <div class="product-nav product-nav-dots">
-                                            <a href="#" class="active" style="background: #e8e8e8;"><span class="sr-only">Color name</span></a>
-                                            <a href="#" style="background: #333333;"><span class="sr-only">Color name</span></a>
-                                        </div>
-
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-6 col-md-4 col-lg-3">
-                                <div class="product product-11 mt-v3 text-center">
-                                    <figure class="product-media">
-                                        <span class="product-label label-new">NEW</span>
-                                        <a href="product.html">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-16-1.jpg') }}" alt="Product image" class="product-image">
-                                            <img src="{{ url('public/page/images/demos/demo-2/products/product-16-2.jpg') }}" alt="Product image" class="product-image-hover">
-                                        </a>
-
-                                        <div class="product-action-vertical">
-                                            <a href="#" class="btn-product-icon btn-wishlist "><span>add to wishlist</span></a>
-                                        </div>
-                                    </figure>
-
-                                    <div class="product-body">
-                                        <div class="product-cat">
-                                            <a href="#">Decor</a>
-                                        </div><!-- End .product-cat -->
-                                        <h3 class="product-title"><a href="product.html">Cushion Set 3 Pieces</a></h3>
-                                        <div class="product-price">
-                                            $199,00
-                                        </div>
-                                    </div>
-                                    <div class="product-action">
-                                        <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            
         </div>
 
         <div class="container">
@@ -411,38 +254,38 @@
                 <div class="col-lg-4 col-sm-6">
                     <div class="icon-box icon-box-card text-center">
                         <span class="icon-box-icon">
-                            <i class="icon-rocket"></i>
+                            <i class="{{ $homesetting->payment_delivery_image }}"></i>
                         </span>
                         <div class="icon-box-content">
-                            <h3 class="icon-box-title">Payment & Delivery</h3><!-- End .icon-box-title -->
-                            <p>Free shipping for orders over $50</p>
-                        </div><!-- End .icon-box-content -->
-                    </div><!-- End .icon-box -->
-                </div><!-- End .col-lg-4 col-sm-6 -->
+                            <h3 class="icon-box-title">{{ $homesetting->payment_delivery }}</h3>
+                            <p>{{ $homesetting->payment_delivery_description }}</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-sm-6">
                     <div class="icon-box icon-box-card text-center">
                         <span class="icon-box-icon">
-                            <i class="icon-rotate-left"></i>
+                            <i class="{{ $homesetting->refund_image }}"></i>
                         </span>
                         <div class="icon-box-content">
-                            <h3 class="icon-box-title">Return & Refund</h3><!-- End .icon-box-title -->
-                            <p>Free 100% money back guarantee</p>
-                        </div><!-- End .icon-box-content -->
-                    </div><!-- End .icon-box -->
-                </div><!-- End .col-lg-4 col-sm-6 -->
+                            <h3 class="icon-box-title">{{ $homesetting->refund_title }}</h3>
+                            <p>{{ $homesetting->refund_description }}</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="col-lg-4 col-sm-6">
                     <div class="icon-box icon-box-card text-center">
                         <span class="icon-box-icon">
-                            <i class="icon-life-ring"></i>
+                            <i class="{{ $homesetting->support_image }}"></i>
                         </span>
                         <div class="icon-box-content">
-                            <h3 class="icon-box-title">Quality Support</h3><!-- End .icon-box-title -->
-                            <p>Alway online feedback 24/7</p>
-                        </div><!-- End .icon-box-content -->
-                    </div><!-- End .icon-box -->
-                </div><!-- End .col-lg-4 col-sm-6 -->
+                            <h3 class="icon-box-title">{{ $homesetting->support_title }}</h3>
+                            <p>{{ $homesetting->support_description }}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mb-2"></div><!-- End .mb-2 -->
@@ -451,7 +294,7 @@
         @if (!@empty($blogs))
             <div class="blog-posts pt-7 pb-7" style="background-color: #fafafa;">
                 <div class="container">
-                    <h2 class="title-lg text-center mb-3 mb-md-4">Our Blog</h2>
+                    <h2 class="title-lg text-center mb-3 mb-md-4">{{ $homesetting->blog_title }}</h2>
 
                     <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl" 
                         data-owl-options='{
@@ -505,18 +348,20 @@
             </div>
         @endif
 
-        <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url('public/page/images/backgrounds/cta/bg-6.jpg');">
+        <div class="cta cta-display bg-image pt-4 pb-4" style="background-image: url({{ $homesetting->getSingupImage() }});">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-10 col-lg-9 col-xl-8">
                         <div class="row no-gutters flex-column flex-sm-row align-items-sm-center">
                             <div class="col">
-                                <h3 class="cta-title text-white">Sign Up & Get 10% Off</h3>
-                                <p class="cta-desc text-white">Molla presents the best in interior design</p>
+                                <h3 class="cta-title text-white">{{ $homesetting->singup_title }}</h3>
+                                <p class="cta-desc text-white">{{ $homesetting->singup_description }}</p>
                             </div>
 
                             <div class="col-auto">
-                                <a href="login.html" class="btn btn-outline-white"><span>SIGN UP</span><i class="icon-long-arrow-right"></i></a>
+                                @if (empty(Auth::check()))
+                                    <a href="#signin-modal" data-toggle="modal" class="btn btn-outline-white"><span>SIGN UP</span><i class="icon-long-arrow-right"></i></a>
+                                @endif
                             </div>
                         </div>
                     </div>

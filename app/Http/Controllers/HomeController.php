@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use App\Models\BlogCategoryModel;
 use App\Models\CommentModel;
+use App\Models\HomeSettingModel;
 
 class HomeController extends Controller
 {
@@ -34,6 +35,7 @@ class HomeController extends Controller
         $data["getProduct"] = Product::getRecentArrivals();
         $data["getProductTrendy"] = Product::getProductTrendy();
         $data["blogs"] = BlogModel::getBlogsHomeActive();
+        $data['homesetting'] = HomeSettingModel::getSettings();
 
         $data['meta_title'] = $page->meta_title;
         $data['meta_keywords'] = $page->meta_keywords;

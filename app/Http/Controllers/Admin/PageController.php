@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\HomeSettingModel;
 use App\Models\PageModel;
 use App\Models\SettingModel;
 use Illuminate\Http\Request;
@@ -123,5 +124,79 @@ class PageController extends Controller
         $setting->save();
 
         return redirect()->back()->with('success', 'Settings saved successfully!');
+    }
+
+    public function home_settings()
+    {
+        $data['header_title'] = "Home Settings";
+        $data['setting'] = HomeSettingModel::getSettings();
+
+        return view('admin.homesettings', $data);
+    }
+
+    public function home_update_settings(Request $request)
+    {
+        $setting = HomeSettingModel::getSettings();
+        $setting->trendy_product_title = trim($request->trendy_product_title);
+        $setting->shop_category_title = trim($request->shop_category_title);
+        $setting->recent_arrivals_title = trim($request->recent_arrivals_title);
+        $setting->blog_title = trim($request->blog_title);
+        $setting->payment_delivery = trim($request->payment_delivery);
+        $setting->payment_delivery_description = trim($request->payment_delivery_description);
+        $setting->refund_title = trim($request->refund_title);
+        $setting->refund_description = trim($request->refund_description);
+        $setting->support_title = trim($request->support_title);
+        $setting->support_description = trim($request->support_description);
+        $setting->singup_title = trim($request->singup_title);
+        $setting->singup_description = trim($request->singup_description);
+
+        $setting->payment_delivery_image = trim($request->payment_delivery_image);
+        $setting->refund_image = trim($request->refund_image);
+        $setting->support_image = trim($request->support_image);
+
+
+        // if(!empty($request->hasFile('payment_delivery_image'))) {
+        //     $file = $request->file('payment_delivery_image');
+        //     $ext = $file->getClientOriginalExtension();
+        //     $randomStr = $setting->id.Str::random(10);
+        //     $filename = strtolower($randomStr).'.'.$ext;
+        //     $file->move('public/upload/homesetting/', $filename);
+
+        //     $setting->payment_delivery_image = $filename;
+        // }
+        
+        // if(!empty($request->hasFile('refund_image'))) {
+        //     $file2 = $request->file('refund_image');
+        //     $ext = $file2->getClientOriginalExtension();
+        //     $randomStr = $setting->id.Str::random(10);
+        //     $filename2 = strtolower($randomStr).'.'.$ext;
+        //     $file2->move('public/upload/homesetting/', $filename2);
+
+        //     $setting->refund_image = $filename2;
+        // }
+        
+        // if(!empty($request->hasFile('support_image'))) {
+        //     $file4 = $request->file('support_image');
+        //     $ext = $file4->getClientOriginalExtension();
+        //     $randomStr = $setting->id.Str::random(10);
+        //     $filename4 = strtolower($randomStr).'.'.$ext;
+        //     $file4->move('public/upload/homesetting/', $filename4);
+
+        //     $setting->support_image = $filename4;
+        // }
+        
+        if(!empty($request->hasFile('singup_image'))) {
+            $file3 = $request->file('singup_image');
+            $ext = $file3->getClientOriginalExtension();
+            $randomStr = $setting->id.Str::random(10);
+            $filename3 = strtolower($randomStr).'.'.$ext;
+            $file3->move('public/upload/homesetting/', $filename3);
+
+            $setting->singup_image = $filename3;
+        }
+
+        $setting->save();
+
+        return redirect()->back()->with('success', 'Home Settings saved successfully!');
     }
 }
