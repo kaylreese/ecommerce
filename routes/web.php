@@ -19,6 +19,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\PartnerController;
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController as Product;
 use App\Http\Controllers\PaymentController;
@@ -165,6 +166,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/blog/edit/{id}', [BlogController::class, 'edit']);
     Route::put('admin/blog/edit/{id}', [BlogController::class, 'update']);
     Route::get('admin/blog/delete/{id}', [BlogController::class, 'destroy']);
+
+    Route::get('admin/notifications', [NotificationController::class, 'index']);
 });
 
 Route::get('/', [HomeController::class, 'index']);

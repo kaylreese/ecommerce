@@ -306,8 +306,6 @@ class PaymentController extends Controller
                         $getOrder->stripe_session_id = $session['id'];
                         $getOrder->save();
 
-                        // dd($getOrder);
-
                         $data['session_id'] = $session['id'];
                         Session::put('stripe_session_id', $session ['id']);
                         $data['setPublicKey'] = env('STRIPE_KEY');

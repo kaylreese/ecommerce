@@ -19,8 +19,14 @@ class OrderController extends Controller
         return view('admin.orders.index', $data);
     }
 
-    public function show(string $id)
+    public function show(string $id, Request $request)
     {
+        
+        if(!empty($request->noti_id)) {
+            NotificationModel::updateNotification($request->noti_id);
+        } 
+
+
         $data['order'] = OrderModel::getOrder($id);
         $data['header_title'] = "Order Detail";
         
@@ -36,8 +42,8 @@ class OrderController extends Controller
         Mail::to($order->email)->send(new OrderStatusMail($order));
 
         $user_id = $order->user_id;
-        $url = url('user/orders/'.$order->id);
-        $message = 'Your Order Status Updated #'.$order->order_number;
+        $url = url('user/orders');
+        $message = ' Order Status Updated #'.$order->order_number;
 
         NotificationModel::insert($user_id, $url, $message);
         

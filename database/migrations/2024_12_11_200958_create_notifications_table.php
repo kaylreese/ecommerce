@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('user_id')->nullable();
             $table->string('url')->nullable();
             $table->string('message')->nullable();
-            $table->integer('is_read')->nullable();
+            $table->integer('is_read')->default(0);
             $table->timestamps();
             $table->integer('status')->default(1)->comment('1: Active, 0: Deleted');
         });

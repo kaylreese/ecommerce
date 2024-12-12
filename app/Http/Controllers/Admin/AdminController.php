@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use App\Models\NotificationModel;
 
 class AdminController extends Controller
 {
@@ -78,8 +79,12 @@ class AdminController extends Controller
         return redirect()->back()->with('success', "Admin Successfully Deleted");
     }
     
-    public function customers()
+    public function customers(Request $request)
     {
+        if(!empty($request->noti_id)) {
+            NotificationModel::updateNotification($request->noti_id);
+        } 
+
         $data['customers'] = User::getCustomers();
         $data['header_title'] = "Customers";
         

@@ -13,8 +13,18 @@ class NotificationModel extends Model
 
     static public function getNotifications()
     {
+        return self::select('notifications.*', 'users.name', 'users.last_name')
+                ->join('users', 'users.id', '=', 'notifications.user_id')
+                ->where('notifications.status', '=', 1)
+                ->orderBy('notifications.id', 'desc')
+                ->paginate(10);
+    }
+    
+    static public function getUnReadNotifications()
+    {
         return self::select('notifications.*', 'users.name as created_by_name')
                 ->join('users', 'users.id', '=', 'notifications.user_id')
+                ->where('notifications.is_read', '=', 0)
                 ->where('notifications.status', '=', 1)
                 ->orderBy('notifications.id', 'desc')
                 ->paginate(10);
@@ -34,8 +44,14 @@ class NotificationModel extends Model
         return self::find($id);
     }
 
-    static public function checkUrl($url)
+    static public function updateNotification($id)
     {
-        return self::where('url', '=', $url)->get();
+        $notification = NotificationModel::getNotification($id);
+
+        if(!empty($notification))
+        {
+            $notification->is_read = 1;
+            $notification->save();
+        }
     }
 }
