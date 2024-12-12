@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\HomeSettingModel;
 use App\Models\PageModel;
 use App\Models\SettingModel;
+use App\Models\SMTPModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -198,5 +199,30 @@ class PageController extends Controller
         $setting->save();
 
         return redirect()->back()->with('success', 'Home Settings saved successfully!');
+    }
+
+    public function smtp_settings()
+    {
+        $data['header_title'] = "SMTP Settings";
+        $data['setting'] = SMTPModel::getSettings();
+
+        return view('admin.smtpsettings', $data);
+    }
+
+    public function smtp_update_settings(Request $request)
+    {
+        $setting = SMTPModel::getSettings();
+        $setting->name = trim($request->name);
+        $setting->mail_mailer = trim($request->mail_mailer);
+        $setting->mail_host = trim($request->mail_host);
+        $setting->mail_host = trim($request->mail_host);
+        $setting->mail_port = trim($request->mail_port);
+        $setting->mail_username = trim($request->mail_username);
+        $setting->mail_password = trim($request->mail_password);
+        $setting->mail_encryption = trim($request->mail_encryption);
+        $setting->mail_from_address = trim($request->mail_from_address);
+        $setting->save();
+
+        return redirect()->back()->with('success', 'SMTP Settings saved successfully!');
     }
 }

@@ -160,6 +160,12 @@
                     <p>Home Setting</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/smtp-setting') }}" class="nav-link @if( Request::segment(2) == 'smtp-setting') active @endif">
+                    <i class="nav-icon fas fa-tree"></i>
+                    <p>SMTP Setting</p>
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a href="{{ url('admin/logout') }}" class="nav-link">
