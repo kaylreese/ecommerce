@@ -77,7 +77,7 @@
 
     <div class="footer-bottom">
         <div class="container">
-            <p class="footer-copyright">Copyright © {{ date('Y') }} Molla Store. All Rights Reserved.</p>
+            <p class="footer-copyright">Copyright © {{ date('Y') }} {{ $getSettingsApp->website_name }}. All Rights Reserved.</p>
             <figure class="footer-payments">
                 <img src="{{ $getSettingsApp->getfooterPayment() }}" alt="Payment methods" width="272" height="20">
             </figure>

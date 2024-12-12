@@ -1,7 +1,11 @@
 @component('mail::message')
 <p>Dear <strong>{{ $order->first_name }}</strong>,</p>
 
-<p>Than you for your purchase with <strong>{{ config('app.name') }}</strong>. We are pleased to confirm your order and have attached the invoice for your records. </p>
+@php
+    $getSetting = App\Models\SettingModel::getSettings();
+@endphp
+
+<p>Than you for your purchase with <strong>{{ $getSetting->website_name }}</strong>. We are pleased to confirm your order and have attached the invoice for your records. </p>
 
 <h3>Order Details: </h3>
 
@@ -57,7 +61,7 @@
 
 
 
-<p style="text-align: justify;">Please find the attached invoice for your reference. If you have any questions or concerns regarding your order or the invoice, feel free to contact us at If you have any questions, please contact us <strong>test@gmail.com</strong></p>
+<p style="text-align: justify;">Please find the attached invoice for your reference. If you have any questions or concerns regarding your order or the invoice, feel free to contact us at If you have any questions, please contact us <strong>{{ $getSetting->email }}</strong></p>
 
-<p>Thank you for choosing! <strong>{{ config('app.name') }}</strong>. We appreciate your business.</p>
+<p>Thank you for choosing! <strong>{{ $getSetting->website_name }}</strong>. We appreciate your business.</p>
 @endcomponent

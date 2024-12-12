@@ -55,6 +55,8 @@
 
         <div class="page-content">
             <div class="container">
+                @include('layouts._message')
+                
                 <div class="product-details-top mb-2">
                     <div class="row">
                         <div class="col-md-6">

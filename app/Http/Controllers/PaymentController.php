@@ -77,14 +77,14 @@ class PaymentController extends Controller
             ));
         }
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Item successfully add in to cart.');
     }
 
     public function cart_delete($id)
     {
         Cart::remove($id);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Item deleted successfully.');
     }
 
     public function checkout()
@@ -263,8 +263,12 @@ class PaymentController extends Controller
                         $url = url('admin/orders/detail/'.$getOrder->id);
                         $message = 'New Order Placed #'.$getOrder->order_number;
 
-                        NotificationModel::insert($user_id, $url, $message);
+                        try {
+                            NotificationModel::insert($user_id, $url, $message);
+                        } catch (\Throwable $th) {
 
+                        }
+                        
                         Cart::clear();
                         return redirect('cart')->with('success', 'Order successfully placed');
                     case 'paypal':
@@ -334,7 +338,12 @@ class PaymentController extends Controller
                 $getOrder->payment_data = json_encode($request->all());
                 $getOrder->save();
 
-                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                try {
+                    Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                } catch (\Throwable $th) {
+                    
+                }
+
                 $user_id = $getOrder->user_id;
                 $url = url('admin/orders/detail/'.$getOrder->id);
                 $message = 'New Order Placed #'.$getOrder->order_number;
@@ -504,15 +513,18 @@ class PaymentController extends Controller
             $getOrder->payment_data = json_encode($getdata);
             $getOrder->save();
 
-            Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+            try {
+                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+            } catch (\Throwable $th) {
+                
+            }
+
             $user_id = $getOrder->user_id;
             $url = url('admin/orders/detail/'.$getOrder->id);
             $message = 'New Order Placed #'.$getOrder->order_number;
 
             NotificationModel::insert($user_id, $url, $message);
             
-
-            // die();
             Cart::clear();
 
             return redirect('cart')->with('success', 'Order successfully placed.');

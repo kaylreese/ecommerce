@@ -53,7 +53,12 @@ class AuthController extends Controller
             } else {
                 $user = User::getUser(Auth::user()->id);
 
-                Mail::to($user->email)->send(new RegisterMail($user));
+                try {
+                    Mail::to($user->email)->send(new RegisterMail($user));
+                } catch (\Throwable $th) {
+                    
+                }
+                
                 Auth::logout();
 
                 $json['status'] = false;
@@ -80,7 +85,11 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->save();
 
-            Mail::to($user->email)->send(new RegisterMail($user));
+            try {
+                Mail::to($user->email)->send(new RegisterMail($user));
+            } catch (\Throwable $th) {
+                
+            }
 
             $user_id = $user->id;
             $url = url('admin/customers');
@@ -132,7 +141,11 @@ class AuthController extends Controller
             $user->remember_token = Str::random(30);
             $user->save();
 
-            Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            try {
+                Mail::to($user->email)->send(new ForgotPasswordMail($user));
+            } catch (\Throwable $th) {
+                
+            }
 
             return redirect()->back()->with('success', "Please check your email and reset your password");
         } else {
@@ -161,6 +174,7 @@ class AuthController extends Controller
             $user->password = Hash::make($request->password);
             $user->remember_token = Str::random(30);
             $user->save();
+
             return redirect(url(''))->with('success', "Password successfully reset");
         } else {
             return redirect()->back()->with('error', "Password and confirm password does not match");

@@ -256,6 +256,14 @@
                     success: function(data) {
                         alert(data.message);
 
+                        // if (data.status == true) {
+                        //     $('#register-name').val('');
+                        //     $('#register-email').val('');
+                        //     $('#register-password').val('');
+
+                        //     location.reload();
+                        // }
+                        toastr.success('Loggin succesfully.');
                         if (data.status == true) {
                             $('#register-name').val('');
                             $('#register-email').val('');

@@ -69,8 +69,15 @@
 @endif
 
 
+@php
+    $getSetting = App\Models\SettingModel::getSettings();
+@endphp
 
-<p style="text-align: justify;">Please find the attached invoice for your reference. If you have any questions or concerns regarding your order or the invoice, feel free to contact us at If you have any questions, please contact us <strong>test@gmail.com</strong></p>
 
-<p>Thank you for choosing! <strong>{{ config('app.name') }}</strong>. We appreciate your business.</p>
+<p style="text-align: justify;">Please find the attached invoice for your reference. If you have any questions or concerns regarding your order or the invoice, feel free to contact us at If you have any questions, please contact us <strong>{{ $getSetting->email }}</strong></p>
+
+<p>Thank you for choosing! <strong>{{ $getSetting->website_name }}</strong>. We appreciate your business.</p>
+
+Thanks, <br>
+{{ $getSetting->website_name }}
 @endcomponent

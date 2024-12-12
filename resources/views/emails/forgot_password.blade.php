@@ -9,7 +9,11 @@ Reset Your Password
 @endcomponent
 
 <p>In case you have any issues recovering your password, please contact us. </p>
-Thanks,<br>
 
-{{ config('app.name') }}
+@php
+    $getSetting = App\Models\SettingModel::getSettings();
+@endphp
+
+Thanks,<br>
+{{ $getSetting->website_name }}
 @endcomponent

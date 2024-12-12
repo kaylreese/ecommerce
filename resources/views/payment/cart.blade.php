@@ -20,8 +20,6 @@
         <div class="page-content">
             <div class="cart">
                 <div class="container">
-                    @include('layouts._message')
-                    
                     @if (!empty(Cart::getContent()->count()))
                         <div class="row">
                             <div class="col-lg-9">
@@ -59,7 +57,34 @@
                                                                     </figure>
 
                                                                     <h3 class="product-title">
-                                                                        <a href="{{ url($getCartProduct->url) }}">{{ $getCartProduct->title }}</a>
+                                                                        <a href="{{ url($getCartProduct->url) }}" style="margin-bottom: 10px; display: block;">{{ $getCartProduct->title }}</a>
+                                                                        @php
+                                                                            $size_id = $cart->attributes->size_id;
+                                                                        @endphp
+
+                                                                        @if (!empty($size_id))
+                                                                            @php
+                                                                                $getSize = App\Models\ProductSize::getProductSize($cart->attributes->size_id);
+                                                                            @endphp
+
+                                                                            <div>
+                                                                                <b style="color: #c96">Size: </b>{{ $getSize->name }} ({{ number_format($getSize->price, 2) }})
+                                                                            </div>
+                                                                        @endif
+
+                                                                        @php
+                                                                            $color_id = $cart->attributes->color_id;
+                                                                        @endphp
+
+                                                                        @if (!empty($color_id))
+                                                                            @php
+                                                                                $getColor = App\Models\Color::getColor($cart->attributes->color_id);
+                                                                            @endphp
+
+                                                                            <div>
+                                                                                <b style="color: #c96">Color: </b>{{ $getColor->name }}
+                                                                            </div>
+                                                                        @endif
                                                                     </h3>
                                                                 </div>
                                                             </td>

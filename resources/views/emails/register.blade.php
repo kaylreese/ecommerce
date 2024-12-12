@@ -1,7 +1,11 @@
 @component('mail::message')
 Hi <b>{{ $user->name }}</b>,
 
-<p>You're almost ready to start enjoying the benefits of E-Commerce.</p>
+@php
+    $getSetting = App\Models\SettingModel::getSettings();
+@endphp
+
+<p>You're almost ready to start enjoying the benefits of {{ $getSetting->website_name }}.</p>
 
 <p>Simply click the button below to verify your email address.</p>
 <p>
@@ -10,6 +14,9 @@ Hi <b>{{ $user->name }}</b>,
     @endcomponent
 </p>
 
-<p>This will verify your email address, and then you'll officially be a part of the E-Commerce</p>
+<p>This will verify your email address, and then you'll officially be a part of the {{ $getSetting->website_name }}</p>
+
+Thanks, <br>
+{{ $getSetting->website_name }}
 
 @endcomponent
