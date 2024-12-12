@@ -33,15 +33,17 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">#</th>
                                         <th>Notifications</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($notifications as $value)
                                         <tr>
-                                            <td>{{ $value->id }}</td>
-                                            <td><a style="color: #000; {{ empty($value->is_read) ? 'font-weight: bold;' : '' }}" href="{{ url($value->url) }}" target="_blank">{{ $value->message }} </a></td>
+                                            <td><a style="color: #000; {{ empty($value->is_read) ? 'font-weight: bold;' : '' }}" href="{{ url($value->url) }}?noti_id={{ $value->id }}" target="_blank">{{ $value->message }} </a>
+                                                <div>
+                                                    <span>{{ \Carbon\Carbon::parse($value->created_at)->diffForHumans() }}</span>
+                                                </div>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>

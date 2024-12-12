@@ -13,13 +13,12 @@ class NotificationModel extends Model
 
     static public function getNotifications()
     {
-        return self::select('notifications.*', 'users.name', 'users.last_name')
-                ->join('users', 'users.id', '=', 'notifications.user_id')
-                ->where('notifications.status', '=', 1)
-                ->orderBy('notifications.id', 'desc')
+        return self::select('*')
+                ->where('status', '=', 1)
+                ->orderBy('id', 'desc')
                 ->paginate(10);
     }
-    
+            
     static public function getUnReadNotifications()
     {
         return self::select('notifications.*', 'users.name as created_by_name')
@@ -53,5 +52,22 @@ class NotificationModel extends Model
             $notification->is_read = 1;
             $notification->save();
         }
+    }
+
+    static public function getNotificationsUser($user_id)
+    {
+        return self::select('*')
+                ->where('user_id', '=', $user_id)
+                ->orderBy('id', 'desc')
+                ->paginate(40);
+    }
+
+    static public function getUnReadNotificationsCount($user_id)
+    {
+        return self::select('*')
+                ->where('user_id', '=', $user_id)
+                ->where('is_read', '=', 0)
+                ->orderBy('id', 'desc')
+                ->count();
     }
 }

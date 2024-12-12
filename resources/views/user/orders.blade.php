@@ -36,7 +36,7 @@
                                 <tbody>
                                     @foreach ($orders as $value)
                                         <tr>
-                                            <td>{{ $value->id }}</td>
+                                            <td style="padding: 15px;">{{ $value->id }}</td>
                                             <td>{{ $value->order_number }}</td>
                                             <td>{{ number_format($value->total_amount, 2) }}</td>
                                             <td style="text-transform: capitalize;">{{ $value->payment_method }}</td>

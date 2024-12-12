@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NotificationModel;
 use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use App\Models\ProductReviewModel;
@@ -31,11 +32,15 @@ class UserController extends Controller
         return view('user.dashboard', $data);
     }
 
-    public function orders()
+    public function orders(Request $request)
     {
         $data['header_title'] = "Orders";
         $data['meta_keywords'] = '';
         $data['meta_description'] = '';
+
+        if(!empty($request->noti_id)) {
+            NotificationModel::updateNotification($request->noti_id);
+        } 
 
         $data['orders'] = OrderModel::getOrdersUser(Auth::user()->id);
         
@@ -68,7 +73,7 @@ class UserController extends Controller
         
         return view('user.editprofile', $data);
     }
-    
+        
     public function update_profile(Request $request)
     {
         $user = User::getUser(Auth::user()->id);
@@ -148,5 +153,16 @@ class UserController extends Controller
         $review->save();
 
         return redirect()->back()->with('success', 'Thank you for your review.');
+    }
+
+    public function notifications()
+    {
+        $data['header_title'] = "Notifications";
+        $data['meta_keywords'] = '';
+        $data['meta_description'] = '';
+
+        $data['notifications'] = NotificationModel::getNotificationsUser(Auth::user()->id);
+        
+        return view('user.notifications', $data);
     }
 }
