@@ -11,7 +11,8 @@
 
 @section('content')
     <main class="main">
-        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+        {{-- <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')"> --}}
+        <div class="page-header text-center">
             <div class="container">
                 <h1 class="page-title">Checkout<span>Shop</span></h1>
             </div>
@@ -177,10 +178,10 @@
                                             <input type="radio" id="Cash" name="payment_method" value="cash" class="custom-control-input" required>
                                             <label class="custom-control-label" for="Cash">Cash on delivery</label>
                                         </div>
-                                        <div class="custom-control custom-radio" style="margin-top: 0px;">
+                                        {{-- <div class="custom-control custom-radio" style="margin-top: 0px;">
                                             <input type="radio" id="PayPal" name="payment_method" value="paypal" class="custom-control-input" required>
                                             <label class="custom-control-label" for="PayPal">PayPal What is PayPal?</label>
-                                        </div>
+                                        </div> --}}
                                         <div class="custom-control custom-radio" style="margin-top: 0px;">
                                             <input type="radio" id="CreditCard" name="payment_method" value="stripe" class="custom-control-input" required>
                                             <label class="custom-control-label" for="CreditCard">Credit Card (Stripe)</label>
