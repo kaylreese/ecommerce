@@ -37,6 +37,7 @@ class CategoryController extends Controller
         $category->url = trim($request->url);
         $category->button_name = trim($request->button_name);
         $category->is_home = !empty($request->is_home) ? 1 : 0;
+        $category->is_menu = !empty($request->is_menu) ? 1 : 0;
         $category->status = trim($request->status);
         $category->meta_title = trim($request->meta_title);
         $category->meta_keywords = trim($request->meta_keywords);
@@ -91,6 +92,7 @@ class CategoryController extends Controller
         $category->url = trim($request->url);
         $category->button_name = trim($request->button_name);
         $category->is_home = !empty($request->is_home) ? 1 : 0;
+        $category->is_menu = !empty($request->is_menu) ? 1 : 0;
         $category->status = trim($request->status);
         $category->meta_title = trim($request->meta_title);
         $category->meta_keywords = trim($request->meta_keywords);

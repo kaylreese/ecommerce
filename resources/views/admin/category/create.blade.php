@@ -66,7 +66,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Button Name: <span style="color: red">(*)</span></label>
                                 <input type="text" class="form-control" name="button_name" value="{{ old('button_name') }}" placeholder="Enter Button Name">
@@ -84,9 +84,21 @@
                                   <label class="custom-control-label" for="is_home"> Is Home?: <span style="color: red">(*)</span></label>
                                 </div>
                               </div>
+                        </div>       
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label> </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="custom-control custom-switch">
+                                  <input type="checkbox" class="custom-control-input" name="is_menu" id="is_menu">
+                                  <label class="custom-control-label" for="is_menu"> Is Menu?: <span style="color: red">(*)</span></label>
+                                </div>
+                              </div>
                         </div>                        
 
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <div class="form-group">
                                 <label>Image: <span style="color: red">(*)</span></label>
                                 <input type="file" class="form-control" name="image_name" value="{{ old('image_name') }}">

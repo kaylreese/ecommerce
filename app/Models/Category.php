@@ -49,6 +49,16 @@ class Category extends Model
                 ->orderBy('categories.id', 'asc')
                 ->get();
     }
+    
+    static public function getCategoriesMenHeader()
+    {
+        return self::select('categories.*')
+                ->join('users', 'users.id', '=', 'categories.created_by')
+                ->where('categories.status', '=', 1)
+                ->where('categories.is_menu', '=', 1)
+                ->orderBy('categories.id', 'asc')
+                ->get();
+    }
 
     public function getSubCategory()
     {

@@ -60,10 +60,10 @@
                 <a href="{{ url('') }}" class="logo">
                     <img src="{{ $getSettingsApp->getLogo() }}" alt="Molla Logo" width="105" height="25">
                 </a>
-
+                @dump(Request::segment(2))
                 <nav class="main-nav">
                     <ul class="menu sf-arrows">
-                        <li class="megamenu-container active">
+                        <li class="megamenu-container {{ (Request::segment(1) == '') ? 'Active' : ''}}">
                             <a href="{{ url('') }}">Home</a>
                         </li>
                         <li>
@@ -95,6 +95,15 @@
                                 </div>
                             </div>
                         </li>
+
+                        @php
+                            $getCategoriesHeader = App\Models\Category::getCategoriesMenHeader();
+                        @endphp
+                        @foreach ($getCategoriesHeader as $menu)
+                            <li class="{{ (Request::segment(1) == $menu->url) ? 'Active' : ''}}">
+                                <a href="{{ url($menu->url) }}">{{ $menu->name }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </nav>
             </div>
