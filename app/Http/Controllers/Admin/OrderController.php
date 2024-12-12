@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\OrderModel;
 use App\Mail\OrderStatusMail;
 use Illuminate\Support\Facades\Mail;
+use App\Models\NotificationModel;
 
 class OrderController extends Controller
 {
@@ -33,6 +34,12 @@ class OrderController extends Controller
         $order->save();
 
         Mail::to($order->email)->send(new OrderStatusMail($order));
+
+        $user_id = $order->user_id;
+        $url = url('user/orders/'.$order->id);
+        $message = 'Your Order Status Updated #'.$order->order_number;
+
+        NotificationModel::insert($user_id, $url, $message);
         
         $data['message'] = "Status successfully update";
 

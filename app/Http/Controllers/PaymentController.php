@@ -19,6 +19,7 @@ use GuzzleHttp\Client;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Session;
 use App\Mail\OrderInvoiceMail;
+use App\Models\NotificationModel;
 use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
@@ -255,6 +256,15 @@ class PaymentController extends Controller
                     case 'cash':
                         $getOrder->is_payment = 1;
                         $getOrder->save();
+
+                        Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+
+                        $user_id = $getOrder->user_id;
+                        $url = url('admin/orders/detail/'.$getOrder->id);
+                        $message = 'New Order Placed #'.$getOrder->order_number;
+
+                        NotificationModel::insert($user_id, $url, $message);
+
                         Cart::clear();
                         return redirect('cart')->with('success', 'Order successfully placed');
                     case 'paypal':
@@ -325,6 +335,13 @@ class PaymentController extends Controller
                 $getOrder->payment_id = $request->tx;
                 $getOrder->payment_data = json_encode($request->all());
                 $getOrder->save();
+
+                Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+                $user_id = $getOrder->user_id;
+                $url = url('admin/orders/detail/'.$getOrder->id);
+                $message = 'New Order Placed #'.$getOrder->order_number;
+
+                NotificationModel::insert($user_id, $url, $message);
 
                 Cart::clear();
                 return redirect('cart')->with('success', 'Order successfully placed');
@@ -490,6 +507,12 @@ class PaymentController extends Controller
             $getOrder->save();
 
             Mail::to($getOrder->email)->send(new OrderInvoiceMail($getOrder));
+            $user_id = $getOrder->user_id;
+            $url = url('admin/orders/detail/'.$getOrder->id);
+            $message = 'New Order Placed #'.$getOrder->order_number;
+
+            NotificationModel::insert($user_id, $url, $message);
+            
 
             // die();
             Cart::clear();

@@ -60,7 +60,7 @@
                 <a href="{{ url('') }}" class="logo">
                     <img src="{{ $getSettingsApp->getLogo() }}" alt="Molla Logo" width="105" height="25">
                 </a>
-                @dump(Request::segment(2))
+
                 <nav class="main-nav">
                     <ul class="menu sf-arrows">
                         <li class="megamenu-container {{ (Request::segment(1) == '') ? 'Active' : ''}}">

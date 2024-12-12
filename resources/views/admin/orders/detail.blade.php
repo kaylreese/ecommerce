@@ -19,7 +19,10 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label>Transaction ID: <span style="font-weight: normal;">{{ $order->transaction_id }}</span></label>
+                            <label>Transaction ID: <span style="font-weight: normal;">{{ !empty($order->transaction_id) ? $order->transaction_id : '' }}</span></label>
+                        </div>
+                        <div class="form-group">
+                            <label>Order Number: <span style="font-weight: normal;">{{ $order->order_number }}</span></label>
                         </div>
                         <div class="form-group">
                             <label>Name: <span style="font-weight: normal;">{{ $order->first_name }} {{ $order->last_name}}</span></label>
@@ -179,7 +182,7 @@
                 </table>
 
                 <div style="padding: 10px; float: right;">
-                    {!! $$order->items->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!}
+                    {{-- {!! $order->items->appends(Illuminate\Support\Facades\Request::except('page'))->links() !!} --}}
                 </div>
             </div>
         </div>

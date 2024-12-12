@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\RegisterMail;
 use App\Mail\ForgotPasswordMail;
+use App\Models\NotificationModel;
 
 class AuthController extends Controller
 {
@@ -80,6 +81,12 @@ class AuthController extends Controller
             $user->save();
 
             Mail::to($user->email)->send(new RegisterMail($user));
+
+            $user_id = $user->id;
+            $url = url('admin/customers');
+            $message = 'New Customer Register #'.$request->name;
+
+            NotificationModel::insert($user_id, $url, $message);
 
             $json['status'] = true;
             $json['message'] = 'Your account successfully register. Please verify your email address.';
