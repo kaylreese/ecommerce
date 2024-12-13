@@ -8,6 +8,7 @@ use App\Models\OrderModel;
 use App\Mail\OrderStatusMail;
 use Illuminate\Support\Facades\Mail;
 use App\Models\NotificationModel;
+use App\Models\SettingModel;
 
 class OrderController extends Controller
 {
@@ -28,6 +29,7 @@ class OrderController extends Controller
 
 
         $data['order'] = OrderModel::getOrder($id);
+        $data['setting'] = SettingModel::getSettings();
         $data['header_title'] = "Order Detail";
         
         return view('admin.orders.detail', $data);
