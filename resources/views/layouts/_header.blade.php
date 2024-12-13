@@ -2,7 +2,8 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <div class="header-dropdown">
+                <div class="header-dropdown" style="height: 40px;"></div>
+                {{-- <div class="header-dropdown">
                     <a href="#">Usd</a>
                     <div class="header-menu">
                         <ul>
@@ -21,7 +22,7 @@
                             <li><a href="#">Spanish</a></li>
                         </ul>
                     </div>
-                </div>
+                </div> --}}
             </div>
 
             <div class="header-right">
