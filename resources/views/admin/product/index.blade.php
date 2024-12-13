@@ -69,7 +69,7 @@
                                             {{-- <td>{{ $value->short_description }}</td> --}}
                                             <td>{{ $value->created_by_name }}</td>
                                             <td>{{ ($value->status == 1) ? 'Active' : 'Inactive' }}</td>
-                                            <td>{{ date('d-m-Y', strtotime($value->created_by_name)) }}</td>
+                                            <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                             <td>
                                                 <a href="{{ url('admin/product/edit/'.$value->id ) }}" class="btn btn-outline-primary btn-sm">Edit</a>
                                                 <a href="{{ url('admin/product/delete/'.$value->id ) }}" class="btn btn-outline-danger btn-sm">Delete</a>

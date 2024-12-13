@@ -68,8 +68,8 @@
 
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Brand: <span style="color: red">(*)</span></label>
-                                <select name="brand_id" class="form-control" required>
+                                <label>Brand:</label>
+                                <select name="brand_id" class="form-control">
                                     <option value="">Select. . .</option>
                                     @foreach ($getBrands as $value)
                                         <option {{ ($value->id == $product->brand_id) ? 'selected' : '' }} value="{{ $value->id }}">{{ $value->name }}</option>
