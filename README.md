@@ -44,7 +44,7 @@ Asegúrate de tener lo siguiente instalado:
 ## **Instalación**
 ### 1. **Clonar el Repositorio**
 ```bash
-git clone https://github.com/tu-usuario/ecommerce.git
+git clone https://github.com/kaylreese/ecommerce.git
 cd ecommerce-laravel10
 ```
 
@@ -68,8 +68,8 @@ DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=ecommerce
-DB_USERNAME=tu_usuario
-DB_PASSWORD=tu_password
+DB_USERNAME=your_usuario
+DB_PASSWORD=your_password
 ```
 
 ### 4. Stripe API Keys
